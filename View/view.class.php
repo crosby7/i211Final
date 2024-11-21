@@ -19,7 +19,7 @@ class View {
             <link href="www/css/styles.css" rel="stylesheet" type="text/css"/>
         </head>
         <body>
-        <h1><span style="color: darkred; font-family: serif; font-size: 36pt">Framework Financial Services</span> All Bank Accounts</h1>
+        <h1><span style="color: darkred; font-family: serif; font-size: 36pt">Framework Financial Services</span></h1>
         <div id="wrapper">
         <?php
     }

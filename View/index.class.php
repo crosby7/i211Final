@@ -7,7 +7,7 @@ class Index extends View
            <h1>Welcome to the Home Screen</h1>
            <div>
                <a href='<?= BASE_URL ?>/BankAccount/all'>
-                    <input type="submit" class="button" value="all accounts">
+                    <input type="submit" class="button" value="Go to All Accounts">
                </a>
            </div>
         <?php $this->footer();
