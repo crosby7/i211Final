@@ -24,9 +24,13 @@ class BankAccountController {
         if ($accounts) {
             $view = new Index();
             $view->display($accounts);
+        } else if($accounts === 0){
+            $message = "No accounts found.";
+            $view = new AccountError();
+            $view->display($message);
         } else {
-            $message = "No users found.";
-            $view = new UserError();
+            $message = "An error has occurred with your request.";
+            $view = new AccountError();
             $view->display($message);
         }
     }
@@ -36,6 +40,10 @@ class BankAccountController {
         if (!isset($_GET['id']))
         {
             // error
+            $message = "No account specified.";
+            $view = new AccountError();
+            $view->display($message);
+
         }
         else {
             $id = htmlspecialchars($_GET['id']);
@@ -47,10 +55,14 @@ class BankAccountController {
         if ($account) {
             $view = new Details();
             $view->display($account);
-        } else {
+        } else if($account === 0){
+            $message = "No account details found.";
+            $view = new AccountError();
+            $view->display($message);
+        }else{
             // If no user found, show an error message
-            $message = "User not found.";
-            $view = new UserError();
+            $message = "An error has occurred with your request.";
+            $view = new AccountError();
             $view->display($message);
         }
     }
