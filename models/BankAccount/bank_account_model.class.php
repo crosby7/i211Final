@@ -6,6 +6,11 @@
  * File: bank_account_model.class.php
  * Description: Defines the BankAccountModel class.
  */
+
+require_once '../../application/database.class.php';
+require_once 'bank_account.class.php';
+
+
 class BankAccountModel
 {
     // Private attributes
@@ -40,7 +45,7 @@ class BankAccountModel
         // Return the instance
         return self::$_instance;
     }
-    // Public function to get all users, returned in an array of objects -- return false on error
+    // Public function to get all bank accounts, returned in an array of objects -- return false on error
     public function getBankAccounts(): array|bool {
         // Create sql statement
         $sql = "SELECT * FROM bank_account";
@@ -53,7 +58,7 @@ class BankAccountModel
             return false;
         }
 
-        // put returned users into an associative array and return the array
+        // put returned accounts into an associative array and return the array
         $accounts = array();
         while ($bankAccount = $query->fetch_object()) {
             $account = new BankAccount(stripslashes($bankAccount->accountNickname),
@@ -62,9 +67,9 @@ class BankAccountModel
                 stripslashes($bankAccount->userId));
 
             // set ID
-            $account->setId($bankAccount->userId);
+            $account->setId($bankAccount->accountId);
 
-            // add user to array
+            // add accounts to array
             $accounts[] = $account;
         }
 
@@ -76,15 +81,15 @@ class BankAccountModel
         return $accounts;
     }
 
-    // Function to retrieve details of a specific user from an id
-    public function getAccountDetails($id): User|bool {
+    // Function to retrieve details of a specific bank account from an id
+    public function getAccountDetails($id): BankAccount|bool {
         // Make sql statement
-        $sql = "SELECT * FROM user_account WHERE userId = $id";
+        $sql = "SELECT * FROM bank_account WHERE accountId = $id";
 
         // Execute query
         $query = $this->dbConnection->query($sql);
 
-        // if query fails or returns no users, return false
+        // if query fails or returns no account, return false
         if (!$query || $query->num_rows == 0) {
             return false;
         }
@@ -92,19 +97,18 @@ class BankAccountModel
         // Write query result to object
         $result = $query->fetch_object();
 
-        // Make User instance from $result
-        $user = new User(stripslashes($result->firstName),
-            stripslashes($result->lastName),
-            stripslashes($result->emailAddress),
-            stripslashes($result->password),
-            stripslashes($result->role));
+        // Make BankAccount instance from $result
+        $account = new BankAccount(stripslashes($result->accountNickname),
+            stripslashes($result->accountType),
+            stripslashes($result->accountStatus),
+            stripslashes($result->userId));
 
         // Set user id
-        $user->setId($result->userId);
+        $account->setId($result->accountId);
 
-        var_dump($user);
+        var_dump($account);
 
-        return $user;
+        return $account;
 
     }
 
@@ -114,4 +118,4 @@ $bankModel = BankAccountModel::getBankAccountModel();
 
 $bankModel->getBankAccounts();
 
-$bankModel->getAccountDetails();
+$bankModel->getAccountDetails(1);
