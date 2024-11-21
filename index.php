@@ -6,6 +6,7 @@
  * Description:
  */
 
+
 // Start session if there isnt one
 if (session_status() === PHP_SESSION_NONE)
 {
@@ -18,6 +19,9 @@ require_once ('application/config.php');
 
 //include code in vendor/autoload.php file
 require_once ("vendor/autoload.php");
+
+//Include Console PHP
+require_once('application/console_php.php');
 
 //call dispatcher for url
 new Dispatcher();

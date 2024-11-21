@@ -42,19 +42,16 @@ class BankAccountController {
     }
 
     //display details page
-    public function details(): void {
-        if (!isset($_GET['id']))
-        {
+    public function details($id = null): void {
+        if ($id === null) {
             // error
             $message = "No account specified.";
             $view = new AccountError();
             $view->display($message);
-
+            die();
         }
-        else {
-            $id = htmlspecialchars($_GET['id']);
 
-        }
+        $id = htmlspecialchars($id);
 
         // Retrieve user details from the model
         $account = $this->accountModel->getAccountDetails($id);

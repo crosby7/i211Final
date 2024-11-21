@@ -2,21 +2,19 @@
 class Details extends View{
     //display methods
 
-    public function display(): void {
+    public function display(BankAccount $account): void {
         $this->header();?>
         <table>
             <tr>
-                <td><?= $account->id ?></td>
-                <td><?= $account->accountNickname ?></td>
-                <td><?= $account->accountType ?></td>
-                <td><?= $account->accountStatus ?></td>
-                <td><?= $account->userId ?></td>
+                <td><?= $account->getId() ?></td>
+                <td><?= $account->getAccountNickname() ?></td>
+                <td><?= $account->getAccountType() ?></td>
+                <td><?= $account->getAccountStatus() ?></td>
+                <td><?= $account->getUserId() ?></td>
 
             </tr>
+        <?php
+    $this->footer();
+    } // End Display
 
-
-
-        <?
-        $this->footer();
-        }
-    }
+}

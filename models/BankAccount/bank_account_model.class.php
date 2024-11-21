@@ -96,10 +96,12 @@ class BankAccountModel
         $accountNickname = ($result->accountNickname === null) ? '' : stripslashes($result->accountNickname);
 
         // Make BankAccount instance from $result
-        $account = new BankAccount(stripslashes($result->accountNickname),
+        $account = new BankAccount(
+            $accountNickname,
             stripslashes($result->accountType),
             stripslashes($result->accountStatus),
-            stripslashes($result->userId));
+            stripslashes($result->userId)
+        );
 
         // Set user id
         $account->setId($result->accountId);
