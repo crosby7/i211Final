@@ -7,10 +7,6 @@
  * Description: Defines the BankAccountModel class.
  */
 
-require_once '../../application/database.class.php';
-require_once 'bank_account.class.php';
-
-
 class BankAccountModel
 {
     // Private attributes
@@ -73,11 +69,6 @@ class BankAccountModel
             $accounts[] = $account;
         }
 
-        for ($i = 0; $i < count($accounts); $i++) {
-            var_dump($accounts[$i]);
-            echo "<br><br>";
-        }
-
         return $accounts;
     }
 
@@ -106,16 +97,9 @@ class BankAccountModel
         // Set user id
         $account->setId($result->accountId);
 
-        var_dump($account);
 
         return $account;
 
     }
 
 }
-
-$bankModel = BankAccountModel::getBankAccountModel();
-
-$bankModel->getBankAccounts();
-
-$bankModel->getAccountDetails(1);
