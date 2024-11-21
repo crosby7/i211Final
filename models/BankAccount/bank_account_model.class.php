@@ -57,8 +57,10 @@ class BankAccountModel
         // put returned accounts into an associative array and return the array
         $accounts = array();
         while ($bankAccount = $query->fetch_object()) {
-            // since 
+            // since account nickname is nullable, set it to an empty string if null
             $accountNickname = ($bankAccount->accountNickname === null) ? '' : stripslashes($bankAccount->accountNickname);
+
+            // make a new BankAccount instance
             $account = new BankAccount($accountNickname,
                 stripslashes($bankAccount->accountType),
                 stripslashes($bankAccount->accountStatus),
@@ -89,6 +91,9 @@ class BankAccountModel
 
         // Write query result to object
         $result = $query->fetch_object();
+
+        // since account nickname is nullable, set it to an empty string if null
+        $accountNickname = ($result->accountNickname === null) ? '' : stripslashes($result->accountNickname);
 
         // Make BankAccount instance from $result
         $account = new BankAccount(stripslashes($result->accountNickname),
