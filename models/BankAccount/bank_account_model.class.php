@@ -54,11 +54,8 @@ class BankAccountModel
         $query = $this->dbConnection->query($sql);
 
         // if query fails or returns no rows, return false
-        if (!$query) {
+        if (!$query || $query->num_rows == 0) {
             return false;
-        }
-        else if ($query->num_rows == 0) {
-            return array();
         }
 
         // put returned accounts into an associative array and return the array
