@@ -18,7 +18,7 @@ class BankAccountController {
     public function index(): void
     {
         // Retrieve all users from the model
-        $accounts = $this->accountModel->getAccounts();
+        $accounts = $this->accountModel->getBankAccounts();
 
         // check if accounts are found
         if ($accounts) {

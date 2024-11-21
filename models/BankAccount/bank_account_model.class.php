@@ -57,7 +57,9 @@ class BankAccountModel
         // put returned accounts into an associative array and return the array
         $accounts = array();
         while ($bankAccount = $query->fetch_object()) {
-            $account = new BankAccount(stripslashes($bankAccount->accountNickname),
+            // since 
+            $accountNickname = ($bankAccount->accountNickname === null) ? '' : stripslashes($bankAccount->accountNickname);
+            $account = new BankAccount($accountNickname,
                 stripslashes($bankAccount->accountType),
                 stripslashes($bankAccount->accountStatus),
                 stripslashes($bankAccount->userId));
