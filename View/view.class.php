@@ -1,7 +1,7 @@
 <?php
 /*
- * Author: Louie Zhu
- * Date: 03/09/2024
+ * Author: Millie JOnes
+ * Date: 11/21/2024
  * Name: view.class.php
  * Description: define the parent class for all view classes. The two methods create page header and footer.
  */
