@@ -7,10 +7,6 @@
  * Description: Defines the BankAccountModel class.
  */
 
-require_once '../../application/database.class.php';
-require_once 'bank_account.class.php';
-
-
 class BankAccountModel
 {
     // Private attributes
@@ -61,7 +57,11 @@ class BankAccountModel
         // put returned accounts into an associative array and return the array
         $accounts = array();
         while ($bankAccount = $query->fetch_object()) {
-            $account = new BankAccount(stripslashes($bankAccount->accountNickname),
+            // since account nickname is nullable, set it to an empty string if null
+            $accountNickname = ($bankAccount->accountNickname === null) ? '' : stripslashes($bankAccount->accountNickname);
+
+            // make a new BankAccount instance
+            $account = new BankAccount($accountNickname,
                 stripslashes($bankAccount->accountType),
                 stripslashes($bankAccount->accountStatus),
                 stripslashes($bankAccount->userId));
@@ -71,11 +71,6 @@ class BankAccountModel
 
             // add accounts to array
             $accounts[] = $account;
-        }
-
-        for ($i = 0; $i < count($accounts); $i++) {
-            var_dump($accounts[$i]);
-            echo "<br><br>";
         }
 
         return $accounts;
@@ -97,25 +92,23 @@ class BankAccountModel
         // Write query result to object
         $result = $query->fetch_object();
 
+        // since account nickname is nullable, set it to an empty string if null
+        $accountNickname = ($result->accountNickname === null) ? '' : stripslashes($result->accountNickname);
+
         // Make BankAccount instance from $result
-        $account = new BankAccount(stripslashes($result->accountNickname),
+        $account = new BankAccount(
+            $accountNickname,
             stripslashes($result->accountType),
             stripslashes($result->accountStatus),
-            stripslashes($result->userId));
+            stripslashes($result->userId)
+        );
 
         // Set user id
         $account->setId($result->accountId);
 
-        var_dump($account);
 
         return $account;
 
     }
 
 }
-
-$bankModel = BankAccountModel::getBankAccountModel();
-
-$bankModel->getBankAccounts();
-
-$bankModel->getAccountDetails(1);
