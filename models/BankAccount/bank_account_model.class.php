@@ -103,11 +103,57 @@ class BankAccountModel
             stripslashes($result->userId)
         );
 
-        // Set user id
+        // Set account id
         $account->setId($result->accountId);
 
 
         return $account;
+
+    }
+
+    // Public function to search for a specific account
+    public function searchAccounts($terms): array|bool {
+        //explode multiple terms into an array
+        $terms = explode(" ", $terms);
+
+        // select statement for AND search
+        $sql = "SELECT * FROM bank_account WHERE 1 ";
+
+        foreach ($terms as $term) {
+            $sql .= "AND accountNickname LIKE '%" . $term . "%'";
+        }
+
+        // execute the query
+        $query = $this->dbConnection->query($sql);
+
+        // if the search fails (or returns no rows, return false
+        if (!$query || $query->num_rows == 0) {
+            return false;
+        }
+
+        // create an array
+        $results = array();
+
+        // loop through returned rows and add results to array
+        while ($bankAccount = $query->fetch_object()) {
+            // since account nickname is nullable, set it to an empty string if null
+            $accountNickname = ($bankAccount->accountNickname === null) ? '' : stripslashes($bankAccount->accountNickname);
+
+            // make a new BankAccount instance
+            $account = new BankAccount($accountNickname,
+                stripslashes($bankAccount->accountType),
+                stripslashes($bankAccount->accountStatus),
+                stripslashes($bankAccount->userId));
+
+            // set ID
+            $account->setId($bankAccount->accountId);
+
+
+            // add accounts to array
+            $results[] = $account;
+        }
+
+        return $results;
 
     }
 

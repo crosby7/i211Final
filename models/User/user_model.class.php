@@ -6,9 +6,6 @@
  * Description: Defines the UserModel class responsible for manipulating data for users
  */
 
-require_once '../../application/database.class.php';
-require_once 'user.class.php';
-
 class UserModel
 {
 
@@ -74,11 +71,6 @@ class UserModel
             $users[] = $account;
         }
 
-        for ($i = 0; $i < count($users); $i++) {
-            var_dump($users[$i]);
-            echo "<br><br>";
-        }
-
         return $users;
     }
 
@@ -108,16 +100,35 @@ class UserModel
         // Set user id
         $user->setId($result->userId);
 
-        var_dump($user);
-
         return $user;
 
     }
 
+    public function addUser(): bool {
+        if (!isset($_POST['emailAddress'])) {
+            return false;
+        }
+
+        // Get user registration info from post
+        $firstName = htmlspecialchars($_POST['firstName']);
+        $lastName = htmlspecialchars($_POST['lastName']);
+        $email = htmlspecialchars($_POST['emailAddress']);
+        $password = password_hash(htmlspecialchars($_POST['password']), PASSWORD_DEFAULT);
+
+        // Create sql statement
+        $sql = "INSERT INTO user_account (firstName, lastName, emailAddress, password, role)";
+        $sql .= "VALUES ('$firstName', ''$lastName', '$email', '$password', 'User')";
+
+        // Execute sql
+        $query = $this->dbConnection->query($sql);
+
+        // if query fails, return false
+        if (!$query) {
+            return false;
+        }
+
+        // User has been added. Return true to controller
+        return true;
+    }
+
 }
-
-$user_model = UserModel::getUserModel();
-
-$user_model->getUsers();
-
-$user_model->getDetails(4);
