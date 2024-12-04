@@ -131,4 +131,67 @@ class UserModel
         return true;
     }
 
+    // public function to verify a user (login)
+    public function login(): bool {
+        // First, ensure POST is set with email and password -- otherwise return false
+        if (!isset($_POST['emailAddress']) || !isset($_POST['password']))
+        {
+            return false;
+        }
+
+        // store login attempt info
+        $email = htmlspecialchars($_POST['emailAddress']);
+        $password = htmlspecialchars($_POST['password']);
+
+        // create sql
+        $sql = "SELECT * FROM user_account WHERE emailAddress = '$email'";
+
+        // Execute query
+        $query = $this->dbConnection->query($sql);
+
+        // If query fails, return false
+        if (!$query || $query->num_rows == 0) {
+            return false;
+        }
+
+        // store result in a row
+        $row = $query->fetch_assoc();
+
+        // Verify password
+        if (password_verify($password, $row['password']))
+        {
+            // start session if not started
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+
+            // Store user info in SESSION vars
+            $_SESSION['firstName'] = $row['firstName'];
+            $_SESSION['emailAddress'] = $row['emailAddress'];
+            $_SESSION['role'] = $row['role'];
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    // public function to log a user out (remove session vars)
+    public function logout(): bool {
+        // Destroy session vars and return true to controller
+        $_SESSION = array();
+        setcookie(session_id(), "", time() - 3600);
+        session_destroy();
+        session_write_close();
+
+        // if the user is successfully logged out, return true
+        if (!isset($_SESSION['firstName'])) {
+            return true;
+        }
+        else {
+            // failed to sign out
+            return false;
+        }
+    }
+
 }

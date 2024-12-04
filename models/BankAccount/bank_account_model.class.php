@@ -32,7 +32,7 @@ class BankAccountModel
 
     // public function to get model instance
     public static function getBankAccountModel(): BankAccountModel {
-        // If a user model does not exist, create it
+        // If a bankAccount model does not exist, create it
         if (self::$_instance === null)
         {
             self::$_instance = new BankAccountModel();
