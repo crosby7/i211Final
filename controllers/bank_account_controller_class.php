@@ -111,5 +111,22 @@ class BankAccountController {
         $view = new create();
         $view->display();
     }
+
+    public function suggest($terms): void
+    {
+        //retrieve query terms
+        $query_terms = urldecode(trim($terms));
+        $accounts = $this->accountModel->search($query_terms);
+
+        //retrieve the related account nicknames
+        $nicknames = array();
+        if ($accounts) {
+            foreach ($accounts as $account) {
+                $nicknames[] = $account->getAccountNickname();
+            }
+        }
+
+        echo json_encode($nicknames);
+    }
 }
 
