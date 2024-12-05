@@ -19,7 +19,7 @@ class UserController {
     //register user to database
     public function register(): void
     {
-        $user = $this->user_model->adduser();
+        $user = $this->user_model->addUser();
 
         if (!$user) {
             $message = "An error occurred and user could not be added.";
