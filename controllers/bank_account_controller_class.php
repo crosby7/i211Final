@@ -69,5 +69,30 @@ class BankAccountController {
             $view->display($message);
         }
     }
+
+    public function search(): void
+    {
+        //retrieve query terms from search form
+        $query_terms = trim($_GET['query-terms']);
+
+        //if search term is empty, list all accounts
+        if ($query_terms == "") {
+            $this->index();
+        }
+
+        //search the database for matching accounts
+        $accounts = $this->accountModel->searchAccounts($query_terms);
+
+        if ($accounts === false) {
+            // error
+            $message = "Search invalid.";
+            $view = new AccountError();
+            $view->display($message);
+            die();
+        }
+        //display matched accounts
+        $search = new AccountSearch();
+        $search->display($query_terms, $accounts);
+    }
 }
 
