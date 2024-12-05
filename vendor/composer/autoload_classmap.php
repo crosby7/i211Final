@@ -21,6 +21,7 @@ return array(
     'Details' => $baseDir . '/View/Accounts/accounts_details.class.php',
     'Dispatcher' => $baseDir . '/application/dispatcher.class.php',
     'Index' => $baseDir . '/View/index.class.php',
+    'Notice' => $baseDir . '/View/notice.class.php',
     'Transaction' => $baseDir . '/models/Transaction/transaction.class.php',
     'TransactionController' => $baseDir . '/controllers/transaction_controller.class.php',
     'TransactionModel' => $baseDir . '/models/Transaction/transaction_model.class.php',
