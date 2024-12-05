@@ -157,4 +157,29 @@ class BankAccountModel
 
     }
 
+    // public function to create new bank account
+    public function createAccount(): bool {
+        // TODO: check user account
+        // Check if account information is added
+        if (!isset($_POST['accountType'])) {
+            return false;
+        }
+
+        $accountNickname = htmlspecialchars($_POST['accountNickname']);
+        $accountType = htmlspecialchars($_POST['accountType']);
+
+        // all opened accounts start in good standing
+        $accountStatus = "Good Standing";
+        $userId = htmlspecialchars($_POST['userId']); // TODO: This will be replaced with login/logout
+
+        // create sql
+        $sql = "INSERT INTO bank_account (accountNickname, accountType, accountStatus, userId) VALUES ('$accountNickname', '$accountType', '$accountStatus', '$userId')";
+
+        // execute query
+        $query = $this->dbConnection->query($sql);
+
+        // $query is a bool
+        return $query;
+    }
+
 }
