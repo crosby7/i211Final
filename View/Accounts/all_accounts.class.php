@@ -18,7 +18,21 @@ class Accounts extends View
         //call the header
         $this->header();
         ?>
+
         <h2>All Bank Accounts</h2>
+        <!-- search bar-->
+        <form method="get" action="<?= BASE_URL ?>/BankAccount/search">
+            <input type="text" name="query-terms" id="searchtextbox" placeholder="Search Bank Accounts" autocomplete="off" />
+            <input type="submit" value="Go" />
+        </form>
+        <div>
+            <a href='<?= BASE_URL ?>/BankAccount/create'>
+                <input type="submit" class="button" value="Create an Account">
+            </a>
+        </div>
+        <br>
+        <br>
+
 <!--        create the table-->
         <table>
             <?php
@@ -57,7 +71,7 @@ class Accounts extends View
                 <td><?= $a->getAccountNickname() ?></td>
                 <td><?= $a->getAccountType() ?></td>
                 <td><?= $a->getUserId() ?></td>
-                </tr>
+
 
 
                 <?php
