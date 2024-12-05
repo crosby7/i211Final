@@ -10,10 +10,10 @@
 
 
 //create the class
-class Accounts extends View
+class AccountSearch extends View
 {
     //display method
-    public function display(array $accounts): void
+    public function display(string $query_terms, array $accounts): void
     {
         //call the header
         $this->header();
@@ -22,21 +22,21 @@ class Accounts extends View
         <h2>All Bank Accounts</h2>
         <!-- search bar-->
         <div id = "searchbar">
-        <form method="get" action="<?= BASE_URL ?>/BankAccount/search">
-            <input type="text" name="query-terms" id="searchtextbox" placeholder="Search Bank Accounts" autocomplete="off" />
-            <input type="submit" value="Go" />
-        </form>
-        <div id="suggestionDiv"></div>
+            <form method="get" action="<?= BASE_URL ?>/BankAccount/search">
+                <input type="text" name="query-terms" id="searchtextbox" placeholder="Search Bank Accounts" autocomplete="off" />
+                <input type="submit" value="Go" />
+            </form>
+            <div id="suggestionDiv"></div>
         </div>
         <div>
-            <a href='<?= BASE_URL ?>/BankAccount/createForm'>
+            <a href='<?= BASE_URL ?>/BankAccount/create'>
                 <input type="submit" class="button" value="Create an Account">
             </a>
         </div>
         <br>
         <br>
 
-<!--        create the table-->
+        <!--        create the table-->
         <table>
             <tr>
                 <th>Account ID</th>
@@ -46,9 +46,10 @@ class Accounts extends View
             </tr>
             <?php
             //begin the foreach loop to iterate through all objects in the accounts array
+
             foreach ($accounts as $a) {
                 ?>
-<!--                    style for the table-->
+                <!--                    style for the table-->
                 <style>
                     table {
                         border: solid black;
@@ -68,9 +69,9 @@ class Accounts extends View
                     }
                 </style>
 
-<!--                create the table-->
+                <!--                create the table-->
 
-<!--                print accounts information in the table-->
+                <!--                print accounts information in the table-->
                 <tr>
                 <td><a href="<?= BASE_URL ?>/BankAccount/details/<?= $a->getId() ?>"><?= $a->getId() ?></a></td>
                 <td><?= $a->getAccountNickname() ?></td>
@@ -80,13 +81,23 @@ class Accounts extends View
 
 
 
+
                 <?php
+
 
             } ?>
 
         </table>
+        <br>
+        <div>
+            <a href='<?= BASE_URL ?>/BankAccount/all'>
+                <input type="submit" class="button" value="Back to all Accounts">
+            </a>
+        </div>
+
         <?php
         //call the footer
         $this->footer();
     }
 }
+

@@ -28,6 +28,7 @@ class View {
     public static function footer(): void {
         ?>
         </div>
+        <script type="text/javascript" src="<?= BASE_URL ?>/application/ajax_autosuggestion.js"></script>
         </body>
         </html>
         <?php
