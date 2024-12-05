@@ -105,10 +105,9 @@ class BankAccountController {
     //add account to database
     public function create(): void
     {
-        $account = $this->accountModel->createAccount();
+        $accountStatus = $this->accountModel->createAccount();
 
-
-        if (!$account) {
+        if (!$accountStatus) {
             $message = "An error occurred and an account could not be created.";
             $view = new AccountError();
             $view->display($message);
@@ -117,7 +116,7 @@ class BankAccountController {
         //display create message
         $message = "An account has successfully been created.";
         $view = new Notice();
-        $view->display($message);
+        $view->display($message, "BankAccount");
     }
 
 
@@ -144,7 +143,6 @@ class BankAccountController {
         //create an object of the notice class
         $notice = new Notice();
         //display the notice page
-        $notice->display($message);
+        $notice->display($message, "BankAccount");
     }
 }
-

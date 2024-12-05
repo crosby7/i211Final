@@ -22,6 +22,7 @@ class ComposerStaticInit4d12d5617ed50cea33318fde1cf8368d
         'Details' => __DIR__ . '/../..' . '/View/Accounts/accounts_details.class.php',
         'Dispatcher' => __DIR__ . '/../..' . '/application/dispatcher.class.php',
         'Index' => __DIR__ . '/../..' . '/View/index.class.php',
+        'Notice' => __DIR__ . '/../..' . '/View/notice.class.php',
         'Transaction' => __DIR__ . '/../..' . '/models/Transaction/transaction.class.php',
         'TransactionController' => __DIR__ . '/../..' . '/controllers/transaction_controller.class.php',
         'TransactionModel' => __DIR__ . '/../..' . '/models/Transaction/transaction_model.class.php',

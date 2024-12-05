@@ -15,7 +15,7 @@ class Notice extends View
         <h1>Notice</h1>
         <p><?= $msg ?></p>
         <div>
-            <a href='<?= BASE_URL/$controllerName ?>/all'>
+            <a href='<?= BASE_URL ?>/<?= $controllerName ?>/all'>
                 <input type="submit" class="button" value="Go to All Accounts">
             </a>
         </div>
