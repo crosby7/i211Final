@@ -98,10 +98,10 @@ class BankAccountController {
     //add account to database
     public function create(): void
     {
-        $user = $this->accountModel->createAccount();
+        $account = $this->accountModel->createAccount();
 
 
-        if (!$user) {
+        if (!$account) {
             $message = "An error occurred and an account could not be created.";
             $view = new AccountError();
             $view->display($message);
