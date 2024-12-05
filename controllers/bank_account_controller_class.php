@@ -103,7 +103,7 @@ class BankAccountController {
 
         if (!$user) {
             $message = "An error occurred and an account could not be created.";
-            $view = new UserError();
+            $view = new AccountError();
             $view->display($message);
             return;
         }
