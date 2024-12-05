@@ -194,4 +194,26 @@ class UserModel
         }
     }
 
+    // Public function to allow a user to reset their password
+    public function reset_password(): bool {
+        // Retrieve email and new password
+        if (!isset($_POST['emailAddress']) || !isset($_POST['password']))
+        {
+            // Email or password is not set -- return false
+            return false;
+        }
+
+        $email = htmlspecialchars($_POST['emailAddress']);
+        $password = password_hash(htmlspecialchars($_POST['password']), PASSWORD_DEFAULT);
+
+        // SQL to update password for that user
+        $sql = "UPDATE user_account SET password = '$password' WHERE emailAddress = '$email'";
+
+        // Execute the query
+        $query = $this->dbConnection->query($sql);
+
+        // query will return a bool
+        return $query;
+    }
+
 }
