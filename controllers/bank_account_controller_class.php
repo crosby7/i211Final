@@ -14,15 +14,21 @@ class BankAccountController {
         $this->accountModel = BankAccountModel::getBankAccountModel();
     }
 
-//display index page with user accounts
     public function index(): void
     {
+        $view = new Index();
+        $view->display();
+    }
+
+//display index page with user accounts
+    public function all(): void
+    {
         // Retrieve all users from the model
-        $accounts = $this->accountModel->getAccounts();
+        $accounts = $this->accountModel->getBankAccounts();
 
         // check if accounts are found
         if ($accounts) {
-            $view = new Index();
+            $view = new Accounts();
             $view->display($accounts);
         } else if($accounts === 0){
             $message = "No accounts found.";
@@ -36,19 +42,16 @@ class BankAccountController {
     }
 
     //display details page
-    public function details(): void {
-        if (!isset($_GET['id']))
-        {
+    public function details($id = null): void {
+        if ($id === null) {
             // error
             $message = "No account specified.";
             $view = new AccountError();
             $view->display($message);
-
+            die();
         }
-        else {
-            $id = htmlspecialchars($_GET['id']);
 
-        }
+        $id = htmlspecialchars($id);
 
         // Retrieve user details from the model
         $account = $this->accountModel->getAccountDetails($id);

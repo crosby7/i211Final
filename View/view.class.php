@@ -1,7 +1,7 @@
 <?php
 /*
- * Author: Louie Zhu
- * Date: 03/09/2024
+ * Author: Millie JOnes
+ * Date: 11/21/2024
  * Name: view.class.php
  * Description: define the parent class for all view classes. The two methods create page header and footer.
  */
@@ -19,7 +19,7 @@ class View {
             <link href="www/css/styles.css" rel="stylesheet" type="text/css"/>
         </head>
         <body>
-        <h1><span style="color: darkred; font-family: serif; font-size: 36pt">Framework Financial Services</span> All Bank Accounts</h1>
+        <h1><span style="color: darkred; font-family: serif; font-size: 36pt">Framework Financial Services</span></h1>
         <div id="wrapper">
         <?php
     }
