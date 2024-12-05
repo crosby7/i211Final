@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AccountError' => $baseDir . '/View/Error/account_error.class.php',
+    'AccountSearch' => $baseDir . '/View/Accounts/account_search.class.php',
     'Accounts' => $baseDir . '/View/Accounts/all_accounts.class.php',
     'BankAccount' => $baseDir . '/models/BankAccount/bank_account.class.php',
     'BankAccountController' => $baseDir . '/controllers/bank_account_controller_class.php',
@@ -15,11 +16,16 @@ return array(
     'Composer\\Autoload\\ClassLoader' => $vendorDir . '/composer/ClassLoader.php',
     'Composer\\Autoload\\ComposerStaticInit4d12d5617ed50cea33318fde1cf8368d' => $vendorDir . '/composer/autoload_static.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'Create' => $baseDir . '/View/Accounts/create_account.class.php',
     'Database' => $baseDir . '/application/database.class.php',
     'Details' => $baseDir . '/View/Accounts/accounts_details.class.php',
     'Dispatcher' => $baseDir . '/application/dispatcher.class.php',
     'Index' => $baseDir . '/View/index.class.php',
+    'Transaction' => $baseDir . '/models/Transaction/transaction.class.php',
+    'TransactionController' => $baseDir . '/controllers/transaction_controller.class.php',
+    'TransactionModel' => $baseDir . '/models/Transaction/transaction_model.class.php',
     'User' => $baseDir . '/models/User/user.class.php',
+    'UserController' => $baseDir . '/controllers/user_controller.class.php',
     'UserModel' => $baseDir . '/models/User/user_model.class.php',
     'View' => $baseDir . '/View/view.class.php',
 );
