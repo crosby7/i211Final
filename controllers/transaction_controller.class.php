@@ -18,7 +18,7 @@ class TransactionController
     }
 
     // Display all transactions
-    public function index(): void
+    public function all(): void
     {
         // get all transactions from the model
         $transactions = $this->transaction_model->getTransactions();
