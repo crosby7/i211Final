@@ -94,5 +94,22 @@ class BankAccountController {
         $search = new AccountSearch();
         $search->display($query_terms, $accounts);
     }
+
+    //add account to database
+    public function create(): void
+    {
+        $user = $this->accountModel->createAccount();
+
+
+        if (!$user) {
+            $message = "An error occurred and an account could not be created.";
+            $view = new UserError();
+            $view->display($message);
+            return;
+        }
+        //display register message
+        $view = new create();
+        $view->display();
+    }
 }
 
