@@ -126,12 +126,13 @@ class BankAccountController {
         //retrieve query terms
         $query_terms = urldecode(trim($terms));
         $accounts = $this->accountModel->searchAccounts($query_terms);
-
+        console_php("hello");
         //retrieve the related account nicknames
         $nicknames = array();
         if ($accounts) {
             foreach ($accounts as $account) {
                 $nicknames[] = $account->getAccountNickname();
+               // console_php($nicknames);
             }
         }
 

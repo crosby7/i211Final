@@ -43,7 +43,7 @@ function suggest(query) {
 
     //proceed only if the search term isn't empty
     // open an asynchronous request to the server.
-    xmlHttp.open("GET", base_url + "/BankAccount/suggest/" + query, true);
+    xmlHttp.open("GET", BASE_URL + "/BankAccount/suggest/" + query, true);
 
     //handle server's responses
     xmlHttp.onreadystatechange = function () {
