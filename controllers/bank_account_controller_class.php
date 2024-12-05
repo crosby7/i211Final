@@ -116,7 +116,7 @@ class BankAccountController {
     {
         //retrieve query terms
         $query_terms = urldecode(trim($terms));
-        $accounts = $this->accountModel->search($query_terms);
+        $accounts = $this->accountModel->searchAccounts($query_terms);
 
         //retrieve the related account nicknames
         $nicknames = array();
