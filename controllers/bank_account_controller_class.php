@@ -95,6 +95,13 @@ class BankAccountController {
         $search->display($query_terms, $accounts);
     }
 
+    public function createForm(): void
+    {
+        //display register message
+        $view = new Create();
+        $view->display();
+    }
+
     //add account to database
     public function create(): void
     {
@@ -107,10 +114,13 @@ class BankAccountController {
             $view->display($message);
             return;
         }
-        //display register message
-        $view = new create();
-        $view->display();
+        //display create message
+        $message = "An account has successfully been created.";
+        $view = new Notice();
+        $view->display($message);
     }
+
+
 
     public function suggest($terms): void
     {
@@ -127,6 +137,14 @@ class BankAccountController {
         }
 
         echo json_encode($nicknames);
+    }
+
+    public function notice($message): void
+    {
+        //create an object of the notice class
+        $notice = new Notice();
+        //display the notice page
+        $notice->display($message);
     }
 }
 
