@@ -16,6 +16,7 @@ return array(
     'Composer\\Autoload\\ClassLoader' => $vendorDir . '/composer/ClassLoader.php',
     'Composer\\Autoload\\ComposerStaticInit4d12d5617ed50cea33318fde1cf8368d' => $vendorDir . '/composer/autoload_static.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'Console' => $baseDir . '/application/console_php.php',
     'Create' => $baseDir . '/View/Accounts/create_account.class.php',
     'Database' => $baseDir . '/application/database.class.php',
     'Details' => $baseDir . '/View/Accounts/accounts_details.class.php',

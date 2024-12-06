@@ -17,6 +17,7 @@ class ComposerStaticInit4d12d5617ed50cea33318fde1cf8368d
         'Composer\\Autoload\\ClassLoader' => __DIR__ . '/..' . '/composer/ClassLoader.php',
         'Composer\\Autoload\\ComposerStaticInit4d12d5617ed50cea33318fde1cf8368d' => __DIR__ . '/..' . '/composer/autoload_static.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Console' => __DIR__ . '/../..' . '/application/console_php.php',
         'Create' => __DIR__ . '/../..' . '/View/Accounts/create_account.class.php',
         'Database' => __DIR__ . '/../..' . '/application/database.class.php',
         'Details' => __DIR__ . '/../..' . '/View/Accounts/accounts_details.class.php',

@@ -126,16 +126,34 @@ class BankAccountController {
         //retrieve query terms
         $query_terms = urldecode(trim($terms));
         $accounts = $this->accountModel->searchAccounts($query_terms);
-        console_php("hello");
+        /*
+         * array(1) {
+              [0]=>
+              object(BankAccount)#10 (5) {
+                ["id":"BankAccount":private]=>
+                int(3)
+                ["accountNickname":"BankAccount":private]=>
+                string(13) "House Account"
+                ["accountType":"BankAccount":private]=>
+                string(8) "Checking"
+                ["accountStatus":"BankAccount":private]=>
+                string(9) "Overdrawn"
+                ["userId":"BankAccount":private]=>
+                string(1) "3"
+              }
+            }
+            ["House Account"]
+
+         */
         //retrieve the related account nicknames
         $nicknames = array();
         if ($accounts) {
             foreach ($accounts as $account) {
                 $nicknames[] = $account->getAccountNickname();
-               // console_php($nicknames);
+               //console_php($nicknames);
             }
         }
-
+        //echo $nicknames;
         echo json_encode($nicknames);
     }
 
@@ -146,4 +164,6 @@ class BankAccountController {
         //display the notice page
         $notice->display($message, "BankAccount");
     }
+
+
 }

@@ -50,9 +50,10 @@ function suggest(query) {
         // proceed only if the transaction has completed and the transaction completed successfully
         if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
             // extract the JSON received from the server
+            console.log(xmlHttp.responseText)
             var nicknames = JSON.parse(xmlHttp.responseText);
-            //console.log(nicknamesJSON);
-            // display suggested nicknames in a div block
+            //console.log(xmlHttp.responseText);
+            //display suggested nicknames in a div block
             displayNicknames(nicknames);
         }
     };
@@ -101,10 +102,10 @@ function handleKeyUp(e) {
     //if the up arrow key is pressed
     if (e.keyCode === 38 && activeNickname > 0) {
         //add code here to handle up arrow key. e.g. select the previous item
-        activeNicknameObj.style.backgroundColor = "#FFF";
+        activeNicknameObj.style.backgroundColor = "#ffffff";
         activeNickname--;
         activeNicknameObj = document.getElementById("s_" + activeNickname);
-        activeNicknameObj.style.backgroundColor = "#F5DEB3";
+        activeNicknameObj.style.backgroundColor = "#8b0000";
         searchBoxObj.value = activeNicknameObj.innerHTML;
         return;
     }
@@ -118,7 +119,7 @@ function handleKeyUp(e) {
         }
         activeNickname++;
         activeNicknameObj = document.getElementById("s_" + activeNickname);
-        activeNicknameObj.style.backgroundColor = "#F5DEB3";
+        activeNicknameObj.style.backgroundColor = "#8B0000FF";
         searchBoxObj.value = activeNicknameObj.innerHTML;
     }
 }

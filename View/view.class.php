@@ -13,10 +13,15 @@ class View {
         ?>
         <!DOCTYPE html lang="en">
         <html>
+        <link rel="stylesheet" href="<?= BASE_URL ?>/css.css">
         <head>
             <meta charset="UTF-8">
             <title>Framework Financial Services</title>
             <link href="www/css/styles.css" rel="stylesheet" type="text/css"/>
+            <script>
+                //create the JavaScript variable for the base url
+                var BASE_URL = "<?= BASE_URL ?>";
+            </script>
         </head>
         <body>
         <h1><span style="color: darkred; font-family: serif; font-size: 36pt">Framework Financial Services</span></h1>

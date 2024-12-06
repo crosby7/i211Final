@@ -18,7 +18,7 @@ class AccountSearch extends View
         //call the header
         $this->header();
         ?>
-
+        <link rel="stylesheet" href="css.css">
         <h2>All Bank Accounts</h2>
         <!-- search bar-->
         <div id = "searchbar">

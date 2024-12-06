@@ -17,13 +17,7 @@ class Index extends View
         //call the header
         $this->header(); ?>
 <!--            page specific content and button-->
-        <head>
-            <title> <?php echo "page title" ?> </title>
-            <script>
-            //create the JavaScript variable for the base url
-            var BASE_URL = "<?= BASE_URL ?>";
-        </script>
-        </head>
+
            <h1>Welcome to the Home Screen</h1>
            <div>
                <a href='<?= BASE_URL ?>/BankAccount/all'>
