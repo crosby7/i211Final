@@ -21,22 +21,23 @@ class Accounts extends View
 
         <h2>All Bank Accounts</h2>
         <!-- search bar-->
-        <div id = "searchbar">
-        <form method="get" action="<?= BASE_URL ?>/BankAccount/search">
-            <input type="text" name="query-terms" id="searchtextbox" placeholder="Search Bank Accounts" autocomplete="off" onkeyup="handleKeyUp(event)"/>
-            <input type="submit" value="Go" />
-        </form>
-        <div id="suggestionDiv"></div>
+        <div id="searchbar">
+            <form method="get" action="<?= BASE_URL ?>/BankAccount/search">
+                <input type="text" name="query-terms" id="searchtextbox" placeholder="Search Bank Accounts"
+                       autocomplete="off" onkeyup="handleKeyUp(event)"/>
+                <input type="submit" value="Search"/>
+            </form>
+            <div id="suggestionDiv"></div>
         </div>
-        <div>
+        <div id="buttonDiv">
             <a href='<?= BASE_URL ?>/BankAccount/createForm'>
-                <input type="submit" class="button" value="Create an Account">
+                <input id="createButton" type="submit" class="button" value="Create an Account">
             </a>
         </div>
         <br>
         <br>
 
-<!--        create the table-->
+        <!--        create the table-->
         <table>
             <tr>
                 <th>Account ID</th>
@@ -48,37 +49,14 @@ class Accounts extends View
             //begin the foreach loop to iterate through all objects in the accounts array
             foreach ($accounts as $a) {
                 ?>
-<!--                    style for the table-->
-                <style>
-                    table {
-                        border: solid black;
-                        border-spacing: 5px
-                    }
 
-                    td {
-                        border: 1px solid darkred;
-                        text-align: left;
-                        padding: 8px
-                    }
-
-                    th {
-                        border: 1px solid darkred;
-                        text-align: center;
-                        padding: 8px
-                    }
-                </style>
-
-<!--                create the table-->
-
-<!--                print accounts information in the table-->
+                <!--                print accounts information in the table-->
                 <tr>
-                <td><a href="<?= BASE_URL ?>/BankAccount/details/<?= $a->getId() ?>"><?= $a->getId() ?></a></td>
-                <td><?= $a->getAccountNickname() ?></td>
-                <td><?= $a->getAccountType() ?></td>
-                <td><?= $a->getUserId() ?></td>
+                    <td><a href="<?= BASE_URL ?>/BankAccount/details/<?= $a->getId() ?>"><?= $a->getId() ?></a></td>
+                    <td><?= $a->getAccountNickname() ?></td>
+                    <td><?= $a->getAccountType() ?></td>
+                    <td><?= $a->getUserId() ?></td>
                 </tr>
-
-
 
                 <?php
 

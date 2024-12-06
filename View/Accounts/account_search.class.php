@@ -21,10 +21,11 @@ class AccountSearch extends View
         <link rel="stylesheet" href="css.css">
         <h2>All Bank Accounts</h2>
         <!-- search bar-->
-        <div id = "searchbar">
+        <div id="searchbar">
             <form method="get" action="<?= BASE_URL ?>/BankAccount/search">
-                <input type="text" name="query-terms" id="searchtextbox" placeholder="Search Bank Accounts" autocomplete="off" />
-                <input type="submit" value="Go" />
+                <input type="text" name="query-terms" id="searchtextbox" placeholder="Search Bank Accounts"
+                       autocomplete="off" onkeyup="handleKeyUp(event)"/>
+                <input type="submit" value="Go"/>
             </form>
             <div id="suggestionDiv"></div>
         </div>
@@ -49,38 +50,14 @@ class AccountSearch extends View
 
             foreach ($accounts as $a) {
                 ?>
-                <!--                    style for the table-->
-                <style>
-                    table {
-                        border: solid black;
-                        border-spacing: 5px
-                    }
-
-                    td {
-                        border: 1px solid darkred;
-                        text-align: left;
-                        padding: 8px
-                    }
-
-                    th {
-                        border: 1px solid darkred;
-                        text-align: center;
-                        padding: 8px
-                    }
-                </style>
-
-                <!--                create the table-->
 
                 <!--                print accounts information in the table-->
                 <tr>
-                <td><a href="<?= BASE_URL ?>/BankAccount/details/<?= $a->getId() ?>"><?= $a->getId() ?></a></td>
-                <td><?= $a->getAccountNickname() ?></td>
-                <td><?= $a->getAccountType() ?></td>
-                <td><?= $a->getUserId() ?></td>
+                    <td><a href="<?= BASE_URL ?>/BankAccount/details/<?= $a->getId() ?>"><?= $a->getId() ?></a></td>
+                    <td><?= $a->getAccountNickname() ?></td>
+                    <td><?= $a->getAccountType() ?></td>
+                    <td><?= $a->getUserId() ?></td>
                 </tr>
-
-
-
 
                 <?php
 

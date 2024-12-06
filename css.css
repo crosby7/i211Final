@@ -1,3 +1,11 @@
+/*
+ * Author: Millie Jones
+ * Date: 12/05/2024
+ * Name: css.css
+ * Description: This is the css style file
+ */
+
+/*change the search bar text font*/
 #searchbar input[type="text"] {
     width: 155px;
     padding-left: 8px;
@@ -6,21 +14,20 @@
     color: black;
 }
 
-#searchbar input[type="text"]:focus {
-    outline: none;
-}
-
+/*change the color so when you hover the submit button its red to match the rest of the application*/
 #searchbar input[type="submit"]:hover{
     border-left: 1px solid #999;
     background-color: darkred;
 }
 
-
+ /*make the table more centered, */
  table {
-     margin-left:250px;
-     margin-right:250px;
+     width: 96%;
+     margin-top: 70px;
+     margin-left:25px;
+     margin-right:25px;
      border: solid black;
-     border-spacing: 5px
+     border-spacing: 10px
  }
 
 td {
@@ -61,4 +68,10 @@ th {
 
 #suggestionDiv span:hover {
     background-color: darkred;
+}
+
+/*style for create account button div*/
+#buttonDiv{
+    position: absolute;
+    bottom: 150;
 }
