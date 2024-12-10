@@ -2,14 +2,14 @@
 /*
  * Author: Millie Jones
  * Date: 11/21/24
- * Name: accounts_error.class.php
+ * Name: user_error.class.php
  * Description: This class extends the View class. The "display" method displays an error message.
  *				To create the page header and footer, the display method calls the header and footer
  *				methods defined in the parent class.
  */
 
 //create the class
-class AccountError extends View
+class UserError extends View
 {
     //define the display method
     public function display($message): void
@@ -33,3 +33,4 @@ class AccountError extends View
         parent::footer();
     }
 }
+

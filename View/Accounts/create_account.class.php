@@ -7,7 +7,7 @@
  */
 
 //create the class
-class Create extends View
+class CreateAccount extends View
 {
     //define the display method
     public function display(): void
