@@ -169,6 +169,7 @@ class UserModel
             $_SESSION['firstName'] = $row['firstName'];
             $_SESSION['emailAddress'] = $row['emailAddress'];
             $_SESSION['role'] = $row['role'];
+            $_SESSION['userId'] = $row['userId'];
             return true;
         }
         else {

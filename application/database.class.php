@@ -23,16 +23,23 @@ class Database {
     static private ?object $_instance = null;
 
     //constructor
-    public function __construct() {
+    private function __construct() {
 
-        $this->objDBConnection = @new mysqli(
-            $this->param['host'],
-            $this->param['login'],
-            $this->param['password'],
-            $this->param['database']
-        );
-        if (mysqli_connect_errno() != 0) {
-            exit("Connecting to database failed: " . mysqli_connect_error());
+        // throw an exception if connection fails
+        try {
+            $this->objDBConnection = @new mysqli(
+                $this->param['host'], $this->param['login'], $this->param['password'], $this->param['database']
+            );
+            // if there is a failed connection,
+            if (mysqli_connect_errno() != 0) {
+                // throw exception with message
+                throw new DatabaseConnectionException("Connecting to database failed: " . mysqli_connect_error());
+            }
+        }
+        // catch any relevant exceptions and display error page
+        catch (DatabaseConnectionException|Exception $e) {
+            $view = new AccountError();
+            $view->display($e->getMessage());
         }
     }
 

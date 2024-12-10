@@ -46,34 +46,46 @@ class BankAccountModel
         // Create sql statement
         $sql = "SELECT * FROM bank_account";
 
-        // Execute query
-        $query = $this->dbConnection->query($sql);
+        try {
+            // Execute query
+            $query = $this->dbConnection->query($sql);
 
-        // if query fails or returns no rows, return false
-        if (!$query || $query->num_rows == 0) {
+            // if query fails, throw exception
+            if (!$query) {
+                throw new DatabaseExecutionException("Database execution failed. Please try again.");
+            }
+
+            // if query returns no rows, throw DataMissingException
+            if ($query->num_rows == 0) {
+                throw new DataMissingException("No accounts could be found.");
+            }
+
+            // put returned accounts into an associative array and return the array
+            $accounts = array();
+            while ($bankAccount = $query->fetch_object()) {
+                // since account nickname is nullable, set it to an empty string if null
+                $accountNickname = ($bankAccount->accountNickname === null) ? '' : stripslashes($bankAccount->accountNickname);
+
+                // make a new BankAccount instance
+                $account = new BankAccount($accountNickname,
+                    stripslashes($bankAccount->accountType),
+                    stripslashes($bankAccount->accountStatus),
+                    stripslashes($bankAccount->userId));
+
+                // set ID
+                $account->setId($bankAccount->accountId);
+
+                // add accounts to array
+                $accounts[] = $account;
+            }
+
+            return $accounts;
+        }
+        catch (DatabaseExecutionException|DataMissingException|Exception $e) {
+            $view = new AccountError();
+            $view->display($e->getMessage());
             return false;
         }
-
-        // put returned accounts into an associative array and return the array
-        $accounts = array();
-        while ($bankAccount = $query->fetch_object()) {
-            // since account nickname is nullable, set it to an empty string if null
-            $accountNickname = ($bankAccount->accountNickname === null) ? '' : stripslashes($bankAccount->accountNickname);
-
-            // make a new BankAccount instance
-            $account = new BankAccount($accountNickname,
-                stripslashes($bankAccount->accountType),
-                stripslashes($bankAccount->accountStatus),
-                stripslashes($bankAccount->userId));
-
-            // set ID
-            $account->setId($bankAccount->accountId);
-
-            // add accounts to array
-            $accounts[] = $account;
-        }
-
-        return $accounts;
     }
 
     // Function to retrieve details of a specific bank account from an id
@@ -81,33 +93,45 @@ class BankAccountModel
         // Make sql statement
         $sql = "SELECT * FROM bank_account WHERE accountId = $id";
 
-        // Execute query
-        $query = $this->dbConnection->query($sql);
+        try {
+            // Execute query
+            $query = $this->dbConnection->query($sql);
 
-        // if query fails or returns no account, return false
-        if (!$query || $query->num_rows == 0) {
+            // if query fails, throw exception
+            if (!$query) {
+                throw new DatabaseExecutionException("Database execution failed. Please try again.");
+            }
+
+            // if query returns no rows, throw DataMissingException
+            if ($query->num_rows == 0) {
+                throw new DataMissingException("No accounts could be found.");
+            }
+
+            // Write query result to object
+            $result = $query->fetch_object();
+
+            // since account nickname is nullable, set it to an empty string if null
+            $accountNickname = ($result->accountNickname === null) ? '' : stripslashes($result->accountNickname);
+
+            // Make BankAccount instance from $result
+            $account = new BankAccount(
+                $accountNickname,
+                stripslashes($result->accountType),
+                stripslashes($result->accountStatus),
+                stripslashes($result->userId)
+            );
+
+            // Set account id
+            $account->setId($result->accountId);
+
+
+            return $account;
+        }
+        catch (DatabaseExecutionException|DataMissingException|Exception $e) {
+            $view = new AccountError();
+            $view->display($e->getMessage());
             return false;
         }
-
-        // Write query result to object
-        $result = $query->fetch_object();
-
-        // since account nickname is nullable, set it to an empty string if null
-        $accountNickname = ($result->accountNickname === null) ? '' : stripslashes($result->accountNickname);
-
-        // Make BankAccount instance from $result
-        $account = new BankAccount(
-            $accountNickname,
-            stripslashes($result->accountType),
-            stripslashes($result->accountStatus),
-            stripslashes($result->userId)
-        );
-
-        // Set account id
-        $account->setId($result->accountId);
-
-
-        return $account;
 
     }
 
@@ -123,43 +147,66 @@ class BankAccountModel
             $sql .= "AND accountNickname LIKE '%" . $term . "%'";
         }
 
-        // execute the query
-        $query = $this->dbConnection->query($sql);
+        try {
+            // execute the query
+            $query = $this->dbConnection->query($sql);
 
-        // if the search fails (or returns no rows, return false
-        if (!$query || $query->num_rows == 0) {
+            // if query fails, throw exception
+            if (!$query) {
+                throw new DatabaseExecutionException("Database execution failed. Please try again.");
+            }
+
+            // if query returns no rows, throw DataMissingException
+            if ($query->num_rows == 0) {
+                throw new DataMissingException("No accounts could be found.");
+            }
+
+            // create an array
+            $results = array();
+
+            // loop through returned rows and add results to array
+            while ($bankAccount = $query->fetch_object()) {
+                // since account nickname is nullable, set it to an empty string if null
+                $accountNickname = ($bankAccount->accountNickname === null) ? '' : stripslashes($bankAccount->accountNickname);
+
+                // make a new BankAccount instance
+                $account = new BankAccount($accountNickname,
+                    stripslashes($bankAccount->accountType),
+                    stripslashes($bankAccount->accountStatus),
+                    stripslashes($bankAccount->userId));
+
+                // set ID
+                $account->setId($bankAccount->accountId);
+
+
+                // add accounts to array
+                $results[] = $account;
+            }
+
+            return $results;
+        }
+        catch (DatabaseExecutionException|DataMissingException|Exception $e) {
+            $view = new AccountError();
+            $view->display($e->getMessage());
             return false;
         }
-
-        // create an array
-        $results = array();
-
-        // loop through returned rows and add results to array
-        while ($bankAccount = $query->fetch_object()) {
-            // since account nickname is nullable, set it to an empty string if null
-            $accountNickname = ($bankAccount->accountNickname === null) ? '' : stripslashes($bankAccount->accountNickname);
-
-            // make a new BankAccount instance
-            $account = new BankAccount($accountNickname,
-                stripslashes($bankAccount->accountType),
-                stripslashes($bankAccount->accountStatus),
-                stripslashes($bankAccount->userId));
-
-            // set ID
-            $account->setId($bankAccount->accountId);
-
-
-            // add accounts to array
-            $results[] = $account;
-        }
-
-        return $results;
 
     }
 
     // public function to create new bank account
     public function createAccount(): bool {
-        // TODO: check user account
+        // to create an account, a user role is needed. If SESSION is not active, this method must throw an exception
+        try {
+            if (!isset($_SESSION['role'])) {
+                throw new AuthenticationException("User could not be verified.");
+            }
+        }
+        catch (AuthenticationException|Exception $e) {
+            $view = new AccountError();
+            $view->display($e->getMessage());
+            return false;
+        }
+
         // Check if account information is added
         if (!isset($_POST['accountType'])) {
             return false;
@@ -170,16 +217,28 @@ class BankAccountModel
 
         // all opened accounts start in good standing
         $accountStatus = "Good Standing";
-        $userId = htmlspecialchars($_POST['userId']); // TODO: This will be replaced with login/logout
+        $userId = htmlspecialchars($_SESSION['id']
 
         // create sql
         $sql = "INSERT INTO bank_account (accountNickname, accountType, accountStatus, userId) VALUES ('$accountNickname', '$accountType', '$accountStatus', '$userId')";
 
-        // execute query
-        $query = $this->dbConnection->query($sql);
+        try {
+            // execute query
+            $query = $this->dbConnection->query($sql);
 
-        // $query is a bool
-        return $query;
+            // Handle query failure
+            if (!$query) {
+                throw new DatabaseExecutionException("Account creation failed. Couldn't establish account with database.");
+            }
+
+            // $query is a bool
+            return $query;
+        }
+        catch (DatabaseExecutionException|Exception $e) {
+            $view = new AccountError();
+            $view->display($e->getMessage());
+            return false;
+        }
     }
 
 }
