@@ -18,9 +18,9 @@ class TransactionController
     }
 
     // Display all transactions
-    public function index(): void
+    public function all(): void
     {
-        // Fetch all transactions from the model
+        // get all transactions from the model
         $transactions = $this->transaction_model->getTransactions();
 
         // Check if transactions were retrieved successfully
@@ -39,7 +39,7 @@ class TransactionController
     // Display details of a specific transaction
     public function details($id): void
     {
-        // Fetch transaction details by ID
+        // get transaction details by ID
         $transaction = $this->transaction_model->getTransactionDetails($id);
 
         // Check if the transaction was retrieved successfully

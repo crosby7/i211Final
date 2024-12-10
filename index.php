@@ -20,8 +20,10 @@ require_once ('application/config.php');
 //include code in vendor/autoload.php file
 require_once ("vendor/autoload.php");
 
+
+
 //Include Console PHP
-require_once('application/console_php.php');
+//require_once('application/console_php.php');
 
 //call dispatcher for url
 new Dispatcher();

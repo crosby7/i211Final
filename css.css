@@ -1,0 +1,77 @@
+/*
+ * Author: Millie Jones
+ * Date: 12/05/2024
+ * Name: css.css
+ * Description: This is the css style file
+ */
+
+/*change the search bar text font*/
+#searchbar input[type="text"] {
+    width: 155px;
+    padding-left: 8px;
+    font-size: 0.8em;
+    font-family: "Times New Roman";
+    color: black;
+}
+
+/*change the color so when you hover the submit button its red to match the rest of the application*/
+#searchbar input[type="submit"]:hover{
+    border-left: 1px solid #999;
+    background-color: darkred;
+}
+
+ /*make the table more centered, */
+ table {
+     width: 96%;
+     margin-top: 70px;
+     margin-left:25px;
+     margin-right:25px;
+     border: solid black;
+     border-spacing: 10px
+ }
+
+td {
+    border: 1px solid darkred;
+    text-align: left;
+    padding: 8px
+}
+
+th {
+    border: 1px solid darkred;
+    text-align: center;
+    padding: 8px
+}
+
+
+#suggestionDiv {
+    float: left;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    right: -1px;
+    background-color: #fff;
+    font-size: 0.85em;
+    z-index: 9999;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border: 1px solid rgba(0,0,0,.15);
+    box-shadow: 2px 10px 12px 2px rgba(0,0,0,.175);
+}
+
+#suggestionDiv span {
+    display: block;
+    padding: 4px 3px 4px 10px;
+    cursor: default;
+    min-width: 100px;
+    white-space: wrap;
+}
+
+#suggestionDiv span:hover {
+    background-color: darkred;
+}
+
+/*style for create account button div*/
+#buttonDiv{
+    position: absolute;
+    bottom: 150;
+}

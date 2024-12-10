@@ -69,5 +69,101 @@ class BankAccountController {
             $view->display($message);
         }
     }
-}
 
+    public function search(): void
+    {
+        //retrieve query terms from search form
+        $query_terms = trim($_GET['query-terms']);
+
+        //if search term is empty, list all accounts
+        if ($query_terms == "") {
+            $this->index();
+        }
+
+        //search the database for matching accounts
+        $accounts = $this->accountModel->searchAccounts($query_terms);
+
+        if ($accounts === false) {
+            // error
+            $message = "Search invalid.";
+            $view = new AccountError();
+            $view->display($message);
+            die();
+        }
+        //display matched accounts
+        $search = new AccountSearch();
+        $search->display($query_terms, $accounts);
+    }
+
+    public function createForm(): void
+    {
+        //display register message
+        $view = new Create();
+        $view->display();
+    }
+
+    //add account to database
+    public function create(): void
+    {
+        $accountStatus = $this->accountModel->createAccount();
+
+        if (!$accountStatus) {
+            $message = "An error occurred and an account could not be created.";
+            $view = new AccountError();
+            $view->display($message);
+            return;
+        }
+        //display create message
+        $message = "An account has successfully been created.";
+        $view = new Notice();
+        $view->display($message, "BankAccount");
+    }
+
+
+
+    public function suggest($terms): void
+    {
+        //retrieve query terms
+        $query_terms = urldecode(trim($terms));
+        $accounts = $this->accountModel->searchAccounts($query_terms);
+        /*
+         * array(1) {
+              [0]=>
+              object(BankAccount)#10 (5) {
+                ["id":"BankAccount":private]=>
+                int(3)
+                ["accountNickname":"BankAccount":private]=>
+                string(13) "House Account"
+                ["accountType":"BankAccount":private]=>
+                string(8) "Checking"
+                ["accountStatus":"BankAccount":private]=>
+                string(9) "Overdrawn"
+                ["userId":"BankAccount":private]=>
+                string(1) "3"
+              }
+            }
+            ["House Account"]
+
+         */
+        //retrieve the related account nicknames
+        $nicknames = array();
+        if ($accounts) {
+            foreach ($accounts as $account) {
+                $nicknames[] = $account->getAccountNickname();
+               //console_php($nicknames);
+            }
+        }
+        //echo $nicknames;
+        echo json_encode($nicknames);
+    }
+
+    public function notice($message): void
+    {
+        //create an object of the notice class
+        $notice = new Notice();
+        //display the notice page
+        $notice->display($message, "BankAccount");
+    }
+
+
+}

@@ -10,28 +10,28 @@
 
 
 //create the class
-class Accounts extends View
+class AccountSearch extends View
 {
     //display method
-    public function display(array $accounts): void
+    public function display(string $query_terms, array $accounts): void
     {
         //call the header
         $this->header();
         ?>
-
+        <link rel="stylesheet" href="css.css">
         <h2>All Bank Accounts</h2>
         <!-- search bar-->
         <div id="searchbar">
             <form method="get" action="<?= BASE_URL ?>/BankAccount/search">
                 <input type="text" name="query-terms" id="searchtextbox" placeholder="Search Bank Accounts"
                        autocomplete="off" onkeyup="handleKeyUp(event)"/>
-                <input type="submit" value="Search"/>
+                <input type="submit" value="Go"/>
             </form>
             <div id="suggestionDiv"></div>
         </div>
-        <div id="buttonDiv">
-            <a href='<?= BASE_URL ?>/BankAccount/createForm'>
-                <input id="createButton" type="submit" class="button" value="Create an Account">
+        <div>
+            <a href='<?= BASE_URL ?>/BankAccount/create'>
+                <input type="submit" class="button" value="Create an Account">
             </a>
         </div>
         <br>
@@ -47,6 +47,7 @@ class Accounts extends View
             </tr>
             <?php
             //begin the foreach loop to iterate through all objects in the accounts array
+
             foreach ($accounts as $a) {
                 ?>
 
@@ -60,11 +61,20 @@ class Accounts extends View
 
                 <?php
 
+
             } ?>
 
         </table>
+        <br>
+        <div>
+            <a href='<?= BASE_URL ?>/BankAccount/all'>
+                <input type="submit" class="button" value="Back to all Accounts">
+            </a>
+        </div>
+
         <?php
         //call the footer
         $this->footer();
     }
 }
+

@@ -17,6 +17,7 @@ class Index extends View
         //call the header
         $this->header(); ?>
 <!--            page specific content and button-->
+
            <h1>Welcome to the Home Screen</h1>
            <div>
                <a href='<?= BASE_URL ?>/BankAccount/all'>

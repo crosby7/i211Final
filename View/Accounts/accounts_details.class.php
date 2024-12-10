@@ -17,25 +17,6 @@ class Details extends View
         //call the header
         $this->header(); ?>
 
-        <!--        table style-->
-        <style>
-            table {
-                border: solid black;
-                border-spacing: 5px
-            }
-
-            td {
-                border: 1px solid darkred;
-                text-align: left;
-                padding: 8px
-            }
-
-            th {
-                border: 1px solid darkred;
-                text-align: center;
-                padding: 8px
-            }
-        </style>
         <h2>Account Details</h2>
         <!--        create the table-->
         <table>
@@ -56,6 +37,11 @@ class Details extends View
 
             </tr>
         </table>
+        <div>
+            <a href='<?= BASE_URL ?>/BankAccount/all'>
+                <input type="submit" class="button" value="Back to all Accounts">
+            </a>
+        </div>
         <?php
         //call the footer
         $this->footer();
