@@ -1,8 +1,14 @@
 /*
- * This script contains AJAX methods
+ * Author: Millie Jones (got most of it from kung fu panda application)
+ * Date: 12/05/2024
+ * Name: ajax_autosuggestion.js
+ * Description: This is the javascript file that contains the ajax enabled search feature
  */
+
+
 var xmlHttp;
-var numNicknames = 0;  //total number of suggested
+
+var numNicknames = 0;  //total number of suggested account nicknames
 var activeNickname = -1;  //account nickname currently being selected
 var searchBoxObj, suggestionBoxObj;
 
@@ -33,7 +39,7 @@ window.onclick = function () {
     suggestionBoxObj.style.display = 'none';
 };
 
-//set and send XMLHttp request. The parameter is the search term
+//set and send XMLHttp request. The parameter is the query search terms
 function suggest(query) {
     //if the search term is empty, clear the suggestion box.
     if (query === "") {
@@ -42,7 +48,7 @@ function suggest(query) {
     }
 
     //proceed only if the search term isn't empty
-    // open an asynchronous request to the server.
+    // open an asynchronous request to the server, using base url and restfull url, going back to the bank account and suggest method
     xmlHttp.open("GET", BASE_URL + "/BankAccount/suggest/" + query, true);
 
     //handle server's responses
@@ -86,7 +92,7 @@ function displayNicknames(nicknames) {
     suggestionBoxObj.style.display = 'block';
 }
 
-//This function handles keyup event. The funcion is called for every keystroke.
+//This function handles keyup event. The function is called for every keystroke.
 function handleKeyUp(e) {
     // get the key event for different browsers
     e = (!e) ? window.event : e;
@@ -114,7 +120,7 @@ function handleKeyUp(e) {
     if (e.keyCode === 40 && activeNickname < numNicknames - 1) {
         //add code here to handle down arrow key, e.g. select the next item
 
-        if(typeof(activeNicknameObj) != "undefined") {
+        if (typeof (activeNicknameObj) != "undefined") {
             activeNicknameObj.style.backgroundColor = "#FFF";
         }
         activeNickname++;
@@ -123,7 +129,6 @@ function handleKeyUp(e) {
         searchBoxObj.value = activeNicknameObj.innerHTML;
     }
 }
-
 
 
 //when a nickname is clicked, fill the search box with the nickname and then hide the suggestion list
