@@ -7,7 +7,7 @@
  */
 
 
-// Start session if there isnt one
+// Start session if there isn't one
 if (session_status() === PHP_SESSION_NONE)
 {
     // start a session

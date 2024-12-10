@@ -75,3 +75,8 @@ th {
     position: absolute;
     bottom: 150;
 }
+#buttonDiv1{
+    position: absolute;
+    bottom: 150;
+    left : 300;
+}

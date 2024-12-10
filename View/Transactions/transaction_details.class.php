@@ -12,46 +12,42 @@
 class Details extends View
 {
     //define the display method
-    public function display(BankAccount $account): void
+    public function display(Transaction $transaction): void
     {
         //call the header
         $this->header(); ?>
 
-        <h2>Account Details</h2>
+        <h2>Transaction Details</h2>
         <!--        create the table-->
         <table>
             <tr>
                 <th>Account ID</th>
-                <th>Account Nickname</th>
-                <th>Account Type</th>
-                <th>Account Status</th>
-                <th>User ID</th>
+                <th>Transaction Type</th>
+                <th>Transaction Amount</th>
+                <th>Time Stamp </th>
             </tr>
             <tr>
                 <!--                retrieve account details and print in table-->
-                <td><?= $account->getId() ?></td>
-                <td><?= $account->getAccountNickname() ?></td>
-                <td><?= $account->getAccountType() ?></td>
-                <td><?= $account->getAccountStatus() ?></td>
-                <td><?= $account->getUserId() ?></td>
-
+                <td><?= $transaction->getAccountId() ?></td>
+                <td><?= $transaction->getType() ?></td>
+                <td><?= $transaction->getAmmount() ?></td>
+                <td><?= $transaction->getTimestamp() ?></td>
             </tr>
         </table>
         <div>
-            <a href='<?= BASE_URL ?>/BankAccount/all'>
-                <input type="submit" class="button" value="Back to all Accounts">
+            <a href='<?= BASE_URL ?>/Transaction/all'>
+                <input type="submit" class="button" value="Back to all Transactions">
             </a>
         </div>
-
         <div>
-            <a href='<?= BASE_URL ?>/BankAccount/delete/<?= $account->getUserId() ?>'>
+            <a href='<?= BASE_URL ?>/Transaction/delete/<?= $transaction->getAccountId() ?>'>
                 <input type="submit" class="button" value="Delete Account">
             </a>
         </div>
-
         <?php
         //call the footer
         $this->footer();
     } // End Display
 
 }
+
