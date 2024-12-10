@@ -7,6 +7,7 @@
 
 
 var xmlHttp;
+
 var numNicknames = 0;  //total number of suggested account nicknames
 var activeNickname = -1;  //account nickname currently being selected
 var searchBoxObj, suggestionBoxObj;
@@ -33,7 +34,7 @@ window.onload = function () {
     searchBoxObj = document.getElementById('searchtextbox');
     suggestionBoxObj = document.getElementById('suggestionDiv');
 };
-
+//hide suggestions when click off
 window.onclick = function () {
     suggestionBoxObj.style.display = 'none';
 };
