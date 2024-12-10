@@ -2,8 +2,8 @@
  * This script contains AJAX methods
  */
 var xmlHttp;
-var numNicknames = 0;  //total number of suggested movies nicknames
-var activeNickname = -1;  //movie nickname currently being selected
+var numNicknames = 0;  //total number of suggested
+var activeNickname = -1;  //account nickname currently being selected
 var searchBoxObj, suggestionBoxObj;
 
 //this function creates a XMLHttpRequest object. It should work with most types of browsers.
@@ -28,7 +28,7 @@ window.onload = function () {
     searchBoxObj = document.getElementById('searchtextbox');
     suggestionBoxObj = document.getElementById('suggestionDiv');
 };
-
+//hide suggestions when click off
 window.onclick = function () {
     suggestionBoxObj.style.display = 'none';
 };
