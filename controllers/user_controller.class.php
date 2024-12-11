@@ -38,14 +38,14 @@ class UserController {
 
         // Validate POST data. If fails, throw exception
         try {
-            if (!isset($_POST['firstName']) || !isset($_POST['lastName']) || !isset($_POST['emailAddress']) || !isset($_POST['password']) || !isset($_POST['role'])) {
+            if (!isset($_POST['firstName']) || !isset($_POST['lastName']) || !isset($_POST['email']) || !isset($_POST['password']) || !isset($_POST['role'])) {
                 throw new DataMissingException("Could not create user: Required data missing (first name, last name, email, password, or role).");
             }
 
             // Store registration data
             $firstName = htmlspecialchars($_POST['firstName']);
             $lastName = htmlspecialchars($_POST['lastName']);
-            $email = htmlspecialchars($_POST['emailAddress']);
+            $email = htmlspecialchars($_POST['email']);
             $password = htmlspecialchars($_POST['password']);
             $role = htmlspecialchars($_POST['role']);
 
