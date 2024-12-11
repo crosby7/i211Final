@@ -303,4 +303,53 @@ class UserModel
         }
     }
 
+    // public function to allow a user to edit their name
+    public function editAccount($userId, $firstName, $lastName): bool {
+        // create sql
+        $sql = "UPDATE user_account SET firstName = '$firstName', lastName = '$lastName' WHERE userId = $userId";
+
+        // try catch block to handle exceptions
+        try {
+            // execute the query
+            $query = $this->dbConnection->query($sql);
+
+            // if query fails, throw exception
+            if (!$query) {
+                throw new DatabaseExecutionException("Database execution failed. Couldn't update user account.");
+            }
+
+            // query is a bool
+            return $query;
+        }
+        catch (DatabaseExecutionException|Exception $e) {
+            $view = new AccountError();
+            $view->display($e->getMessage());
+            return false;
+        }
+    }
+
+    // public function to delete a user account MUST CHECK IF BANK ACCOUNT EXISTS FIRST
+    public function deleteAccount($userId) {
+        // SQL uses ON DELETE CASCADE. Associated accounts will all be deleted
+        $sql = "DELETE * FROM user_account WHERE userID = $userId";
+
+        // try catch block to handle exceptions
+        try {
+            // execute query
+            $query = $this->dbConnection->query($sql);
+
+            // query is a bool, if false, throw exception
+            if (!$query) {
+                throw new DatabaseExecutionException("Deleting account failed in the process of deletion.");
+            }
+
+            return $query;
+        }
+        catch (DatabaseExecutionException|Exception $e) {
+            $view = new AccountError();
+            $view->display($e->getMessage());
+            return false;
+        }
+    }
+
 }
