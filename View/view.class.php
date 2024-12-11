@@ -33,7 +33,7 @@ class View {
             <a href='<?= BASE_URL ?>/BankAccount/all'>Accounts</a>
             <a href='<?= BASE_URL ?>/Users/all'>Users</a>
             <a href='<?= BASE_URL ?>/Transactions/all'>Transactions</a>
-            <a href='<?= BASE_URL ?>/Users/login'>Login</a>
+            <a href='<?= BASE_URL ?>/User/login'>Login</a>
         </div>
         </div>
 
