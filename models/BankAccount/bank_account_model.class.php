@@ -314,4 +314,49 @@ class BankAccountModel
             return false;
         }
     }
+
+    // public function to allow a user to delete an account
+    public function deleteAccount($accountId): bool {
+        // create sql statement
+        $sql = "DELETE from bank_account WHERE accountId = $accountId";
+
+        // if query fails, throw exception
+        try {
+            // execute the query
+            $query = $this->dbConnection->query($sql);
+
+            // query is a bool. if false, execution failed
+            if (!$query) {
+                throw new DatabaseExecutionException("Deleting account failed.");
+            }
+
+            return $query;
+        }
+        catch (DatabaseExecutionException|Exception $e) {
+            $view = new AccountError();
+            $view->display($e->getMessage());
+            return false;
+        }
+    }
+
+    // public function to get the sum of all credits and debits for a specific account (balance)
+    public function getBalance($accountId): float|bool {
+        // Make sql statement
+        $sql = "SELECT SUM(amount) FROM transaction WHERE accountId = $accountId";
+
+        // execute query
+        $query = $this->dbConnection->query($sql);
+
+        // if query fails or returns no result, return false
+        if (!$query || $query->num_rows == 0) {
+            return false;
+        }
+
+        // Write query result to variable
+        $balance = $query->fetch_column();
+
+        var_dump($balance);
+
+        return $balance;
+    }
 }

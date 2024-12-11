@@ -103,28 +103,4 @@ class TransactionModel
 
         return $transaction;
     }
-
-    // public function to get the sum of all credits and debits for a specific account (balance)
-    public function getBalance($accountId): float|bool {
-        // Make sql statement
-        $sql = "SELECT SUM(amount) FROM transaction WHERE accountId = $accountId";
-
-        // execute query
-        $query = $this->dbConnection->query($sql);
-
-        // if query fails or returns no result, return false
-        if (!$query || $query->num_rows == 0) {
-            return false;
-        }
-
-        // Write query result to variable
-        $balance = $query->fetch_column();
-
-        var_dump($balance);
-
-        return $balance;
-    }
 }
-
-$transactionModel = TransactionModel::getTransactionModel();
-$transactionModel->getBalance(2);

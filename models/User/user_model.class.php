@@ -44,34 +44,70 @@ class UserModel
 
     // Public function to get all users, returned in an array of objects -- return false on error
     public function getUsers(): array|bool {
-        // Create sql statement
-        $sql = "SELECT * FROM user_account";
-
-        // Execute query
-        $query = $this->dbConnection->query($sql);
-
-        // if query fails or returns no rows, return false
-        if (!$query || $query->num_rows == 0) {
+        // only admins should see all accounts. Users should only see THEIR account
+        // so, we will need userId and role from $_SESSION
+        try {
+            if (!isset($_SESSION['role']) || !isset($_SESSION['userId']))
+            {
+                throw new AuthenticationException("User required to display all accounts.");
+            }
+            else {
+                $userId = htmlspecialchars($_SESSION['userId']);
+                $role = htmlspecialchars($_SESSION['role']);
+            }
+        }
+        catch (AuthenticationException|Exception $e) {
+            $view = new AccountError();
+            $view->display($e->getMessage());
             return false;
         }
 
-        // put returned users into an associative array and return the array
-        $users = array();
-        while ($user = $query->fetch_object()) {
-            $account = new User(stripslashes($user->firstName),
-                        stripslashes($user->lastName),
-                        stripslashes($user->emailAddress),
-                        stripslashes($user->password),
-                        stripslashes($user->role));
-
-            // set ID
-            $account->setId($user->userId);
-
-            // add user to array
-            $users[] = $account;
+        if ($role === "Admin") {
+            // Create sql statement
+            $sql = "SELECT * FROM user_account";
+        }
+        else if ($role === "User") {
+            // Create sql statement
+            $sql = "SELECT * FROM user_account WHERE userId = $userId";
         }
 
-        return $users;
+        // try catch block to handle exceptions
+        try {
+            // Execute query
+            $query = $this->dbConnection->query($sql);
+
+            // if query fails or returns no rows, throw exceptions
+            if (!$query) {
+                throw new DatabaseExecutionException("Database execution failed. Could not retrieve users");
+            }
+            else if ($query->num_rows == 0) {
+                throw new DataMissingException("No users could be found.");
+            }
+
+
+            // put returned users into an associative array and return the array
+            $users = array();
+            while ($user = $query->fetch_object()) {
+                $account = new User(stripslashes($user->firstName),
+                    stripslashes($user->lastName),
+                    stripslashes($user->emailAddress),
+                    stripslashes($user->password),
+                    stripslashes($user->role));
+
+                // set ID
+                $account->setId($user->userId);
+
+                // add user to array
+                $users[] = $account;
+            }
+
+            return $users;
+        }
+        catch (DatabaseExecutionException|DataMissingException|Exception $e) {
+            $view = new AccountError();
+            $view->display($e->getMessage());
+            return false;
+        }
     }
 
     // Function to retrieve details of a specific user from an id
@@ -79,28 +115,39 @@ class UserModel
         // Make sql statement
         $sql = "SELECT * FROM user_account WHERE userId = $id";
 
-        // Execute query
-        $query = $this->dbConnection->query($sql);
+        // try catch block to handle exceptions
+        try {
+            // Execute query
+            $query = $this->dbConnection->query($sql);
 
-        // if query fails or returns no users, return false
-        if (!$query || $query->num_rows == 0) {
-            return false;
-        }
+            // if query fails or returns no users, return false
+            if (!$query) {
+                throw new DatabaseExecutionException("Database execution failed.");
+            }
+            else if ($query->num_rows == 0) {
+                throw new DataMissingException("User details could not be found.");
+            }
 
-        // Write query result to object
-        $result = $query->fetch_object();
+            // Write query result to object
+            $result = $query->fetch_object();
 
-        // Make User instance from $result
-        $user = new User(stripslashes($result->firstName),
+            // Make User instance from $result
+            $user = new User(stripslashes($result->firstName),
                 stripslashes($result->lastName),
                 stripslashes($result->emailAddress),
                 stripslashes($result->password),
                 stripslashes($result->role));
 
-        // Set user id
-        $user->setId($result->userId);
+            // Set user id
+            $user->setId($result->userId);
 
-        return $user;
+            return $user;
+        }
+        catch (DatabaseExecutionException|DataMissingException|Exception $e) {
+            $view = new AccountError();
+            $view->display($e->getMessage());
+            return false;
+        }
 
     }
 
@@ -119,16 +166,24 @@ class UserModel
         $sql = "INSERT INTO user_account (firstName, lastName, emailAddress, password, role)";
         $sql .= "VALUES ('$firstName', ''$lastName', '$email', '$password', 'User')";
 
-        // Execute sql
-        $query = $this->dbConnection->query($sql);
+        // try catch block to handle exceptions
+        try {
+            // Execute sql
+            $query = $this->dbConnection->query($sql);
 
-        // if query fails, return false
-        if (!$query) {
+            // if query fails, throw exception
+            if (!$query) {
+                throw new DatabaseExecutionException("Adding user failed.");
+            }
+
+            // User has been added. Return true to controller
+            return true;
+        }
+        catch (DatabaseExecutionException|Exception $e) {
+            $view = new AccountError();
+            $view->display($e->getMessage());
             return false;
         }
-
-        // User has been added. Return true to controller
-        return true;
     }
 
     // public function to verify a user (login)
@@ -146,51 +201,70 @@ class UserModel
         // create sql
         $sql = "SELECT * FROM user_account WHERE emailAddress = '$email'";
 
-        // Execute query
-        $query = $this->dbConnection->query($sql);
+        // try catch block to handle exceptions
+        try {
+            // Execute query
+            $query = $this->dbConnection->query($sql);
 
-        // If query fails, return false
-        if (!$query || $query->num_rows == 0) {
-            return false;
-        }
-
-        // store result in a row
-        $row = $query->fetch_assoc();
-
-        // Verify password
-        if (password_verify($password, $row['password']))
-        {
-            // start session if not started
-            if (session_status() === PHP_SESSION_NONE) {
-                session_start();
+            // If query fails, throw exception
+            if (!$query) {
+                throw new DatabaseExecutionException("Database execution failed. User could not be verified.");
+            }
+            else if ($query->num_rows == 0) {
+                throw new DataMissingException("Email does not match a user account.");
             }
 
-            // Store user info in SESSION vars
-            $_SESSION['firstName'] = $row['firstName'];
-            $_SESSION['emailAddress'] = $row['emailAddress'];
-            $_SESSION['role'] = $row['role'];
-            $_SESSION['userId'] = $row['userId'];
-            return true;
+            // store result in a row
+            $row = $query->fetch_assoc();
+
+            // Verify password
+            if (password_verify($password, $row['password']))
+            {
+                // start session if not started
+                if (session_status() === PHP_SESSION_NONE) {
+                    session_start();
+                }
+
+                // Store user info in SESSION vars
+                $_SESSION['firstName'] = $row['firstName'];
+                $_SESSION['emailAddress'] = $row['emailAddress'];
+                $_SESSION['role'] = $row['role'];
+                $_SESSION['userId'] = $row['userId'];
+                return true;
+            }
+            else {
+                throw new AuthenticationException("Password verification failed.");
+            }
         }
-        else {
+        catch (DatabaseExecutionException|DataMissingException|AuthenticationException|Exception $e) {
+            $view = new AccountError();
+            $view->display($e->getMessage());
             return false;
         }
     }
 
     // public function to log a user out (remove session vars)
     public function logout(): bool {
-        // Destroy session vars and return true to controller
-        $_SESSION = array();
-        setcookie(session_id(), "", time() - 3600);
-        session_destroy();
-        session_write_close();
+        // try catch block to handle exceptions
+        try {
+            // Destroy session vars and return true to controller
+            $_SESSION = array();
+            setcookie(session_id(), "", time() - 3600);
+            session_destroy();
+            session_write_close();
 
-        // if the user is successfully logged out, return true
-        if (!isset($_SESSION['firstName'])) {
-            return true;
+            // if the user is successfully logged out, return true
+            if (!isset($_SESSION['firstName'])) {
+                return true;
+            }
+            else {
+                // failed to sign out
+                throw new AuthenticationException("Failed to sign out.");
+            }
         }
-        else {
-            // failed to sign out
+        catch (AuthenticationException|Exception $e) {
+            $view = new AccountError();
+            $view->display($e->getMessage());
             return false;
         }
     }
@@ -210,11 +284,23 @@ class UserModel
         // SQL to update password for that user
         $sql = "UPDATE user_account SET password = '$password' WHERE emailAddress = '$email'";
 
-        // Execute the query
-        $query = $this->dbConnection->query($sql);
+        // try catch block to handle exceptions
+        try {
+            // Execute the query
+            $query = $this->dbConnection->query($sql);
 
-        // query will return a bool
-        return $query;
+            if (!$query) {
+                throw new DatabaseExecutionException("Failed to reset password.");
+            }
+
+            // query will return true
+            return $query;
+        }
+        catch (DatabaseExecutionException|Exception $e) {
+            $view = new AccountError();
+            $view->display($e->getMessage());
+            return false;
+        }
     }
 
 }
