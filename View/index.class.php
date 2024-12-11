@@ -19,12 +19,10 @@ class Index extends View
 <!--            page specific content and button-->
 
            <h1 style="color: green">Welcome to the Home Screen</h1>
-        <a href='<?= BASE_URL ?>/Users/login'>Click Here to Log in</a>
-           <div>
-               <a href='<?= BASE_URL ?>/BankAccount/all'>
-                    <input type="submit" class="button" value="Go to All Accounts">
-               </a>
-           </div>
+        <h2><a href='<?= BASE_URL ?>/User/login'>Click Here to Log in</a></h2>
+        <h2>Don't have an account?</h2>
+        <h3><a href='<?= BASE_URL ?>/User/create'>Click Here to Create an Account</a></h3>
+
         <?php
         //call the footer
         $this->footer();

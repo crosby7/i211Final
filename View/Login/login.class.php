@@ -14,17 +14,17 @@ class Login extends View{
         $this->header(); ?>
         <div>Login</div>
         <div>
-            <p>Please enter your username and password.</p>
+            <p>Please enter your email and password.</p>
             <form method="post" action="<?=BASE_URL?>/User/verify">
-                <div><input type="text" name="username" style="width: 99%" required="" placeholder="Username"></div>
+                <div><input type="text" name="eamil" style="width: 99%" required="" placeholder="Email"></div>
                 <div><input type="password" name="password" style="width: 99%" required="" placeholder="Password"></div>
                 <div><input type="submit" class="button" value="Login"></div>
             </form>
         </div>
-        <div>
-            <span style="float: left">Dont have an account? <a href="<?=BASE_URL?>/User/create">Create an Account</a></span>
-            <span style="float: right"></span>
-        </div>
+<!--        <div>-->
+<!--            <span style="float: left">Dont have an account? <a href="--><?php //=BASE_URL?><!--/User/create">Create an Account</a></span>-->
+<!--            <span style="float: right"></span>-->
+<!--        </div>-->
         <?php //call the footer
         $this->footer();
     }
