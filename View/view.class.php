@@ -31,8 +31,8 @@ class View {
         <div class="topnav">
             <a href='<?= BASE_URL ?>/index.php'>Home</a>
             <a href='<?= BASE_URL ?>/BankAccount/all'>Accounts</a>
-            <a href='<?= BASE_URL ?>/Users/all'>Users</a>
-            <a href='<?= BASE_URL ?>/Transactions/all'>Transactions</a>
+            <a href='<?= BASE_URL ?>/User/all'>Users</a>
+            <a href='<?= BASE_URL ?>/Transaction/all'>Transactions</a>
             <a href='<?= BASE_URL ?>/User/login'>Login</a>
         </div>
         </div>
