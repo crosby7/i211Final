@@ -23,8 +23,11 @@ class View {
                 var BASE_URL = "<?= BASE_URL ?>";
             </script>
         </head>
-        <div id="header" style="text-align: center">
-        <h1><span style="color: plum; font-family: 'Serif'; font-size: 36pt">Framework Financial Services</span></h1>
+        <div id="header">
+          <div id="Rlogo"><img src="<?= BASE_URL ?>/logo.jpg" width = 70 height = 85 alt="logo image"></div>
+            <div id="Llogo"><img src="<?= BASE_URL ?>/logo.jpg" width = 70 height = 85 alt="logo image"></div>
+        <h1 style="color: green; font-family: 'Monaco'; font-size: 36pt; text-align: center">Framework Financial Services</h1>
+
         <div class="topnav">
             <a href='<?= BASE_URL ?>/index.php'>Home</a>
             <a href='<?= BASE_URL ?>/BankAccount/all'>Accounts</a>
