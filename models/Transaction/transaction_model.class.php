@@ -56,7 +56,7 @@ class TransactionModel
             }
         }
         catch (AuthenticationException|Exception $e) {
-            $view = new AccountError();
+            $view = new TransactionError();
             $view->display($e->getMessage());
             return false;
         }
@@ -67,35 +67,46 @@ class TransactionModel
         }
         else if ($role == "User") {
             // create sql
-            $sql = "SELECT * FROM transaction";
+            $sql = "SELECT * FROM transaction WHERE userId = $userId";
         }
 
 
-        // execute the query
-        $query = $this->dbConnection->query($sql);
+        // try catch block to handle exceptions
+        try {
+            // execute the query
+            $query = $this->dbConnection->query($sql);
 
-        // if query fails or returns no rows, return false
-        if (!$query || $query->num_rows == 0) {
+            // if query fails or returns no rows, throw exception
+            if (!$query) {
+                throw new DatabaseExecutionException("Database error. Could not get transactions.");
+            }
+            else if ($query->num_rows == 0) {
+                throw new DataMissingException("No transactions could be found.");
+            }
+
+            // put returned transactions in an array
+            $transactions = array();
+            while ($transact = $query->fetch_object()) {
+                // make a new Transaction instance
+                $result = new Transaction(stripslashes($transact->accountId),
+                    stripslashes($transact->type),
+                    stripslashes($transact->amount),
+                    stripslashes($transact->time));
+
+                // set ID
+                $result->setId($transact->transactionId);
+
+                // add accounts to array
+                $transactions[] = $result;
+            }
+
+            return $transactions;
+        }
+        catch (DatabaseExecutionException|DataMissingException|Exception $e) {
+            $view = new TransactionError();
+            $view->display($e->getMessage());
             return false;
         }
-
-        // put returned transactions in an array
-        $transactions = array();
-        while ($transact = $query->fetch_object()) {
-            // make a new Transaction instance
-            $result = new Transaction(stripslashes($transact->accountId),
-                stripslashes($transact->type),
-                stripslashes($transact->amount),
-                stripslashes($transact->time));
-
-            // set ID
-            $result->setId($transact->transactionId);
-
-            // add accounts to array
-            $transactions[] = $result;
-        }
-
-        return $transactions;
     }
 
     // function to get details of a specific transaction
@@ -103,27 +114,62 @@ class TransactionModel
         // make sql
         $sql = "SELECT * FROM transaction WHERE transactionId = $id";
 
-        // execute query
-        $query = $this->dbConnection->query($sql);
+        // try catch block to handle exceptions
+        try {
+            // execute query
+            $query = $this->dbConnection->query($sql);
 
-        // if query fails or returns no rows, return false
-        if (!$query || $query->num_rows == 0) {
+            // if query fails or returns no rows, throw exceptions
+            if (!$query) {
+                throw new DatabaseExecutionException("Database error. Could not get transaction details.");
+            }
+            else if ($query->num_rows == 0) {
+                throw new DataMissingException("Transaction details could not be found.");
+            }
+
+            // write query result to object
+            $result = $query->fetch_object();
+
+            // Make Transaction instance from result
+            $transaction = new Transaction(stripslashes($result->accountId),
+                stripslashes($result->type),
+                stripslashes($result->amount),
+                stripslashes($result->time)
+            );
+
+            // set transaction id
+            $transaction->setId($result->transactionId);
+
+            return $transaction;
+        }
+        catch (DatabaseExecutionException|DataMissingException|Exception $e) {
+            $view = new TransactionError();
+            $view->display($e->getMessage());
             return false;
         }
+    }
 
-        // write query result to object
-        $result = $query->fetch_object();
+    // public function to add a new transaction for the selected account
+    public function addTransaction($accountId, $type, $amount): bool {
+        // create sql
+        $sql = "INSERT INTO transaction (accountId, type, amount, time) VALUES ($accountId, $type, $amount, CURRENT_TIMESTAMP)";
 
-        // Make Transaction instance from result
-        $transaction = new Transaction(stripslashes($result->accountId),
-            stripslashes($result->type),
-            stripslashes($result->amount),
-            stripslashes($result->time)
-        );
+        // try catch block to handle exceptions
+        try {
+            // execute the query
+            $query = $this->dbConnection->query($sql);
 
-        // set transaction id
-        $transaction->setId($result->transactionId);
+            // query is a bool. if false, query failed.
+            if (!$query) {
+                throw new DatabaseExecutionException("Database error. Could not complete transaction.");
+            }
 
-        return $transaction;
+            return $query;
+        }
+        catch (DatabaseExecutionException|Exception $e) {
+            $view = new TransactionError();
+            $view->display($e->getMessage());
+            return false;
+        }
     }
 }
