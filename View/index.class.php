@@ -18,7 +18,7 @@ class Index extends View
         $this->header(); ?>
 <!--            page specific content and button-->
 
-           <h1>Welcome to the Home Screen</h1>
+           <h1 style="color: lightpink">Welcome to the Home Screen</h1>
            <div>
                <a href='<?= BASE_URL ?>/BankAccount/all'>
                     <input type="submit" class="button" value="Go to All Accounts">
