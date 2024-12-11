@@ -7,7 +7,7 @@
  */
 
 //create the class
-class Users extends View
+class CreateUser extends View
 {
     //define the display method
     public function display(): void

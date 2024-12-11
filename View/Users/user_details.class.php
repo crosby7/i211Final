@@ -9,7 +9,7 @@
  */
 
 //create the class
-class Details extends View
+class UserDetails extends View
 {
     //define the display method
     public function display(Users $user): void

@@ -10,7 +10,7 @@
 
 
 //create the class
-class Users extends View
+class AllUser extends View
 {
     //display method
     public function display(array $users): void
@@ -21,12 +21,12 @@ class Users extends View
 
         <h2>All Users</h2>
         <div>
-            <a href='<?= BASE_URL ?>/Users/create'>
+            <a href='<?= BASE_URL ?>/User/create'>
                 <input type="submit" class="button" value="Create a new User">
             </a>
         </div>
         <div id="buttonDiv">
-            <a href='<?= BASE_URL ?>/Users/editForm'>
+            <a href='<?= BASE_URL ?>/User/editForm'>
                 <input id="createButton" type="submit" class="button" value="Edit a User">
             </a>
         </div>
