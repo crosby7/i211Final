@@ -45,8 +45,33 @@ class TransactionModel
 
     // public function to get all transactions
     public function getTransactions(): array|bool {
-        // create sql
-        $sql = "SELECT * FROM transaction";
+        // only admins should see all transactions. Users should only see all of THEIR transactions
+        // so, we will need userId and role from $_SESSION
+        try {
+            if (!isset($_SESSION['role']) || !isset($_SESSION['userId']))
+            {
+                throw new AuthenticationException("User required to display all transactions.");
+            }
+            else {
+                $userId = htmlspecialchars($_SESSION['userId']);
+                $role = htmlspecialchars($_SESSION['role']);
+            }
+        }
+        catch (AuthenticationException|Exception $e) {
+            $view = new AccountError();
+            $view->display($e->getMessage());
+            return false;
+        }
+
+        if ($role == "Admin") {
+            // create sql
+            $sql = "SELECT * FROM transaction";
+        }
+        else if ($role == "User") {
+            // create sql
+            $sql = "SELECT * FROM transaction";
+        }
+
 
         // execute the query
         $query = $this->dbConnection->query($sql);
