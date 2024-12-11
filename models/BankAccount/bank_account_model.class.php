@@ -94,7 +94,8 @@ class BankAccountModel
                 $account = new BankAccount($accountNickname,
                     stripslashes($bankAccount->accountType),
                     stripslashes($bankAccount->accountStatus),
-                    stripslashes($bankAccount->userId));
+                    stripslashes($bankAccount->userId),
+                ($bankAccount->total));
 
                 // set ID
                 $account->setId($bankAccount->accountId);
@@ -142,7 +143,9 @@ class BankAccountModel
                 $accountNickname,
                 stripslashes($result->accountType),
                 stripslashes($result->accountStatus),
-                stripslashes($result->userId)
+                stripslashes($result->userId),
+                ($result->total)
+
             );
 
             // Set account id
@@ -221,7 +224,8 @@ class BankAccountModel
                 $account = new BankAccount($accountNickname,
                     stripslashes($bankAccount->accountType),
                     stripslashes($bankAccount->accountStatus),
-                    stripslashes($bankAccount->userId));
+                    stripslashes($bankAccount->userId),
+                    ($bankAccount->total));
 
                 // set ID
                 $account->setId($bankAccount->accountId);
@@ -270,7 +274,7 @@ class BankAccountModel
         $accountStatus = "Good Standing";
 
         // create sql
-        $sql = "INSERT INTO bank_account (accountNickname, accountType, accountStatus, userId) VALUES ('$accountNickname', '$accountType', '$accountStatus', '$userId')";
+        $sql = "INSERT INTO bank_account (accountNickname, accountType, accountStatus, userId, total) VALUES ('$accountNickname', '$accountType', '$accountStatus', '$userId', 0)";
 
         try {
             // execute query
@@ -359,4 +363,5 @@ class BankAccountModel
 
         return $balance;
     }
+
 }

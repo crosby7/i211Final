@@ -26,7 +26,7 @@ class AllUser extends View
             </a>
         </div>
         <div id="buttonDiv">
-            <a href='<?= BASE_URL ?>/User/editForm'>
+            <a href='<?= BASE_URL ?>/User/edit'>
                 <input id="createButton" type="submit" class="button" value="Edit a User">
             </a>
         </div>

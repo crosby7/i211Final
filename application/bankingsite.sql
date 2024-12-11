@@ -35,7 +35,8 @@ CREATE TABLE `bank_account` (
   `accountNickname` varchar(50) DEFAULT NULL,
   `accountType` enum('Checking','Savings') NOT NULL,
   `accountStatus` enum('Good Standing','Overdrawn') NOT NULL,
-  `userId` int(11) NOT NULL
+  `userId` int(11) NOT NULL,
+  `total` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -48,12 +49,12 @@ CREATE TABLE `bank_account` (
 -- Dumping data for table `bank_account`
 --
 
-INSERT INTO `bank_account` (`accountId`, `accountNickname`, `accountType`, `accountStatus`, `userId`) VALUES
-(1, NULL, 'Checking', 'Good Standing', 1),
-(2, 'My First Savings Account', 'Savings', 'Good Standing', 2),
-(3, 'House Account', 'Checking', 'Overdrawn', 3),
-(4, NULL, 'Checking', 'Good Standing', 2),
-(5, NULL, 'Savings', 'Good Standing', 4);
+INSERT INTO `bank_account` (`accountId`, `accountNickname`, `accountType`, `accountStatus`, `userId`, `total`) VALUES
+(1, NULL, 'Checking', 'Good Standing', 1, 0),
+(2, 'My First Savings Account', 'Savings', 'Good Standing', 2, 0),
+(3, 'House Account', 'Checking', 'Overdrawn', 3, 0),
+(4, NULL, 'Checking', 'Good Standing', 2, 0),
+(5, NULL, 'Savings', 'Good Standing', 4, 0);
 
 -- --------------------------------------------------------
 
