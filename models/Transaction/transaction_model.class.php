@@ -7,8 +7,6 @@
  * Description: Defines the TransactionModel class, responsible for accessing and manipulating data related to the transaction table
  */
 
-require_once ('../../application/database.class.php');
-require_once ('transaction.class.php');
 class TransactionModel
 {
     // private attributes
