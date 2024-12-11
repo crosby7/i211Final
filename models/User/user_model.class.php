@@ -194,10 +194,6 @@ class UserModel
             return false;
         }
 
-        // store login attempt info
-        $email = htmlspecialchars($_POST['emailAddress']);
-        $password = htmlspecialchars($_POST['password']);
-
         // create sql
         $sql = "SELECT * FROM user_account WHERE emailAddress = '$email'";
 
@@ -329,7 +325,7 @@ class UserModel
     }
 
     // public function to delete a user account MUST CHECK IF BANK ACCOUNT EXISTS FIRST
-    public function deleteAccount($userId) {
+    public function deleteAccount($userId): bool {
         // SQL uses ON DELETE CASCADE. Associated accounts will all be deleted
         $sql = "DELETE * FROM user_account WHERE userID = $userId";
 

@@ -41,7 +41,23 @@ class UserController {
     //verify user credentials to properly login
     public function verify(): void
     {
-        $verify = $this->user_model->login();
+        // validate POST data. If fails, throw exception
+        try {
+            if (!isset($_POST['emailAddress']) || !isset($_POST['password']))
+            {
+                throw new DataMissingException("Could not login: email or password missing.");
+            }
+
+            // store login attempt info
+            $email = htmlspecialchars($_POST['emailAddress']);
+            $password = htmlspecialchars($_POST['password']);
+
+        }
+        catch (DataMissingException|Exception $e) {
+            $view = new AccountError();
+            $view->display($e->getMessage());
+        }
+        $verify = $this->user_model->login($email, $password);
         if (!$verify) {
             $message = "User verification unsuccessful.";
             $view = new UserError();
