@@ -213,6 +213,8 @@ class UserModel
             // store result in a row
             $row = $query->fetch_assoc();
 
+            var_dump($password);
+            var_dump($row['password']);
             // Verify password
             if (password_verify($password, $row['password']))
             {
@@ -233,7 +235,7 @@ class UserModel
             }
         }
         catch (DatabaseExecutionException|DataMissingException|AuthenticationException|Exception $e) {
-            $view = new AccountError();
+            $view = new UserError();
             $view->display($e->getMessage());
             return false;
         }

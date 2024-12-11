@@ -87,7 +87,6 @@ class Dispatcher {
         //console_php('ARGS:');
         //console_php($args);
 
-        var_dump($controller, $method, $args);
         //call a method with a variable number of arguments
         call_user_func_array(array($controller, $method), $args);
     }

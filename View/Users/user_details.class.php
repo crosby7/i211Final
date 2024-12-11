@@ -12,7 +12,7 @@
 class UserDetails extends View
 {
     //define the display method
-    public function display(Users $user): void
+    public function display(User $user): void
     {
         //call the header
         $this->header(); ?>

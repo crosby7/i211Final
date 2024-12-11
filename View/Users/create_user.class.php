@@ -15,7 +15,7 @@ class CreateUser extends View
         //call the header
         $this->header(); ?>
 
-        <form class="new-media" action="<?= BASE_URL ?>/User/create" method="post" style="border: 1px solid #bbb; margin-top: 10px; padding: 10px;">
+        <form class="new-media" action="<?= BASE_URL ?>/User/register" method="post" style="border: 1px solid #bbb; margin-top: 10px; padding: 10px;">
             <input type="hidden" name="id" value="10">
             <p><strong>First Name</strong>:
                 <input name="firstName" type="text" size="350" value="" autofocus=""></p>

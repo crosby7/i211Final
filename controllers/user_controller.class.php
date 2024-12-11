@@ -52,21 +52,18 @@ class UserController {
             $email = htmlspecialchars($_POST['emailAddress']);
             $password = htmlspecialchars($_POST['password']);
 
+            $verify = $this->user_model->login($email, $password);
+
+            //display successful login
+            $view = new VerifyUser();
+            $view->display($verify);
+
         }
-        catch (DataMissingException|Exception $e) {
-            $view = new AccountError();
+        catch (DatabaseExecutionException|DataMissingException|AuthenticationException|Exception $e) {
+            $view = new UserError();
             $view->display($e->getMessage());
         }
-        $verify = $this->user_model->login($email, $password);
-        if (!$verify) {
-            $message = "User verification unsuccessful.";
-            $view = new UserError();
-            $view->display($message);
-            return;
-        }
-        //display successful login
-        $view = new VerifyUser();
-        $view->display();
+
     }
     //logout user
     public function logout(): void
@@ -113,6 +110,57 @@ class UserController {
         $view->display();
 
     }
+
+    // public method to display all users
+    public function all(): void
+    {
+        // Retrieve all users from the model
+        $accounts = $this->user_model->getUsers();
+
+        // check if accounts are found
+        if ($accounts) {
+            $view = new AllUser();
+            $view->display($accounts);
+        } else if($accounts === 0){
+            $message = "No accounts found.";
+            $view = new UserError();
+            $view->display($message);
+        } else {
+            $message = "An error has occurred with your request.";
+            $view = new UserError();
+            $view->display($message);
+        }
+    }
+
+    //display details page
+    public function details($id = null): void {
+        if ($id === null) {
+            // error
+            $message = "No account specified.";
+            $view = new UserError();
+            $view->display($message);
+            die();
+        }
+
+        $id = htmlspecialchars($id);
+
+        // Retrieve user details from the model
+        $account = $this->user_model->getDetails($id);
+        if ($account) {
+            $view = new UserDetails();
+            $view->display($account);
+        } else if($account === 0){
+            $message = "No account details found.";
+            $view = new UserError();
+            $view->display($message);
+        }else{
+            // If no user found, show an error message
+            $message = "An error has occurred with your request.";
+            $view = new AccountError();
+            $view->display($message);
+        }
+    }
+
     //create error message
     public function error($message): void
     {

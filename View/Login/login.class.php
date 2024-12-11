@@ -16,7 +16,7 @@ class Login extends View{
         <div>
             <p>Please enter your email and password.</p>
             <form method="post" action="<?=BASE_URL?>/User/verify">
-                <div><input type="text" name="eamil" style="width: 99%" required="" placeholder="Email"></div>
+                <div><input type="text" name="emailAddress" style="width: 99%" required="" placeholder="Email"></div>
                 <div><input type="password" name="password" style="width: 99%" required="" placeholder="Password"></div>
                 <div><input type="submit" class="button" value="Login"></div>
             </form>
