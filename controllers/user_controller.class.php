@@ -18,13 +18,17 @@ class UserController {
 
     public function register(): void
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // If the form is submitted, call the create method
-            $this->create();
-        } else {
-            // Display the registration form
-            $view = new CreateUser();
-            $view->display();
+        try {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $this->create();
+            } else {
+                // Display the registration form
+                $view = new CreateUser();
+                $view->display();
+            }
+        } catch (Exception $e) {
+            $view = new UserError();
+            $view->display($e->getMessage());
         }
     }
 
@@ -32,25 +36,34 @@ class UserController {
     public function create(): void
     {
 
-        // Get user registration info from post
-        $firstName = htmlspecialchars($_POST['firstName']);
-        $lastName = htmlspecialchars($_POST['lastName']);
-        $email = htmlspecialchars($_POST['email']);
-        $password = htmlspecialchars($_POST['password']);
-        $role = htmlspecialchars($_POST['role']);
+        // Validate POST data. If fails, throw exception
+        try {
+            if (!isset($_POST['firstName']) || !isset($_POST['lastName']) || !isset($_POST['emailAddress']) || !isset($_POST['password']) || !isset($_POST['role'])) {
+                throw new DataMissingException("Could not create user: Required data missing (first name, last name, email, password, or role).");
+            }
+
+            // Store registration data
+            $firstName = htmlspecialchars($_POST['firstName']);
+            $lastName = htmlspecialchars($_POST['lastName']);
+            $email = htmlspecialchars($_POST['emailAddress']);
+            $password = htmlspecialchars($_POST['password']);
+            $role = htmlspecialchars($_POST['role']);
 
 
-        $user = $this->user_model->addUser($firstName,$lastName,$email,$password,$role);
+            $user = $this->user_model->addUser($firstName, $lastName, $email, $password, $role);
 
-        if (!$user) {
-            $message = "An error occurred and user could not be added.";
+            if (!$user) {
+                throw new DatabaseExecutionException("An error occurred and user could not be added.");
+            }
+
+
+            $view = new Register();
+            $view->display("User successfully created!");
+
+        } catch (DataMissingException|DatabaseExecutionException|Exception $e) {
             $view = new UserError();
-            $view->display($message);
-            return;
+            $view->display($e->getMessage());
         }
-        //display register message
-        $view = new Register();
-        $view->display();
     }
     //display login page form
     public function login(): void
