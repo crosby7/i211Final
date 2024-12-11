@@ -102,6 +102,7 @@ class UserController {
     //logout user
     public function logout(): void
     {
+        try {
         //
         $logout = $this->user_model->logout();
         if (!$logout) {
@@ -113,6 +114,11 @@ class UserController {
         //display logout success
         $view = new Logout();
         $view->display();
+        }
+        catch (AuthenticationException|Exception $e) {
+            $view = new AccountError();
+            $view->display($e->getMessage());
+        }
     }
     //display the reset password form
     public function reset(): void
@@ -148,7 +154,17 @@ class UserController {
     // public method to display all users
     public function all(): void
     {
-        // Retrieve all users from the model
+        try {
+            $accounts = $this->user_model->getUsers();
+            if ($accounts) {
+                $view = new AllUser();
+                $view->display($accounts);
+            }
+        } catch (DatabaseExecutionException|DataMissingException|AuthenticationException|Exception $e) {
+            $view = new UserError();
+            $view->display($e->getMessage());
+        }
+      /*  // Retrieve all users from the model
         $accounts = $this->user_model->getUsers();
 
         // check if accounts are found
@@ -163,7 +179,7 @@ class UserController {
             $message = "An error has occurred with your request.";
             $view = new UserError();
             $view->display($message);
-        }
+        }*/
     }
 
     //display details page

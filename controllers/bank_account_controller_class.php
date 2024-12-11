@@ -25,8 +25,12 @@ class BankAccountController {
     {
         try {
             $accounts = $this->accountModel->getBankAccounts();
+            if ($accounts) {
+                $view = new Accounts();
+                $view->display($accounts);
+            }
 
-            // check if accounts are found
+          /*  // check if accounts are found
             if ($accounts) {
                 $view = new Accounts();
                 $view->display($accounts);
@@ -34,7 +38,7 @@ class BankAccountController {
                 // Handle case where no accounts are found
                 $message = "No accounts found.";
                 $view = new AccountError();
-                $view->display($message);}
+                $view->display($message);}*/
         } catch (AuthenticationException $e){
             $view = new AccountError();
             $view->display("Authentication Error: " . $e->getMessage());

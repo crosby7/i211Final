@@ -20,7 +20,18 @@ class TransactionController
     // Display all transactions
     public function all(): void
     {
-        // get all transactions from the model
+        try {
+            $transactions = $this->transaction_model->getTransactions();
+            if ($transactions){
+                // Pass transactions to the view for display
+                $view = new TransactionsView();
+                $view->display($transactions);
+            }
+        } catch (Exception $e){
+            $view = new TransactionError();
+            $view->display($e->getMessage());
+        }
+        /*// get all transactions from the model
         $transactions = $this->transaction_model->getTransactions();
 
         // Check if transactions were retrieved successfully
@@ -33,7 +44,7 @@ class TransactionController
 
         // Pass transactions to the view for display
         $view = new TransactionsView();
-        $view->display($transactions);
+        $view->display($transactions);*/
     }
 
     // Display details of a specific transaction
