@@ -19,7 +19,7 @@ class Accounts extends View
         $this->header();
         ?>
 
-        <h2>All Bank Accounts</h2>
+        <h2 style="color: lightpink">All Bank Accounts</h2>
         <!-- search bar-->
         <div id="searchbar">
             <form method="get" action="<?= BASE_URL ?>/BankAccount/search">
@@ -62,6 +62,7 @@ class Accounts extends View
                     <td><?= $a->getAccountNickname() ?></td>
                     <td><?= $a->getAccountType() ?></td>
                     <td><?= $a->getUserId() ?></td>
+                    <td>$$$$$$</td>
                 </tr>
 
                 <?php
