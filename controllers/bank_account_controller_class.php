@@ -23,7 +23,26 @@ class BankAccountController {
 //display index page with user accounts
     public function all(): void
     {
-        // Retrieve all users from the model
+        try {
+            $accounts = $this->accountModel->getBankAccounts();
+
+            // check if accounts are found
+            if ($accounts) {
+                $view = new Accounts();
+                $view->display($accounts);
+            } else {
+                // Handle case where no accounts are found
+                $message = "No accounts found.";
+                $view = new AccountError();
+                $view->display($message);}
+        } catch (AuthenticationException $e){
+            $view = new AccountError();
+            $view->display("Authentication Error: " . $e->getMessage());
+        } catch (Exception $e) {
+            $view = new AccountError();
+            $view->display("An error has occurred: " . $e->getMessage());
+        }
+        /*// Retrieve all users from the model
         $accounts = $this->accountModel->getBankAccounts();
 
         // check if accounts are found
@@ -38,11 +57,14 @@ class BankAccountController {
             $message = "An error has occurred with your request.";
             $view = new AccountError();
             $view->display($message);
-        }
+        }*/
     }
 
     //display details page
     public function details($id = null): void {
+        try {
+
+
         if ($id === null) {
             // error
             $message = "No account specified.";
@@ -55,9 +77,11 @@ class BankAccountController {
 
         // Retrieve user details from the model
         $account = $this->accountModel->getAccountDetails($id);
+        $balance = $this->accountModel->getBalance($id);
+
         if ($account) {
             $view = new Details();
-            $view->display($account);
+            $view->display($account, $balance);
         } else if($account === 0){
             $message = "No account details found.";
             $view = new AccountError();
@@ -67,6 +91,14 @@ class BankAccountController {
             $message = "An error has occurred with your request.";
             $view = new AccountError();
             $view->display($message);
+        }
+        } catch (DatabaseExecutionException|DataMissingException $e) {
+            $view = new AccountError();
+            $view->display($e->getMessage());
+        }catch (Exception $e) {
+            // Handle any other exceptions
+            $view = new AccountError();
+            $view->display("An unexpected error occurred: " . $e->getMessage());
         }
     }
 

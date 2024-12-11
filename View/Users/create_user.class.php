@@ -22,7 +22,9 @@ class CreateUser extends View
             <p><strong>Last Name</strong>:
                 <input name="lastName" type="text" size="350" value="" autofocus=""></p>
             <p><strong>Email</strong>: <br>
-                <input name="email" type="test" size="350" required=""></p>
+                <input name="email" type="text" size="350" required=""></p>
+            <p><strong>Password</strong>: <br>
+                <input name="password" type="text" size="350" required=""></p>
             <p><strong>Role</strong>:
                 <select name="role" id="accountType">
                     <option value="regular">Regular User</option>

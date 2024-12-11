@@ -16,10 +16,31 @@ class UserController {
         $this->user_model = UserModel::getUserModel();
     }
 
-    //register user to database
     public function register(): void
     {
-        $user = $this->user_model->addUser();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // If the form is submitted, call the create method
+            $this->create();
+        } else {
+            // Display the registration form
+            $view = new CreateUser();
+            $view->display();
+        }
+    }
+
+    //register user to database
+    public function create(): void
+    {
+
+        // Get user registration info from post
+        $firstName = htmlspecialchars($_POST['firstName']);
+        $lastName = htmlspecialchars($_POST['lastName']);
+        $email = htmlspecialchars($_POST['email']);
+        $password = htmlspecialchars($_POST['password']);
+        $role = htmlspecialchars($_POST['role']);
+
+
+        $user = $this->user_model->addUser($firstName,$lastName,$email,$password,$role);
 
         if (!$user) {
             $message = "An error occurred and user could not be added.";
