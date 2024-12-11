@@ -23,7 +23,7 @@ class AccountError extends View
 
         <!-- error message -->
         <div>
-            <h3 style="color: white">We are sorry, but an error has occurred.</h3>
+            <h3 style="color: white">We are sorry, but an account error has occurred.</h3>
             <p><?= $message ?></p>
         </div>
 
