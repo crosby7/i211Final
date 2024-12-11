@@ -43,8 +43,32 @@ class BankAccountModel
     }
     // Public function to get all bank accounts, returned in an array of objects -- return false on error
     public function getBankAccounts(): array|bool {
-        // Create sql statement
-        $sql = "SELECT * FROM bank_account";
+        // only admins should see all accounts. Users should only see all of THEIR accounts
+        // so, we will need userId and role from $_SESSION
+        try {
+            if (!isset($_SESSION['role']) || !isset($_SESSION['userId']))
+            {
+                throw new AuthenticationException("User required to display all accounts.");
+            }
+            else {
+                $userId = htmlspecialchars($_SESSION['userId']);
+                $role = htmlspecialchars($_SESSION['role']);
+            }
+        }
+        catch (AuthenticationException|Exception $e) {
+            $view = new AccountError();
+            $view->display($e->getMessage());
+            return false;
+        }
+
+        if ($role === "Admin") {
+            // Create sql statement to see ALL accounts
+            $sql = "SELECT * FROM bank_account";
+        }
+        else if ($role === "User") {
+            // Create sql statement
+            $sql = "SELECT * FROM bank_account WHERE userId = $userId";
+        }
 
         try {
             // Execute query
@@ -140,8 +164,32 @@ class BankAccountModel
         //explode multiple terms into an array
         $terms = explode(" ", $terms);
 
-        // select statement for AND search
-        $sql = "SELECT * FROM bank_account WHERE 1 ";
+        // only admins should see all accounts. Users should only see all of THEIR accounts
+        // so, we will need userId and role from $_SESSION
+        try {
+            if (!isset($_SESSION['role']) || !isset($_SESSION['userId']))
+            {
+                throw new AuthenticationException("User required to display all accounts.");
+            }
+            else {
+                $userId = htmlspecialchars($_SESSION['userId']);
+                $role = htmlspecialchars($_SESSION['role']);
+            }
+        }
+        catch (AuthenticationException|Exception $e) {
+            $view = new AccountError();
+            $view->display($e->getMessage());
+            return false;
+        }
+
+        if ($role === "Admin") {
+            // Create sql statement to see ALL accounts (search terms added after
+            $sql = "SELECT * FROM bank_account WHERE 1 ";
+        }
+        else if ($role === "User") {
+            // Create sql statement
+            $sql = "SELECT * FROM bank_account WHERE userId = $userId ";
+        }
 
         foreach ($terms as $term) {
             $sql .= "AND accountNickname LIKE '%" . $term . "%'";
@@ -195,10 +243,13 @@ class BankAccountModel
 
     // public function to create new bank account
     public function createAccount(): bool {
-        // to create an account, a user role is needed. If SESSION is not active, this method must throw an exception
+        // to create an account, a user id is needed. If SESSION is not active, this method must throw an exception
         try {
-            if (!isset($_SESSION['role'])) {
+            if (!isset($_SESSION['userId'])) {
                 throw new AuthenticationException("User could not be verified.");
+            }
+            else {
+                $userId = htmlspecialchars($_SESSION['userId']);
             }
         }
         catch (AuthenticationException|Exception $e) {
@@ -217,7 +268,6 @@ class BankAccountModel
 
         // all opened accounts start in good standing
         $accountStatus = "Good Standing";
-        $userId = htmlspecialchars($_SESSION['id']
 
         // create sql
         $sql = "INSERT INTO bank_account (accountNickname, accountType, accountStatus, userId) VALUES ('$accountNickname', '$accountType', '$accountStatus', '$userId')";
@@ -241,4 +291,27 @@ class BankAccountModel
         }
     }
 
+    // public method to edit an account nickname (only nickname made sense to allow edits on logically)
+    public function editAccount($accountId, $accNickname): bool {
+        // Create sql statement
+        $sql = "UPDATE bank_account SET accountNickname = $accNickname WHERE accountId = $accountId";
+
+        // catch any exceptions in db execution
+        try {
+            // execute the query
+            $query = $this->dbConnection->query($sql);
+
+            // query returns a bool. If false, query failed
+            if (!$query) {
+                throw new DatabaseExecutionException("Update failed.");
+            }
+
+            return $query;
+        }
+        catch (DatabaseExecutionException|Exception $e) {
+            $view = new AccountError();
+            $view->display($e->getMessage());
+            return false;
+        }
+    }
 }

@@ -132,7 +132,7 @@ class UserModel
     }
 
     // public function to verify a user (login)
-    public function login(): bool {
+    public function login($email, $password): bool {
         // First, ensure POST is set with email and password -- otherwise return false
         if (!isset($_POST['emailAddress']) || !isset($_POST['password']))
         {
