@@ -119,6 +119,33 @@ class BankAccountController {
         $view->display($message, "BankAccount");
     }
 
+    public function edit($id): void
+    {
+        if ($id === null) {
+            // error
+            $message = "No account specified.";
+            $view = new AccountError();
+            $view->display($message);
+            die();
+        }
+
+        $id = htmlspecialchars($id);
+        $newNickname= isset($_POST['accountNickname']) ? trim($_POST['accountNickname']) : null;
+        $editAccount = $this->accountModel->editAccount($id, $newNickname);
+
+    }
+
+    public function delete($id): void {
+        if ($id === null) {
+            // error
+            $message = "No account specified.";
+            $view = new AccountError();
+            $view->display($message);
+            die();
+        }
+        $id = htmlspecialchars($id);
+        $deleteAccount = $this->accountModel->deleteAccount($id);
+    }
 
 
     public function suggest($terms): void
