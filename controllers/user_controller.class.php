@@ -139,15 +139,18 @@ class UserController {
             $password = htmlspecialchars($_POST['password']);
 
             $verify = $this->user_model->login($email, $password);
+            if($verify){
+                //display successful login
+                $message = "You have successfully logged in.";
+                $view = new VerifyUser();
+                $view->display($verify, $message);
+            }
 
-            //display successful login
-            $view = new VerifyUser();
-            $view->display($verify);
 
         }
         catch (DatabaseExecutionException|DataMissingException|AuthenticationException|Exception $e) {
-            $view = new UserError();
-            $view->display($e->getMessage());
+            $view = new VerifyUser();
+            $view->display($verify, $e->getMessage());
         }
 
     }
@@ -262,13 +265,20 @@ class UserController {
             $view->display($message);
         }
     }
-    public function delete($id)
+    public function deleteForm($id)
     {
         $id = htmlspecialchars($id);
         $view = new DeleteUser();
         $view->display();
         //$deleteAccount = $this->accountModel->deleteAccount($id);
     }
+     public function delete($id)
+     {
+         $id = htmlspecialchars($id);
+         $deleteAccount = $this->user_model->deleteAccount($id);
+         $view = new DeletedUser();
+         $view->display();
+     }
 
 
     //create error message
