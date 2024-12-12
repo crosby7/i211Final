@@ -30,7 +30,7 @@ class TransactionDetails extends View
                 <!--                retrieve account details and print in table-->
                 <td><?= $transaction->getAccountId() ?></td>
                 <td><?= $transaction->getType() ?></td>
-                <td><?= $transaction->getAmmount() ?></td>
+                <td><?= $transaction->getAmount() ?></td>
                 <td><?= $transaction->getTimestamp() ?></td>
             </tr>
         </table>

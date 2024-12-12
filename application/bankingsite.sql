@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 21, 2024 at 04:56 PM
+-- Generation Time: Dec 12, 2024 at 02:03 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -21,6 +21,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `bankingsite`
 --
+DROP DATABASE IF EXISTS `bankingsite`;
 CREATE DATABASE IF NOT EXISTS `bankingsite` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `bankingsite`;
 
@@ -30,6 +31,7 @@ USE `bankingsite`;
 -- Table structure for table `bank_account`
 --
 
+DROP TABLE IF EXISTS `bank_account`;
 CREATE TABLE `bank_account` (
   `accountId` int(11) NOT NULL,
   `accountNickname` varchar(50) DEFAULT NULL,
@@ -62,6 +64,7 @@ INSERT INTO `bank_account` (`accountId`, `accountNickname`, `accountType`, `acco
 -- Table structure for table `transaction`
 --
 
+DROP TABLE IF EXISTS `transaction`;
 CREATE TABLE `transaction` (
   `transactionId` int(11) NOT NULL,
   `accountId` int(11) NOT NULL,
@@ -85,7 +88,15 @@ INSERT INTO `transaction` (`transactionId`, `accountId`, `type`, `amount`, `time
 (2, 2, 'Deposit', 100.00, '2024-11-19 15:33:09'),
 (3, 3, 'Withdrawal', -1000.00, '2024-11-19 15:33:09'),
 (4, 4, 'Withdrawal', -3000.00, '2024-11-19 15:33:09'),
-(5, 2, 'Deposit', 200.00, '2024-11-19 15:33:09');
+(5, 2, 'Deposit', 200.00, '2024-11-19 15:33:09'),
+(6, 1, 'Withdrawal', -200.00, '2024-12-12 00:53:05'),
+(7, 1, 'Deposit', 300.00, '2024-12-12 00:53:05'),
+(8, 1, 'Withdrawal', -200.00, '2024-12-12 00:53:15'),
+(9, 1, 'Deposit', 300.00, '2024-12-12 00:53:15'),
+(10, 4, 'Deposit', 200.00, '2024-12-12 00:54:15'),
+(11, 4, 'Deposit', 300.00, '2024-12-12 00:54:15'),
+(12, 5, 'Deposit', 800.00, '2024-12-12 00:54:39'),
+(13, 5, 'Withdrawal', 300.00, '2024-12-12 00:54:39');
 
 -- --------------------------------------------------------
 
@@ -93,6 +104,7 @@ INSERT INTO `transaction` (`transactionId`, `accountId`, `type`, `amount`, `time
 -- Table structure for table `user_account`
 --
 
+DROP TABLE IF EXISTS `user_account`;
 CREATE TABLE `user_account` (
   `userId` int(11) NOT NULL,
   `firstName` varchar(30) NOT NULL,
@@ -111,11 +123,11 @@ CREATE TABLE `user_account` (
 --
 
 INSERT INTO `user_account` (`userId`, `firstName`, `lastName`, `emailAddress`, `password`, `role`) VALUES
-(1, 'Cameron', 'Crosby', 'ccAccount@account.com', 'MyPassword', 'User'),
-(2, 'Test', 'User', 'testUser@test.com', 'testPassword', 'User'),
-(3, 'Test2', 'MyName', 'testUser@testing.com', 'TestUser', 'User'),
-(4, 'Tester', 'Tester', 'tester@test.com', 'Tester!', 'User'),
-(5, 'Admin', 'Admin', 'admin@frameworkFinancial.com', 'framework!admin', 'Admin');
+(1, 'Cameron', 'Crosby', 'ccAccount@account.com', '$2y$10$NPqWOmLsBDjlHFfRcYXyMePYxYq.WUszgqTVbAzvGLJukqHOowjY6', 'User'),
+(2, 'Test', 'User', 'testUser@test.com', '$2y$10$NPqWOmLsBDjlHFfRcYXyMePYxYq.WUszgqTVbAzvGLJukqHOowjY6', 'User'),
+(3, 'Test2', 'MyName', 'testUser@testing.com', '$2y$10$NPqWOmLsBDjlHFfRcYXyMePYxYq.WUszgqTVbAzvGLJukqHOowjY6', 'User'),
+(4, 'Tester', 'Tester', 'tester@test.com', '$2y$10$NPqWOmLsBDjlHFfRcYXyMePYxYq.WUszgqTVbAzvGLJukqHOowjY6!', 'User'),
+(5, 'Admin', 'Admin', 'admin@frameworkFinancial.com', '$2y$10$NPqWOmLsBDjlHFfRcYXyMePYxYq.WUszgqTVbAzvGLJukqHOowjY6', 'Admin');
 
 --
 -- Indexes for dumped tables
@@ -155,7 +167,7 @@ ALTER TABLE `bank_account`
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `transactionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `transactionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `user_account`

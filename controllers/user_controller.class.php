@@ -38,8 +38,8 @@ class UserController {
 
         // Validate POST data. If fails, throw exception
         try {
-            if (!isset($_POST['firstName']) || !isset($_POST['lastName']) || !isset($_POST['email']) || !isset($_POST['password']) || !isset($_POST['role'])) {
-                throw new DataMissingException("Could not create user: Required data missing (first name, last name, email, password, or role).");
+            if (!isset($_POST['firstName']) || !isset($_POST['lastName']) || !isset($_POST['email']) || !isset($_POST['password'])) {
+                throw new DataMissingException("Could not create user: Required data missing (first name, last name, email, password).");
             }
 
             // Store registration data
@@ -47,18 +47,17 @@ class UserController {
             $lastName = htmlspecialchars($_POST['lastName']);
             $email = htmlspecialchars($_POST['email']);
             $password = htmlspecialchars($_POST['password']);
-            $role = htmlspecialchars($_POST['role']);
 
 
-            $user = $this->user_model->addUser($firstName, $lastName, $email, $password, $role);
+            $user = $this->user_model->addUser($firstName, $lastName, $email, $password);
 
             if (!$user) {
                 throw new DatabaseExecutionException("An error occurred and user could not be added.");
             }
 
 
-            $view = new Register();
-            $view->display("User successfully created!");
+            $view = new Notice();
+            $view->display("User successfully created!", "User");
 
         } catch (DataMissingException|DatabaseExecutionException|Exception $e) {
             $view = new UserError();
@@ -68,9 +67,16 @@ class UserController {
     //display login page form
     public function login(): void
     {
-        //display login form
-        $view = new Login();
-        $view->display();
+        if (!isset($_SESSION['userId'])) {
+            //display login form
+            $view = new Login();
+            $view->display();
+        }
+        else {
+            // display verifyUser screen
+            $view = new VerifyUser();
+            $view->display(1);
+        }
     }
     //verify user credentials to properly login
     public function verify(): void

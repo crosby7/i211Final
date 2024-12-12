@@ -12,18 +12,29 @@
 class Index extends View
 {
     //define the display method
-    public function display():void
+    public function display(): void
     {
         //call the header
         $this->header(); ?>
-<!--            page specific content and button-->
+        <!--            page specific content and button-->
 
-           <h1 style="color: green">Welcome to the Home Screen</h1>
-        <h2><a href='<?= BASE_URL ?>/User/login'>Click Here to Log in</a></h2>
-        <h2>Don't have an account?</h2>
-        <h3><a href='<?= BASE_URL ?>/User/register'>Click Here to Create an Account</a></h3>
-
+        <h1 style="color: green">Welcome to the Home Screen</h1>
         <?php
+        if (!isset($_SESSION['userId'])) {
+
+            ?>
+            <h2><a href='<?= BASE_URL ?>/User/login'>Click Here to Log in</a></h2>
+            <h2>Don't have an account?</h2>
+            <h3><a href='<?= BASE_URL ?>/User/register'>Click Here to Create an Account</a></h3>
+
+            <?php
+        } else {
+            ?>
+            <h3>Hello, <?= htmlspecialchars($_SESSION['firstName']) ?></h3>
+            <span style="float: left">
+                Log out? <a href="<?=BASE_URL?>/User/Logout">Logout</a></span>
+            <?php
+        }
         //call the footer
         $this->footer();
     }

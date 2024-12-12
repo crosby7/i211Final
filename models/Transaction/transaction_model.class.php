@@ -61,13 +61,14 @@ class TransactionModel
             return false;
         }
 
+        // create different sql statements for the two roles
         if ($role == "Admin") {
             // create sql
             $sql = "SELECT * FROM transaction";
         }
         else if ($role == "User") {
             // create sql
-            $sql = "SELECT * FROM transaction WHERE userId = $userId";
+            $sql = "SELECT transactionId, transaction.accountId, type, amount, time FROM transaction JOIN bank_account ON transaction.accountId = bank_account.accountId WHERE bank_account.userId = $userId";
         }
 
 

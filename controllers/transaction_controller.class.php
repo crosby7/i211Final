@@ -24,7 +24,7 @@ class TransactionController
             $transactions = $this->transaction_model->getTransactions();
             if ($transactions){
                 // Pass transactions to the view for display
-                $view = new TransactionsView();
+                $view = new Transactions();
                 $view->display($transactions);
             }
         } catch (Exception $e){
@@ -62,7 +62,7 @@ class TransactionController
         }
 
         // Pass transaction details to the view
-        $view = new TransactionDetailsView();
+        $view = new TransactionDetails();
         $view->display($transaction);
     }
 

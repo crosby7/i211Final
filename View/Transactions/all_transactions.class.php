@@ -38,7 +38,7 @@ class Transactions extends View
 
                 <!--                print accounts information in the table-->
                 <tr>
-                    <td><a href="<?= BASE_URL ?>/BankAccount/details/<?= $t->getId() ?>"><?= $t->getId() ?></a></td>
+                    <td><a href="<?= BASE_URL ?>/Transaction/details/<?= $t->getId() ?>"><?= $t->getId() ?></a></td>
                     <td><?= $t->getAccountId() ?></td>
                     <td><?= $t->getType() ?></td>
                     <td><?= $t->getAmount() ?></td>

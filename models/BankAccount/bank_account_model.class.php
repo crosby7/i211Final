@@ -359,7 +359,6 @@ class BankAccountModel
         // Write query result to variable
         $balance = $query->fetch_column();
 
-        var_dump($balance);
 
         return $balance;
     }

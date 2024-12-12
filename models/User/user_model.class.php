@@ -151,20 +151,13 @@ class UserModel
 
     }
 
-    public function addUser(): bool {
-        if (!isset($_POST['emailAddress'])) {
-            return false;
-        }
-
-        // Get user registration info from post
-        $firstName = htmlspecialchars($_POST['firstName']);
-        $lastName = htmlspecialchars($_POST['lastName']);
-        $email = htmlspecialchars($_POST['emailAddress']);
-        $password = password_hash(htmlspecialchars($_POST['password']), PASSWORD_DEFAULT);
+    public function addUser($firstName, $lastName, $email, $password): bool {
+        // hash the received password
+        $password = password_hash($password, PASSWORD_DEFAULT);
 
         // Create sql statement
         $sql = "INSERT INTO user_account (firstName, lastName, emailAddress, password, role)";
-        $sql .= "VALUES ('$firstName', ''$lastName', '$email', '$password', 'User')";
+        $sql .= "VALUES ('$firstName', '$lastName', '$email', '$password', 'User')";
 
         // try catch block to handle exceptions
         try {
@@ -213,8 +206,6 @@ class UserModel
             // store result in a row
             $row = $query->fetch_assoc();
 
-            var_dump($password);
-            var_dump($row['password']);
             // Verify password
             if (password_verify($password, $row['password']))
             {
