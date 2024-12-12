@@ -10,7 +10,7 @@
 class DeleteUser extends View
 {
     //define the display method
-    public function display(): void
+    public function display(int $id): void
     {
         //call the header
         $this->header(); ?>
@@ -19,7 +19,7 @@ class DeleteUser extends View
         <h3 style="text-align: center">Deleting your user account will delete all associated bank accounts.</h3>
 
         <div>
-            <a href='<?= BASE_URL ?>/User/delete/'>
+            <a href='<?= BASE_URL ?>/User/delete/<?=$id ?>'>
                 <input type="submit" class="button" value="Yes, Delete User Account">
             </a>
         </div>
