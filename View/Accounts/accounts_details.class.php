@@ -12,7 +12,7 @@
 class AccountDetails extends View
 {
     //define the display method
-    public function display(BankAccount $account): void
+    public function display(BankAccount $account, String $balance): void
     {
         //call the header
         $this->header(); ?>
@@ -24,14 +24,17 @@ class AccountDetails extends View
                 <th>Account ID</th>
                 <th>Account Nickname</th>
                 <th>Account Type</th>
+                <th>Account Balance</th>
                 <th>Account Status</th>
                 <th>User ID</th>
+
             </tr>
             <tr>
                 <!--                retrieve account details and print in table-->
                 <td><?= $account->getId() ?></td>
                 <td><?= $account->getAccountNickname() ?></td>
                 <td><?= $account->getAccountType() ?></td>
+                <td><?=$balance?></td>
                 <td><?= $account->getAccountStatus() ?></td>
                 <td><?= $account->getUserId() ?></td>
 
@@ -46,6 +49,11 @@ class AccountDetails extends View
         <div>
             <a href='<?= BASE_URL ?>/BankAccount/delete/<?= $account->getUserId() ?>'>
                 <input type="submit" class="button" value="Delete Account">
+            </a>
+        </div>
+        <div id="buttonDiv1">
+            <a href='<?= BASE_URL ?>/BankAccount/edit'>
+                <input id="createButton" type="submit" class="button" value="Edit an Account">
             </a>
         </div>
 

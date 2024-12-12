@@ -33,11 +33,6 @@ class Accounts extends View
                 <input id="createButton" type="submit" class="button" value="Create an Account">
             </a>
         </div>
-        <div id="buttonDiv1">
-            <a href='<?= BASE_URL ?>/BankAccount/edit'>
-                <input id="createButton" type="submit" class="button" value="Edit an Account">
-            </a>
-        </div>
         <br>
         <br>
 
@@ -48,7 +43,6 @@ class Accounts extends View
                 <th>Account Nickname</th>
                 <th>Account Type</th>
                 <th>User Id</th>
-                <th>Account Balance</th>
             </tr>
             <?php
             //begin the foreach loop to iterate through all objects in the accounts array
@@ -61,7 +55,6 @@ class Accounts extends View
                     <td><?= $a->getAccountNickname() ?></td>
                     <td><?= $a->getAccountType() ?></td>
                     <td><?= $a->getUserId() ?></td>
-                    <td>$$$$$$</td>
                 </tr>
 
                 <?php
