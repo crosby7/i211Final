@@ -320,7 +320,7 @@ class UserModel
     // public function to delete a user account MUST CHECK IF BANK ACCOUNT EXISTS FIRST
     public function deleteAccount($userId): bool {
         // SQL uses ON DELETE CASCADE. Associated accounts will all be deleted
-        $sql = "DELETE * FROM user_account WHERE userID = $userId";
+        $sql = "DELETE * FROM user_account WHERE userId = $userId";
 
         // try catch block to handle exceptions
         try {
