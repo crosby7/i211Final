@@ -43,12 +43,13 @@ class BankAccountController {
                 $message = "No accounts found.";
                 $view = new AccountError();
                 $view->display($message);}*/
-        } catch (AuthenticationException $e){
+        } catch (DatabaseExecutionException|DataMissingException $e) {
             $view = new AccountError();
-            $view->display("Authentication Error: " . $e->getMessage());
-        } catch (Exception $e) {
+            $view->display($e->getMessage());
+        }catch (Exception $e) {
+            // Handle any other exceptions
             $view = new AccountError();
-            $view->display("An error has occurred: " . $e->getMessage());
+            $view->display("An unexpected error occurred: " . $e->getMessage());
         }
         /*// Retrieve all users from the model
         $accounts = $this->accountModel->getBankAccounts();
@@ -145,18 +146,27 @@ class BankAccountController {
     //add account to database
     public function create(): void
     {
-        $accountStatus = $this->accountModel->createAccount();
+        try {
+            $accountStatus = $this->accountModel->createAccount();
 
-        if (!$accountStatus) {
-            $message = "An error occurred and an account could not be created.";
-            $view = new AccountError();
+            if (!$accountStatus) {
+                $message = "An error occurred and an account could not be created.";
+                $view = new AccountError();
+                $view->display($message);
+                return;
+            }
+            //display create message
+            $message = "An account has successfully been created.";
+            $view = new Notice();
             $view->display($message);
-            return;
+        } catch (DatabaseExecutionException|DataMissingException $e) {
+            $view = new AccountError();
+            $view->display($e->getMessage());
+        }catch (Exception $e) {
+            // Handle any other exceptions
+            $view = new AccountError();
+            $view->display("An unexpected error occurred: " . $e->getMessage());
         }
-        //display create message
-        $message = "An account has successfully been created.";
-        $view = new Notice();
-        $view->display($message);
     }
 
     public function editForm($id): void
@@ -168,44 +178,62 @@ class BankAccountController {
 
     public function edit($id): void
     {
-        if ($id === null) {
-            // error
-            $message = "No account specified.";
-            $view = new AccountError();
-            $view->display($message);
-            die();
-        }
+        try {
+            if ($id === null) {
+                // error
+                $message = "No account specified.";
+                $view = new AccountError();
+                $view->display($message);
+                die();
+            }
 
-        $id = htmlspecialchars($id);
-        $newNickname= isset($_POST['accountNickname']) ? trim($_POST['accountNickname']) : null;
-        $editAccount = $this->accountModel->editAccount($id, $newNickname);
-        //display register message
-        $message= "Account nickname successfully updated.";
-        $view = new Notice();
-        $view->display($message);
+            $id = htmlspecialchars($id);
+            $newNickname = isset($_POST['accountNickname']) ? trim($_POST['accountNickname']) : null;
+            $editAccount = $this->accountModel->editAccount($id, $newNickname);
+            //display register message
+            $message = "Account nickname successfully updated.";
+            $view = new Notice();
+            $view->display($message);
+        } catch (DatabaseExecutionException|DataMissingException $e) {
+            $view = new AccountError();
+            $view->display($e->getMessage());
+        }catch (Exception $e) {
+            // Handle any other exceptions
+            $view = new AccountError();
+            $view->display("An unexpected error occurred: " . $e->getMessage());
+        }
 
     }
 
     public function deleteForm($id): void {
-        if ($id === null) {
-            // error
-            $message = "No account specified.";
+        try {
+            if ($id === null) {
+                // error
+                $message = "No account specified.";
+                $view = new AccountError();
+                $view->display($message);
+                die();
+            }
+            $id = htmlspecialchars($id);
+            $deleteAccount = $this->accountModel->deleteAccount($id);
+            if (!$deleteAccount) {
+                //display  message
+                $message = "error";
+                $view = new Notice();
+                $view->display($message);
+            } else {
+                //display  message
+                $message = "This account has successfully been deleted.";
+                $view = new Notice();
+                $view->display($message);
+            }
+        } catch (DatabaseExecutionException|DataMissingException $e) {
             $view = new AccountError();
-            $view->display($message);
-            die();
-        }
-        $id = htmlspecialchars($id);
-        $deleteAccount = $this->accountModel->deleteAccount($id);
-        if(!$deleteAccount) {
-            //display  message
-            $message = "error";
-            $view = new Notice();
-            $view->display($message);
-        } else {
-            //display  message
-            $message = "This account has successfully been deleted.";
-            $view = new Notice();
-            $view->display($message);
+            $view->display($e->getMessage());
+        } catch (Exception $e) {
+            // Handle any other exceptions
+            $view = new AccountError();
+            $view->display("An unexpected error occurred: " . $e->getMessage());
         }
 
     }

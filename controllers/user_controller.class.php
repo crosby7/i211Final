@@ -26,9 +26,13 @@ class UserController {
                 $view = new CreateUser();
                 $view->display();
             }
-        } catch (Exception $e) {
+        } catch (DatabaseExecutionException|DataMissingException $e) {
             $view = new UserError();
             $view->display($e->getMessage());
+        }catch (Exception $e) {
+            // Handle any other exceptions
+            $view = new UserError();
+            $view->display("An unexpected error occurred: " . $e->getMessage());
         }
     }
 
@@ -60,9 +64,13 @@ class UserController {
             $view = new Notice();
             $view->display("User successfully created!");
 
-        } catch (DataMissingException|DatabaseExecutionException|Exception $e) {
+        }catch (DatabaseExecutionException|DataMissingException $e) {
             $view = new UserError();
             $view->display($e->getMessage());
+        }catch (Exception $e) {
+            // Handle any other exceptions
+            $view = new UserError();
+            $view->display("An unexpected error occurred: " . $e->getMessage());
         }
     }
     public function editForm()
@@ -79,9 +87,13 @@ class UserController {
                 $view = new EditUser();
                 $view->display($firstName, $lastName, $email);
             }
-        } catch (DataMissingException|DatabaseExecutionException|Exception $e) {
+        } catch (DatabaseExecutionException|DataMissingException $e) {
             $view = new UserError();
             $view->display($e->getMessage());
+        }catch (Exception $e) {
+            // Handle any other exceptions
+            $view = new UserError();
+            $view->display("An unexpected error occurred: " . $e->getMessage());
         }
     }
 
@@ -110,9 +122,13 @@ class UserController {
             $view = new Notice();
             $view->display("User information Successfully updated!");
 
-        } catch (DataMissingException|DatabaseExecutionException|Exception $e) {
+        }catch (DatabaseExecutionException|DataMissingException $e) {
             $view = new UserError();
             $view->display($e->getMessage());
+        }catch (Exception $e) {
+            // Handle any other exceptions
+            $view = new UserError();
+            $view->display("An unexpected error occurred: " . $e->getMessage());
         }
     }
     //display login page form
@@ -244,30 +260,35 @@ class UserController {
 
     //display details page
     public function details($id = null): void {
-        if ($id === null) {
-            // error
-            $message = "No account specified.";
-            $view = new UserError();
-            $view->display($message);
-            die();
-        }
+        try {
+            if ($id === null) {
+                // error
+                $message = "No account specified.";
+                $view = new UserError();
+                $view->display($message);
+                die();
+            }
 
-        $id = htmlspecialchars($id);
+            $id = htmlspecialchars($id);
 
-        // Retrieve user details from the model
-        $account = $this->user_model->getDetails($id);
-        if ($account) {
-            $view = new UserDetails();
-            $view->display($account);
-        } else if($account === 0){
-            $message = "No account details found.";
+            // Retrieve user details from the model
+            $account = $this->user_model->getDetails($id);
+            if ($account) {
+                $view = new UserDetails();
+                $view->display($account);
+            } else if ($account === 0) {
+                $message = "No account details found.";
+                $view = new UserError();
+                $view->display($message);
+            } else {
+                // If no user found, show an error message
+                $message = "An error has occurred with your request.";
+                $view = new AccountError();
+                $view->display($message);
+            }
+        } catch (DatabaseExecutionException|DataMissingException|AuthenticationException|Exception $e) {
             $view = new UserError();
-            $view->display($message);
-        }else{
-            // If no user found, show an error message
-            $message = "An error has occurred with your request.";
-            $view = new AccountError();
-            $view->display($message);
+            $view->display($e->getMessage());
         }
     }
     public function deleteForm($id)
@@ -279,17 +300,22 @@ class UserController {
     }
      public function delete($id)
      {
-         if(isset($_SESSION['role'])) {
-             $role = htmlspecialchars($_SESSION['role']);
-         }
-         $id = htmlspecialchars($id);
-         $deleteAccount = $this->user_model->deleteAccount($id);
-        if($role === "User") {
-            $logout = $this->user_model->logout();
-        }
+         try {
+             if (isset($_SESSION['role'])) {
+                 $role = htmlspecialchars($_SESSION['role']);
+             }
+             $id = htmlspecialchars($id);
+             $deleteAccount = $this->user_model->deleteAccount($id);
+             if ($role === "User") {
+                 $logout = $this->user_model->logout();
+             }
 
-         $view = new DeletedUser();
-         $view->display();
+             $view = new DeletedUser();
+             $view->display();
+         }catch (DatabaseExecutionException|DataMissingException|AuthenticationException|Exception $e) {
+             $view = new UserError();
+             $view->display($e->getMessage());
+         }
      }
 
 
