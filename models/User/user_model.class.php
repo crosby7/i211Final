@@ -216,6 +216,7 @@ class UserModel
 
                 // Store user info in SESSION vars
                 $_SESSION['firstName'] = $row['firstName'];
+                $_SESSION['lastName'] = $row['lastName'];
                 $_SESSION['emailAddress'] = $row['emailAddress'];
                 $_SESSION['role'] = $row['role'];
                 $_SESSION['userId'] = $row['userId'];
@@ -293,9 +294,15 @@ class UserModel
     }
 
     // public function to allow a user to edit their name
-    public function editAccount($userId, $firstName, $lastName): bool {
+    public function editAccount($firstName, $lastName, $email, $pw): bool {
+        // Get session userId
+        $userId = htmlspecialchars($_SESSION['userId']);
+
+        // hash password
+        $password = password_hash($pw, PASSWORD_DEFAULT);
+
         // create sql
-        $sql = "UPDATE user_account SET firstName = '$firstName', lastName = '$lastName' WHERE userId = $userId";
+        $sql = "UPDATE user_account SET firstName = '$firstName', lastName = '$lastName', emailAddress = '$email',  WHERE userId = $userId";
 
         // try catch block to handle exceptions
         try {
