@@ -22,6 +22,7 @@ class ComposerStaticInit4d12d5617ed50cea33318fde1cf8368d
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Console' => __DIR__ . '/../..' . '/application/console_php.php',
         'CreateAccount' => __DIR__ . '/../..' . '/View/Accounts/create_account.class.php',
+        'CreateTransaction' => __DIR__ . '/../..' . '/View/Transactions/add_transaction.class.php',
         'CreateUser' => __DIR__ . '/../..' . '/View/Users/create_user.class.php',
         'DataMissingException' => __DIR__ . '/../..' . '/exceptions/data_missing_exception.class.php',
         'Database' => __DIR__ . '/../..' . '/application/database.class.php',

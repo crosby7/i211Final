@@ -21,6 +21,7 @@ return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'Console' => $baseDir . '/application/console_php.php',
     'CreateAccount' => $baseDir . '/View/Accounts/create_account.class.php',
+    'CreateTransaction' => $baseDir . '/View/Transactions/add_transaction.class.php',
     'CreateUser' => $baseDir . '/View/Users/create_user.class.php',
     'DataMissingException' => $baseDir . '/exceptions/data_missing_exception.class.php',
     'Database' => $baseDir . '/application/database.class.php',
