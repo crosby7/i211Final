@@ -17,8 +17,16 @@ class DeletedUser extends View
 
         <h1 style="text-align: center">You have successfully deleted your user account.</h1>
         <h3 style="text-align: center">All associated bank accounts have been deleted.</h3>
-        <input type="submit" name="action" value="Create New User" onclick = "window.location.href = "<?=BASE_URL ?>/User/create">
-        <input type="button" value="Home" onclick="window.location.href = "<?= BASE_URL ?>/index.php">
+        <div>
+            <a href='<?= BASE_URL ?>/User/create/'>
+                <input type="submit" class="button" value="Delete Account">
+            </a>
+        </div>
+        <div>
+            <a href='<?= BASE_URL ?>/index.php/'>
+                <input type="submit" class="button" value="Delete Account">
+            </a>
+        </div>
         <?php
         //call the footer
         $this->footer();
