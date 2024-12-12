@@ -95,6 +95,7 @@ class TransactionModel
                     stripslashes($transact->amount),
                     stripslashes($transact->time));
 
+
                 // set ID
                 $result->setId($transact->transactionId);
 
@@ -159,7 +160,8 @@ class TransactionModel
         }
 
         // create sql
-        $sql = "INSERT INTO transaction (accountId, type, amount, time) VALUES ($accountId, $type, $amount, CURRENT_TIMESTAMP)";
+        $sql = "INSERT INTO transaction (accountId, type, amount, time) VALUES ($accountId, '$type', $amount, CURRENT_TIMESTAMP)";
+
 
         // try catch block to handle exceptions
         try {
