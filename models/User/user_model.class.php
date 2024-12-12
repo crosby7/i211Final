@@ -151,7 +151,7 @@ class UserModel
 
     }
 
-    public function addUser($firstName, $lastName, $email, $password, $role): bool {
+    public function addUser($firstName, $lastName, $email, $password): bool {
         // hash the received password
         $password = password_hash($password, PASSWORD_DEFAULT);
 

@@ -38,7 +38,7 @@ class UserController {
 
         // Validate POST data. If fails, throw exception
         try {
-            if (!isset($_POST['firstName']) || !isset($_POST['lastName']) || !isset($_POST['email']) || !isset($_POST['password']) || !isset($_POST['role'])) {
+            if (!isset($_POST['firstName']) || !isset($_POST['lastName']) || !isset($_POST['email']) || !isset($_POST['password'])) {
                 throw new DataMissingException("Could not create user: Required data missing (first name, last name, email, password).");
             }
 
@@ -47,10 +47,10 @@ class UserController {
             $lastName = htmlspecialchars($_POST['lastName']);
             $email = htmlspecialchars($_POST['email']);
             $password = htmlspecialchars($_POST['password']);
-            $role = htmlspecialchars($_POST['role']);
 
 
-            $user = $this->user_model->addUser($firstName, $lastName, $email, $password, $role);
+
+            $user = $this->user_model->addUser($firstName, $lastName, $email, $password);
 
             if (!$user) {
                 throw new DatabaseExecutionException("An error occurred and user could not be added.");
