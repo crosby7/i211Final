@@ -51,6 +51,9 @@ class Transactions extends View
             } ?>
 
         </table>
+        <a href='<?= BASE_URL ?>/Transaction/createForm'>
+            <input id="createButton" type="submit" class="button" value="Create a Transaction">
+        </a>
         <?php
         //call the footer
         $this->footer();
