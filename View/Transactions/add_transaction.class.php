@@ -27,8 +27,8 @@ class CreateTransaction extends View
                 </select>
             <p><strong>Transaction Type</strong>:
                 <select name="transactionType" id="accountType">
-                    <option value="Deposit">I want a checking account</option>
-                    <option value="Withdrawal">I want a saving account</option>
+                    <option value="Deposit">I want to make a deposit</option>
+                    <option value="Withdrawal">I want to make a withdrawal</option>
                 </select>
             <p><strong>Transaction Amount</strong>:
                 <input name="transaction" type="text" size="350" value="" autofocus=""></p>
