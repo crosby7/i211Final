@@ -21,7 +21,7 @@ class AllUser extends View
 
         <h2>All Users</h2>
         <div>
-            <a href='<?= BASE_URL ?>/User/create'>
+            <a href='<?= BASE_URL ?>/User/register'>
                 <input type="submit" class="button" value="Create a new User">
             </a>
         </div>
