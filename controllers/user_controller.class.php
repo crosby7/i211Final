@@ -276,6 +276,8 @@ class UserController {
      {
          $id = htmlspecialchars($id);
          $deleteAccount = $this->user_model->deleteAccount($id);
+         $logout = $this->user_model->logout();
+
          $view = new DeletedUser();
          $view->display();
      }
