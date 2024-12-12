@@ -156,7 +156,7 @@ class BankAccountController {
         //display create message
         $message = "An account has successfully been created.";
         $view = new Notice();
-        $view->display($message, "BankAccount");
+        $view->display($message);
     }
 
     public function editForm(): void
@@ -195,7 +195,7 @@ class BankAccountController {
         //display  message
         $message = "This account has successfully been deleted.";
         $view = new Notice();
-        $view->display($message, "BankAccount");
+        $view->display($message);
     }
 
 
@@ -240,7 +240,7 @@ class BankAccountController {
         //create an object of the notice class
         $notice = new Notice();
         //display the notice page
-        $notice->display($message, "BankAccount");
+        $notice->display($message);
     }
 
 

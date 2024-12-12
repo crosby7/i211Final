@@ -58,7 +58,7 @@ class UserController {
 
 
             $view = new Notice();
-            $view->display("User successfully created!", "User");
+            $view->display("User successfully created!");
 
         } catch (DataMissingException|DatabaseExecutionException|Exception $e) {
             $view = new UserError();
@@ -103,7 +103,7 @@ class UserController {
 
 
             $view = new Notice();
-            $view->display("User successfully created!", "User");
+            $view->display("User successfully created!");
 
         } catch (DataMissingException|DatabaseExecutionException|Exception $e) {
             $view = new UserError();
