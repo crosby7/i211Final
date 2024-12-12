@@ -22,7 +22,7 @@ class EditUser extends View
             <p><strong>Last Name</strong>:
                 <input name="lastName" type="text" size="350" value="<?=$lastName?>" autofocus=""></p>
             <p><strong>Email</strong>: <br>
-                <input name="email" type="text" size="350" value = "<?$email?>" required=""></p>
+                <input name="email" type="text" size="350" value = "<?=$email?>" required=""></p>
             <p><strong>Password</strong>: <br>
                 <input name="password" type="text" size="350" required=""></p>
             <input type="submit" name="action" value="Edit Account" onclick = "window.location.href = "<?=BASE_URL ?>/User/all">
