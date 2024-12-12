@@ -32,7 +32,7 @@ class Index extends View
             ?>
             <h3>Hello, <?= htmlspecialchars($_SESSION['firstName']) ?>
             <div>
-                <a href='<?= BASE_URL ?>/BankAccount/create/'>
+                <a href='<?= BASE_URL ?>/BankAccount/createForm/'>
                     <input type="submit" class="button" value="Create a Bank Account">
                 </a>
             </div>

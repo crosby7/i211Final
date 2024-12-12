@@ -29,7 +29,7 @@ class Accounts extends View
             <div id="suggestionDiv"></div>
         </div>
         <div id="buttonDiv">
-            <a href='<?= BASE_URL ?>/BankAccount/create'>
+            <a href='<?= BASE_URL ?>/BankAccount/createForm'>
                 <input id="createButton" type="submit" class="button" value="Create an Account">
             </a>
         </div>

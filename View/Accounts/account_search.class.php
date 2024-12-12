@@ -30,7 +30,7 @@ class AccountSearch extends View
             <div id="suggestionDiv"></div>
         </div>
         <div>
-            <a href='<?= BASE_URL ?>/BankAccount/create'>
+            <a href='<?= BASE_URL ?>/BankAccount/createForm'>
                 <input type="submit" class="button" value="Create an Account">
             </a>
         </div>

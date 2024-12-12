@@ -52,7 +52,7 @@ class AccountDetails extends View
             </a>
         </div>
         <div id="buttonDiv1">
-            <a href='<?= BASE_URL ?>/BankAccount/edit'>
+            <a href='<?= BASE_URL ?>/BankAccount/editForm'>
                 <input id="createButton" type="submit" class="button" value="Edit an Account">
             </a>
         </div>

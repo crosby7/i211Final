@@ -36,7 +36,7 @@ class UserDetails extends View
             </tr>
         </table>
         <div id="buttonDiv">
-            <a href='<?= BASE_URL ?>/User/edit/<?= $user->getID() ?>'>
+            <a href='<?= BASE_URL ?>/User/editForm/<?= $user->getID() ?>'>
                 <input id="createButton" type="submit" class="button" value="Edit User">
             </a>
         </div>
