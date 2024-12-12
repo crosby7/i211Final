@@ -179,6 +179,10 @@ class BankAccountController {
         $id = htmlspecialchars($id);
         $newNickname= isset($_POST['accountNickname']) ? trim($_POST['accountNickname']) : null;
         $editAccount = $this->accountModel->editAccount($id, $newNickname);
+        //display register message
+        $message= "Account nickname successfully updated.";
+        $view = new Notice();
+        $view->display($message);
 
     }
 
