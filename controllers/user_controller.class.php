@@ -72,7 +72,11 @@ class UserController {
                 $this->edit();
             } else {
                 // Display the registration form
-                $view = new EditUser();
+                // Store registration data
+                $firstName = htmlspecialchars($_SESSION['firstName']);
+                $lastName = htmlspecialchars($_SESSION['lastName']);
+                $email = htmlspecialchars($_SESSION['email']);
+                $view = new EditUser($firstName, $lastName, $email);
                 $view->display();
             }
         } catch (DataMissingException|DatabaseExecutionException|Exception $e) {
@@ -84,7 +88,7 @@ class UserController {
     public function edit(){
         // Validate POST data. If fails, throw exception
         try {
-            if (!isset($_POST['firstName']) || !isset($_POST['lastName']) || !isset($_POST['email'])) {
+            if (!isset($_POST['firstName']) || !isset($_POST['lastName']) || !isset($_POST['email']) || !isset($_POST['password'])) {
                 throw new DataMissingException("Could not edit user: Required data missing (first name, last name, email).");
             }
 
@@ -92,10 +96,11 @@ class UserController {
             $firstName = htmlspecialchars($_POST['firstName']);
             $lastName = htmlspecialchars($_POST['lastName']);
             $email = htmlspecialchars($_POST['email']);
+            $password = htmlspecialchars($_POST['password']);
 
 
 
-            $user = $this->user_model->editAccount($firstName, $lastName, $email);
+            $user = $this->user_model->editAccount($firstName, $lastName, $email, $password);
 
             if (!$user) {
                 throw new DatabaseExecutionException("An error occurred and user could not be added.");
@@ -103,7 +108,7 @@ class UserController {
 
 
             $view = new Notice();
-            $view->display("User successfully created!");
+            $view->display("User information Successfully updated!");
 
         } catch (DataMissingException|DatabaseExecutionException|Exception $e) {
             $view = new UserError();
