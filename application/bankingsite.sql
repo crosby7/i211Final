@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2024 at 02:03 AM
+-- Generation Time: Dec 12, 2024 at 03:44 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -21,7 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `bankingsite`
 --
-DROP DATABASE IF EXISTS `bankingsite`;
 CREATE DATABASE IF NOT EXISTS `bankingsite` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `bankingsite`;
 
@@ -51,12 +50,11 @@ CREATE TABLE `bank_account` (
 -- Dumping data for table `bank_account`
 --
 
-INSERT INTO `bank_account` (`accountId`, `accountNickname`, `accountType`, `accountStatus`, `userId`, `total`) VALUES
-(1, NULL, 'Checking', 'Good Standing', 1, 0),
-(2, 'My First Savings Account', 'Savings', 'Good Standing', 2, 0),
-(3, 'House Account', 'Checking', 'Overdrawn', 3, 0),
-(4, NULL, 'Checking', 'Good Standing', 2, 0),
-(5, NULL, 'Savings', 'Good Standing', 4, 0);
+INSERT INTO `bank_account` (`accountId`, `accountNickname`, `accountType`, `accountStatus`, `userId`, `total`) VALUES(1, NULL, 'Checking', 'Good Standing', 1, 0);
+INSERT INTO `bank_account` (`accountId`, `accountNickname`, `accountType`, `accountStatus`, `userId`, `total`) VALUES(2, 'My First Savings Account', 'Savings', 'Good Standing', 2, 0);
+INSERT INTO `bank_account` (`accountId`, `accountNickname`, `accountType`, `accountStatus`, `userId`, `total`) VALUES(3, 'House Account', 'Checking', 'Overdrawn', 3, 0);
+INSERT INTO `bank_account` (`accountId`, `accountNickname`, `accountType`, `accountStatus`, `userId`, `total`) VALUES(4, NULL, 'Checking', 'Good Standing', 2, 0);
+INSERT INTO `bank_account` (`accountId`, `accountNickname`, `accountType`, `accountStatus`, `userId`, `total`) VALUES(5, NULL, 'Savings', 'Good Standing', 4, 0);
 
 -- --------------------------------------------------------
 
@@ -77,26 +75,27 @@ CREATE TABLE `transaction` (
 -- RELATIONSHIPS FOR TABLE `transaction`:
 --   `accountId`
 --       `bank_account` -> `accountId`
+--   `accountId`
+--       `bank_account` -> `accountId`
 --
 
 --
 -- Dumping data for table `transaction`
 --
 
-INSERT INTO `transaction` (`transactionId`, `accountId`, `type`, `amount`, `time`) VALUES
-(1, 3, 'Withdrawal', -3000.00, '2024-11-19 15:33:09'),
-(2, 2, 'Deposit', 100.00, '2024-11-19 15:33:09'),
-(3, 3, 'Withdrawal', -1000.00, '2024-11-19 15:33:09'),
-(4, 4, 'Withdrawal', -3000.00, '2024-11-19 15:33:09'),
-(5, 2, 'Deposit', 200.00, '2024-11-19 15:33:09'),
-(6, 1, 'Withdrawal', -200.00, '2024-12-12 00:53:05'),
-(7, 1, 'Deposit', 300.00, '2024-12-12 00:53:05'),
-(8, 1, 'Withdrawal', -200.00, '2024-12-12 00:53:15'),
-(9, 1, 'Deposit', 300.00, '2024-12-12 00:53:15'),
-(10, 4, 'Deposit', 200.00, '2024-12-12 00:54:15'),
-(11, 4, 'Deposit', 300.00, '2024-12-12 00:54:15'),
-(12, 5, 'Deposit', 800.00, '2024-12-12 00:54:39'),
-(13, 5, 'Withdrawal', 300.00, '2024-12-12 00:54:39');
+INSERT INTO `transaction` (`transactionId`, `accountId`, `type`, `amount`, `time`) VALUES(1, 3, 'Withdrawal', -3000.00, '2024-11-19 15:33:09');
+INSERT INTO `transaction` (`transactionId`, `accountId`, `type`, `amount`, `time`) VALUES(2, 2, 'Deposit', 100.00, '2024-11-19 15:33:09');
+INSERT INTO `transaction` (`transactionId`, `accountId`, `type`, `amount`, `time`) VALUES(3, 3, 'Withdrawal', -1000.00, '2024-11-19 15:33:09');
+INSERT INTO `transaction` (`transactionId`, `accountId`, `type`, `amount`, `time`) VALUES(4, 4, 'Withdrawal', -3000.00, '2024-11-19 15:33:09');
+INSERT INTO `transaction` (`transactionId`, `accountId`, `type`, `amount`, `time`) VALUES(5, 2, 'Deposit', 200.00, '2024-11-19 15:33:09');
+INSERT INTO `transaction` (`transactionId`, `accountId`, `type`, `amount`, `time`) VALUES(6, 1, 'Withdrawal', -200.00, '2024-12-12 00:53:05');
+INSERT INTO `transaction` (`transactionId`, `accountId`, `type`, `amount`, `time`) VALUES(7, 1, 'Deposit', 300.00, '2024-12-12 00:53:05');
+INSERT INTO `transaction` (`transactionId`, `accountId`, `type`, `amount`, `time`) VALUES(8, 1, 'Withdrawal', -200.00, '2024-12-12 00:53:15');
+INSERT INTO `transaction` (`transactionId`, `accountId`, `type`, `amount`, `time`) VALUES(9, 1, 'Deposit', 300.00, '2024-12-12 00:53:15');
+INSERT INTO `transaction` (`transactionId`, `accountId`, `type`, `amount`, `time`) VALUES(10, 4, 'Deposit', 200.00, '2024-12-12 00:54:15');
+INSERT INTO `transaction` (`transactionId`, `accountId`, `type`, `amount`, `time`) VALUES(11, 4, 'Deposit', 300.00, '2024-12-12 00:54:15');
+INSERT INTO `transaction` (`transactionId`, `accountId`, `type`, `amount`, `time`) VALUES(12, 5, 'Deposit', 800.00, '2024-12-12 00:54:39');
+INSERT INTO `transaction` (`transactionId`, `accountId`, `type`, `amount`, `time`) VALUES(13, 5, 'Withdrawal', 300.00, '2024-12-12 00:54:39');
 
 -- --------------------------------------------------------
 
@@ -122,12 +121,11 @@ CREATE TABLE `user_account` (
 -- Dumping data for table `user_account`
 --
 
-INSERT INTO `user_account` (`userId`, `firstName`, `lastName`, `emailAddress`, `password`, `role`) VALUES
-(1, 'Cameron', 'Crosby', 'ccAccount@account.com', '$2y$10$NPqWOmLsBDjlHFfRcYXyMePYxYq.WUszgqTVbAzvGLJukqHOowjY6', 'User'),
-(2, 'Test', 'User', 'testUser@test.com', '$2y$10$NPqWOmLsBDjlHFfRcYXyMePYxYq.WUszgqTVbAzvGLJukqHOowjY6', 'User'),
-(3, 'Test2', 'MyName', 'testUser@testing.com', '$2y$10$NPqWOmLsBDjlHFfRcYXyMePYxYq.WUszgqTVbAzvGLJukqHOowjY6', 'User'),
-(4, 'Tester', 'Tester', 'tester@test.com', '$2y$10$NPqWOmLsBDjlHFfRcYXyMePYxYq.WUszgqTVbAzvGLJukqHOowjY6!', 'User'),
-(5, 'Admin', 'Admin', 'admin@frameworkFinancial.com', '$2y$10$NPqWOmLsBDjlHFfRcYXyMePYxYq.WUszgqTVbAzvGLJukqHOowjY6', 'Admin');
+INSERT INTO `user_account` (`userId`, `firstName`, `lastName`, `emailAddress`, `password`, `role`) VALUES(1, 'Cameron', 'Crosby', 'ccAccount@account.com', '$2y$10$NPqWOmLsBDjlHFfRcYXyMePYxYq.WUszgqTVbAzvGLJukqHOowjY6', 'User');
+INSERT INTO `user_account` (`userId`, `firstName`, `lastName`, `emailAddress`, `password`, `role`) VALUES(2, 'Test', 'User', 'testUser@test.com', '$2y$10$NPqWOmLsBDjlHFfRcYXyMePYxYq.WUszgqTVbAzvGLJukqHOowjY6', 'User');
+INSERT INTO `user_account` (`userId`, `firstName`, `lastName`, `emailAddress`, `password`, `role`) VALUES(3, 'Test2', 'MyName', 'testUser@testing.com', '$2y$10$NPqWOmLsBDjlHFfRcYXyMePYxYq.WUszgqTVbAzvGLJukqHOowjY6', 'User');
+INSERT INTO `user_account` (`userId`, `firstName`, `lastName`, `emailAddress`, `password`, `role`) VALUES(4, 'Tester', 'Tester', 'tester@test.com', '$2y$10$NPqWOmLsBDjlHFfRcYXyMePYxYq.WUszgqTVbAzvGLJukqHOowjY6!', 'User');
+INSERT INTO `user_account` (`userId`, `firstName`, `lastName`, `emailAddress`, `password`, `role`) VALUES(5, 'Admin', 'Admin', 'admin@frameworkFinancial.com', '$2y$10$NPqWOmLsBDjlHFfRcYXyMePYxYq.WUszgqTVbAzvGLJukqHOowjY6', 'Admin');
 
 --
 -- Indexes for dumped tables
@@ -183,12 +181,13 @@ ALTER TABLE `user_account`
 -- Constraints for table `bank_account`
 --
 ALTER TABLE `bank_account`
-  ADD CONSTRAINT `bank_account_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user_account` (`userId`);
+  ADD CONSTRAINT `bank_account_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user_account` (`userId`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `transaction`
 --
 ALTER TABLE `transaction`
+  ADD CONSTRAINT `accountId` FOREIGN KEY (`accountId`) REFERENCES `bank_account` (`accountId`) ON DELETE CASCADE,
   ADD CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`accountId`) REFERENCES `bank_account` (`accountId`);
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
