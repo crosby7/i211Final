@@ -42,7 +42,7 @@ class BankAccountModel
         return self::$_instance;
     }
     // Public function to get all bank accounts, returned in an array of objects -- return false on error
-    public function getBankAccounts(): array|bool {
+    public function getBankAccounts(): array|bool|int {
         // only admins should see all accounts. Users should only see all of THEIR accounts
         // so, we will need userId and role from $_SESSION
         try {
@@ -82,6 +82,7 @@ class BankAccountModel
 //             NEW: instead, we display a notice to users and allow them to create an account if none exist.
 //             if query returns no rows, throw DataMissingException
             if ($query->num_rows == 0) {
+                var_dump("Bank account: 0 rows");
 //                throw new DataMissingException("No accounts could be found.");
                 return 0;
             }
