@@ -19,11 +19,11 @@ class TransactionError extends View
         parent::header();
         ?>
         <!-- page specific content starts -->
-        <h1 style="color: green">Error</h1>
+        <h1 style="color: navy">Error</h1>
 
         <!-- error message -->
         <div>
-            <h3 style="color: green">We are sorry, but an transaction error has occurred.</h3>
+            <h3 style="color: navy">We are sorry, but an transaction error has occurred.</h3>
             <p><?= $message ?></p>
         </div>
 

@@ -19,8 +19,7 @@ class Accounts extends View
         $this->header();
         ?>
 
-        <h2 style="color: lightpink">All Bank Accounts</h2>
-        <!-- search bar-->
+        <h2 style="color: dodgerblue">All Bank Accounts</h2>
         <div id="searchbar">
             <form method="get" action="<?= BASE_URL ?>/BankAccount/search">
                 <input type="text" name="query-terms" id="searchtextbox" placeholder="Search Bank Accounts"

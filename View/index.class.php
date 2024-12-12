@@ -18,7 +18,7 @@ class Index extends View
         $this->header(); ?>
         <!--            page specific content and button-->
 
-        <h1 style="color: green">Welcome to the Home Screen</h1>
+        <h1 style="color: navy">Welcome to the Home Screen</h1>
         <?php
         if (!isset($_SESSION['userId'])) {
 

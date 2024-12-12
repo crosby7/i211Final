@@ -36,13 +36,13 @@ h1, h2{
     padding-left: 8px;
     font-size: 0.8em;
     font-family: "Monaco";
-    color: whitesmoke;
+    color: navy;
 }
 
 /*change the color so when you hover the submit button its color matches the rest of the application*/
 #searchbar input[type="submit"]:hover{
     border-left: 1px solid #999;
-    background-color: green;
+    background-color: dodgerblue;
 }
 
  /*make the table more centered, */
@@ -50,29 +50,29 @@ h1, h2{
      width: 100%;
      padding-right: 5px;
      padding-left: 5px;
-     border: green;
+     border: dodgerblue;
      border-collapse: collapse;
      border-spacing: 10px
  }
 
 td {
-    border: 1px solid green;
+    border: 1px dodgerblue;
     text-align: left;
     padding: 8px;
     font-family: Serif;
 }
 
 th {
-    background-color: darkgreen;
-    opacity: .7;
+    background-color: navy;
+    opacity: 1;
     color: whitesmoke;
-    border: 1px solid green;
+    border: 1px solid white;
     text-align: center;
     padding: 8px;
     font-family:Serif;
 }
 td:hover {
-    background-color: green;
+    background-color: dodgerblue;
     opacity: .5;
 }
 tr:nth-child(even) {background-color: #f2f2f2;}
@@ -80,7 +80,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 /* The navbar container */
 .topnav {
     overflow: hidden;
-    background-color: green;
+    background-color: navy;
 }
 
 /* Navbar links */
@@ -96,7 +96,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 
 /* Links - change color on hover */
 .topnav a:hover {
-    background-color: rebeccapurple;
+    background-color: dodgerblue;
     color: white;
 }
 
@@ -127,7 +127,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 }
 
 #suggestionDiv span:hover {
-    background-color: rebeccapurple;
+    background-color: dodgerblue;
 }
 
 /*style for create account button div*/

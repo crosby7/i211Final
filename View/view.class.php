@@ -24,9 +24,9 @@ class View {
             </script>
         </head>
         <div id="header">
-          <div id="Rlogo"><img src="<?= BASE_URL ?>/logo.jpg" width = 70 height = 85 alt="logo image"></div>
-            <div id="Llogo"><img src="<?= BASE_URL ?>/logo.jpg" width = 70 height = 85 alt="logo image"></div>
-        <h1 style="color: green; font-family: 'Monaco'; font-size: 36pt; text-align: center">Framework Financial Services</h1>
+          <div id="Rlogo"><img src="<?= BASE_URL ?>/logo.jpg" width = 85 height = 85 alt="logo image"></div>
+            <div id="Llogo"><img src="<?= BASE_URL ?>/logo.jpg" width = 85 height = 85 alt="logo image"></div>
+        <h1 style="color: dodgerblue; font-family: 'Monaco'; font-size: 36pt; text-align: center">Framework Financial Services</h1>
 
         <div class="topnav">
             <a href='<?= BASE_URL ?>/index.php'>Home</a>
