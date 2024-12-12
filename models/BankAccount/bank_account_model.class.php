@@ -79,9 +79,11 @@ class BankAccountModel
                 throw new DatabaseExecutionException("Database execution failed. Please try again.");
             }
 
-            // if query returns no rows, throw DataMissingException
+//             NEW: instead, we display a notice to users and allow them to create an account if none exist.
+//             if query returns no rows, throw DataMissingException
             if ($query->num_rows == 0) {
-                throw new DataMissingException("No accounts could be found.");
+//                throw new DataMissingException("No accounts could be found.");
+                return 0;
             }
 
             // put returned accounts into an associative array and return the array
@@ -106,7 +108,7 @@ class BankAccountModel
 
             return $accounts;
         }
-        catch (DatabaseExecutionException|DataMissingException|Exception $e) {
+        catch (DatabaseExecutionException|Exception $e) {
             $view = new AccountError();
             $view->display($e->getMessage());
             return false;
@@ -209,7 +211,8 @@ class BankAccountModel
 
             // if query returns no rows, throw DataMissingException
             if ($query->num_rows == 0) {
-                throw new DataMissingException("No accounts could be found.");
+//                throw new DataMissingException("No accounts could be found.");
+                return 0;
             }
 
             // create an array
@@ -237,7 +240,7 @@ class BankAccountModel
 
             return $results;
         }
-        catch (DatabaseExecutionException|DataMissingException|Exception $e) {
+        catch (DatabaseExecutionException|Exception $e) {
             $view = new AccountError();
             $view->display($e->getMessage());
             return false;
@@ -346,7 +349,7 @@ class BankAccountModel
     // public function to get the sum of all credits and debits for a specific account (balance)
     public function getBalance($accountId): float|bool {
         // Make sql statement
-        $sql = "SELECT SUM(amount) FROM transaction WHERE accountId = $accountId";
+        $sql = "SELECT IFNULL(SUM(amount), 0) FROM transaction WHERE accountId = $accountId";
 
         // execute query
         $query = $this->dbConnection->query($sql);
@@ -357,10 +360,8 @@ class BankAccountModel
         }
 
         // Write query result to variable
-        $balance = $query->fetch_column();
+        return $query->fetch_column();
 
-
-        return $balance;
     }
 
 }

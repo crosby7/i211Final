@@ -82,7 +82,8 @@ class TransactionModel
                 throw new DatabaseExecutionException("Database error. Could not get transactions.");
             }
             else if ($query->num_rows == 0) {
-                throw new DataMissingException("No transactions could be found.");
+//                throw new DataMissingException("No transactions could be found.");
+                return 0;
             }
 
             // put returned transactions in an array
@@ -103,7 +104,7 @@ class TransactionModel
 
             return $transactions;
         }
-        catch (DatabaseExecutionException|DataMissingException|Exception $e) {
+        catch (DatabaseExecutionException|Exception $e) {
             $view = new TransactionError();
             $view->display($e->getMessage());
             return false;
