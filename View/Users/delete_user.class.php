@@ -17,8 +17,18 @@ class DeleteUser extends View
 
         <h1 style="text-align: center">Attention! Are you sure you want to delete this account? </h1>
         <h3 style="text-align: center">Deleting your user account will delete all associated bank accounts.</h3>
-                <input type="button" name="action" value="Yes, Delete User Account" onclick = "window.location.href = "<?=BASE_URL ?>/User/delete">
-                <input type="button" value="No, Cancel" onclick="window.location.href = "<?= BASE_URL ?>/User/all">
+
+        <div>
+            <a href='<?= BASE_URL ?>/User/delete/'>
+                <input type="submit" class="button" value="Yes, Delete User Account">
+            </a>
+        </div>
+        <div>
+            <a href='<?= BASE_URL ?>/User/all/'>
+                <input type="submit" class="button" value="No, Cancel">
+            </a>
+        </div>
+
         <?php
         //call the footer
         $this->footer();
