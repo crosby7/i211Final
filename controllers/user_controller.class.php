@@ -262,6 +262,14 @@ class UserController {
             $view->display($message);
         }
     }
+    public function delete($id)
+    {
+        $id = htmlspecialchars($id);
+        $view = new DeleteUser();
+        $view->display();
+        //$deleteAccount = $this->accountModel->deleteAccount($id);
+    }
+
 
     //create error message
     public function error($message): void

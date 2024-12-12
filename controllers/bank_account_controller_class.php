@@ -84,7 +84,7 @@ class BankAccountController {
         $balance = $this->accountModel->getBalance($id);
 
         if ($account) {
-            $view = new Details();
+            $view = new AccountDetails();
             $view->display($account, $balance);
         } else if($account === 0){
             $message = "No account details found.";
@@ -188,6 +188,10 @@ class BankAccountController {
         }
         $id = htmlspecialchars($id);
         $deleteAccount = $this->accountModel->deleteAccount($id);
+        //display  message
+        $message = "This account has successfully been deleted.";
+        $view = new Notice();
+        $view->display($message, "BankAccount");
     }
 
 
