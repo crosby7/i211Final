@@ -82,7 +82,6 @@ class BankAccountModel
 //             NEW: instead, we display a notice to users and allow them to create an account if none exist.
 //             if query returns no rows, throw DataMissingException
             if ($query->num_rows == 0) {
-                var_dump("Bank account: 0 rows");
 //                throw new DataMissingException("No accounts could be found.");
                 return 0;
             }

@@ -29,7 +29,6 @@ class BankAccountController {
                 $view = new Accounts();
                 $view->display($accounts);
             } else if ($accounts === 0){
-                var_dump("No accounts in controller");
                 $message = "You do not have any bank accounts.";
                 $view = new Notice();
                 $view->display($message);
