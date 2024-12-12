@@ -88,13 +88,13 @@ class TransactionController
         $accountStatus = $this->transaction_model->addTransaction($accountId, $type, $amount);
 
         if (!$accountStatus) {
-            $message = "An error occurred and an account could not be created.";
+            $message = "An error occurred and a transaction could not be completed.";
             $view = new AccountError();
             $view->display($message);
             return;
         }
         //display create message
-        $message = "An account has successfully been created.";
+        $message = "You have successfully completed a transaction.";
         $view = new Notice();
         $view->display($message);
     }
