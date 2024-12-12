@@ -42,7 +42,7 @@ class TransactionModel
     }
 
     // public function to get all transactions
-    public function getTransactions(): array|bool {
+    public function getTransactions(): array|bool|int {
         // only admins should see all transactions. Users should only see all of THEIR transactions
         // so, we will need userId and role from $_SESSION
         try {

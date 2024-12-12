@@ -9,7 +9,7 @@
 class Notice extends View
 {
     // public function to display a message
-    public function display($msg, $controllerName): void {
+    public function display(String $msg): void {
         //call the header
         $this->header(); ?>
         <h1>Notice</h1>
