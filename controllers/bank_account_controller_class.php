@@ -28,6 +28,10 @@ class BankAccountController {
             if ($accounts) {
                 $view = new Accounts();
                 $view->display($accounts);
+            } else if ($accounts === 0){
+                $message = "You do not have any bank accounts.";
+                $view = new Notice();
+                $view->display($message);
             }
 
           /*  // check if accounts are found

@@ -269,7 +269,7 @@ class UserController {
     {
         $id = htmlspecialchars($id);
         $view = new DeleteUser();
-        $view->display();
+        $view->display($id);
         //$deleteAccount = $this->accountModel->deleteAccount($id);
     }
      public function delete($id)

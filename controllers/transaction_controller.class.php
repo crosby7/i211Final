@@ -26,6 +26,10 @@ class TransactionController
                 // Pass transactions to the view for display
                 $view = new Transactions();
                 $view->display($transactions);
+            } else if ($transactions === 0){
+                $message = "You do not have any transactions in your history at this time.";
+                $view = new Notice();
+                $view->display($message);
             }
         } catch (Exception $e){
             $view = new TransactionError();
