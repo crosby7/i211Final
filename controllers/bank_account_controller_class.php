@@ -159,11 +159,11 @@ class BankAccountController {
         $view->display($message);
     }
 
-    public function editForm(): void
+    public function editForm($id): void
     {
         //display register message
         $view = new EditAccount();
-        $view->display();
+        $view->display($id);
     }
 
     public function edit($id): void
