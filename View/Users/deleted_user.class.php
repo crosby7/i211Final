@@ -19,12 +19,12 @@ class DeletedUser extends View
         <h3 style="text-align: center">All associated bank accounts have been deleted.</h3>
         <div>
             <a href='<?= BASE_URL ?>/User/create/'>
-                <input type="submit" class="button" value="Delete Account">
+                <input type="submit" class="button" value="Create Account">
             </a>
         </div>
         <div>
             <a href='<?= BASE_URL ?>/index.php/'>
-                <input type="submit" class="button" value="Delete Account">
+                <input type="submit" class="button" value="Home">
             </a>
         </div>
         <?php
