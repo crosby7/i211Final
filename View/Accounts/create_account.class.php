@@ -25,7 +25,9 @@ class CreateAccount extends View
             <option value="Savings">I want a saving account</option>
         </select>
     <input type="submit" name="action" value="Create Account">
-    <input type="button" value="Cancel" onclick="window.location.href = "<?= BASE_URL ?>/BankAccount/all">
+        <a href='<?= BASE_URL ?>/BankAccount/all'>
+            <input type="button" class="button" value="Cancel">
+        </a>
 </form>
         <?php
         //call the footer
