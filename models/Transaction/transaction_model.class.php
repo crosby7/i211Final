@@ -174,4 +174,66 @@ class TransactionModel
             return false;
         }
     }
+
+    // public function to get a user's related account ids
+    public function getAccountIds(): array|bool|int {
+        // only admins should see all accounts (for new transactions). Users should only see all of THEIR transactions
+        // so, we will need userId and role from $_SESSION
+        try {
+            if (!isset($_SESSION['role']) || !isset($_SESSION['userId']))
+            {
+                throw new AuthenticationException("User required to make new transactions.");
+            }
+            else {
+                $userId = htmlspecialchars($_SESSION['userId']);
+                $role = htmlspecialchars($_SESSION['role']);
+            }
+        }
+        catch (AuthenticationException|Exception $e) {
+            $view = new TransactionError();
+            $view->display($e->getMessage());
+            return false;
+        }
+
+        // create different sql statements for the two roles
+        if ($role == "Admin") {
+            // create sql
+            $sql = "SELECT accountId FROM bank_account";
+        }
+        else if ($role == "User") {
+            // create sql
+            $sql = "SELECT accountId FROM bank_account WHERE userId = $userId";
+        }
+
+
+        // try catch block to handle exceptions
+        try {
+            // execute the query
+            $query = $this->dbConnection->query($sql);
+
+            // if query fails or returns no rows, throw exception
+            if (!$query) {
+                throw new DatabaseExecutionException("Database error. Could not find user's available accounts for transactions.");
+            }
+            else if ($query->num_rows == 0) {
+//                throw new DataMissingException("No transactions could be found.");
+                return 0;
+            }
+
+            // put returned transactions in an array
+            $ids = array();
+            while ($accounts = $query->fetch_object()) {
+
+                // add accounts to array
+                $ids[] = stripslashes($accounts->accountId);
+            }
+
+            return $ids;
+        }
+        catch (DatabaseExecutionException|Exception $e) {
+            $view = new TransactionError();
+            $view->display($e->getMessage());
+            return false;
+        }
+    }
 }
