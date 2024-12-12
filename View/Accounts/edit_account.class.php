@@ -10,12 +10,12 @@
 class EditAccount extends View
 {
     //define the display method
-    public function display(): void
+    public function display(int $id): void
     {
         //call the header
         $this->header(); ?>
 
-        <form class="new-media" action="<?= BASE_URL ?>/BankAccount/edit" method="post" style="border: 1px solid #bbb; margin-top: 10px; padding: 10px;">
+        <form class="new-media" action="<?= BASE_URL ?>/BankAccount/edit/<?= $id?>" method="post" style="border: 1px solid #bbb; margin-top: 10px; padding: 10px;">
             <input type="hidden" name="id" value="10">
             <p><strong>Account Nickname</strong>:
                 <input name="accountNickname" type="text" size="350" value="" autofocus=""></p>
