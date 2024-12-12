@@ -75,7 +75,7 @@ class UserController {
                 // Store registration data
                 $firstName = htmlspecialchars($_SESSION['firstName']);
                 $lastName = htmlspecialchars($_SESSION['lastName']);
-                $email = htmlspecialchars($_SESSION['email']);
+                $email = htmlspecialchars($_SESSION['emailAddress']);
                 $view = new EditUser();
                 $view->display($firstName, $lastName, $email);
             }
