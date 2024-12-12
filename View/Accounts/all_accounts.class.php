@@ -33,6 +33,11 @@ class Accounts extends View
                 <input id="createButton" type="submit" class="button" value="Create an Account">
             </a>
         </div>
+        <div id="buttonDiv">
+            <a href='<?= BASE_URL ?>/Transaction/createForm'>
+                <input id="createButton" type="submit" class="button" value="Create a Transaction">
+            </a>
+        </div>
         <br>
         <br>
 
