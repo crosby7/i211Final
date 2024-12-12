@@ -19,8 +19,6 @@ class EditAccount extends View
             <input type="hidden" name="id" value="10">
             <p><strong>Account Nickname</strong>:
                 <input name="accountNickname" type="text" size="350" value="" autofocus=""></p>
-            <p><strong>Account ID</strong>: <br>
-                <input name="accountID" type="hidden" size="350" required=""></p>
             <input type="submit" name="action" value="Edit Account" onclick = "window.location.href = "<?=BASE_URL ?>/BankAccount/all">
             <input type="button" value="Cancel" onclick="window.location.href = "<?= BASE_URL ?>/BankAccount/all">
         </form>
