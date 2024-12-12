@@ -38,7 +38,7 @@ class UserController {
 
         // Validate POST data. If fails, throw exception
         try {
-            if (!isset($_POST['firstName']) || !isset($_POST['lastName']) || !isset($_POST['email']) || !isset($_POST['password'])) {
+            if (!isset($_POST['firstName']) || !isset($_POST['lastName']) || !isset($_POST['email']) || !isset($_POST['password']) || !isset($_POST['role'])) {
                 throw new DataMissingException("Could not create user: Required data missing (first name, last name, email, password).");
             }
 
@@ -47,9 +47,55 @@ class UserController {
             $lastName = htmlspecialchars($_POST['lastName']);
             $email = htmlspecialchars($_POST['email']);
             $password = htmlspecialchars($_POST['password']);
+            $role = htmlspecialchars($_POST['role']);
 
 
-            $user = $this->user_model->addUser($firstName, $lastName, $email, $password);
+            $user = $this->user_model->addUser($firstName, $lastName, $email, $password, $role);
+
+            if (!$user) {
+                throw new DatabaseExecutionException("An error occurred and user could not be added.");
+            }
+
+
+            $view = new Notice();
+            $view->display("User successfully created!", "User");
+
+        } catch (DataMissingException|DatabaseExecutionException|Exception $e) {
+            $view = new UserError();
+            $view->display($e->getMessage());
+        }
+    }
+    public function editForm()
+    {
+        try {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $this->edit();
+            } else {
+                // Display the registration form
+                $view = new EditUser();
+                $view->display();
+            }
+        } catch (DataMissingException|DatabaseExecutionException|Exception $e) {
+            $view = new UserError();
+            $view->display($e->getMessage());
+        }
+    }
+
+    public function edit(){
+        // Validate POST data. If fails, throw exception
+        try {
+            if (!isset($_POST['firstName']) || !isset($_POST['lastName']) || !isset($_POST['email'])) {
+                throw new DataMissingException("Could not edit user: Required data missing (first name, last name, email).");
+            }
+
+            // Store registration data
+            $firstName = htmlspecialchars($_POST['firstName']);
+            $lastName = htmlspecialchars($_POST['lastName']);
+            $email = htmlspecialchars($_POST['email']);
+
+
+
+            $user = $this->user_model->addUser($firstName, $lastName, $email);
 
             if (!$user) {
                 throw new DatabaseExecutionException("An error occurred and user could not be added.");

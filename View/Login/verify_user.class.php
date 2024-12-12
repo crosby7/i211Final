@@ -22,7 +22,7 @@ class VerifyUser extends View{
             </div>
             <div>
             <span style="float: left">
-                Log out? <a href="<?=BASE_URL?>/User/Logout">Logout</a></span>
+                Log out? <a href="<?=BASE_URL?>/User/logout">Logout</a></span>
                 <span style="float: right">Reset password? <a href="<?=BASE_URL?>/index.php?action=reset">Reset</a></span>
             </div>
             <?php
