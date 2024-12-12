@@ -70,24 +70,36 @@ class TransactionController
         $view->display($transaction);
     }
 
-    // Display the balance for a specific account
-    public function balance($accountId): void
+    public function createForm(): void
     {
-        // Get the balance for the specified account
-        $balance = $this->transaction_model->getBalance($accountId);
+        $transactionids = $this->transaction_model->getAccountIds();
+        //display register message
+        $view = new CreateTransaction();
+        $view->display($transactionids);
+    }
 
-        // Check if the balance was retrieved successfully
-        if ($balance === false) {
-            $message = "Could not retrieve account balance.";
-            $view = new UserError();
+    //add account to database
+    public function create(): void
+    {
+        // Store registration data
+        $accountId = htmlspecialchars($_POST['accountid']);
+        $type = htmlspecialchars($_POST['lastName']);
+        $amount = htmlspecialchars($_POST['email']);
+        $time = htmlspecialchars($_POST['password']);
+        $accountStatus = $this->transaction_model->addTransaction($accountId, $type, $amount, $time);
+
+        if (!$accountStatus) {
+            $message = "An error occurred and an account could not be created.";
+            $view = new AccountError();
             $view->display($message);
             return;
         }
-
-        // Pass the balance to the view for display
-        $view = new AccountBalanceView();
-        $view->display($balance);
+        //display create message
+        $message = "An account has successfully been created.";
+        $view = new Notice();
+        $view->display($message);
     }
+
 
     // Handle errors
     public function error($message): void

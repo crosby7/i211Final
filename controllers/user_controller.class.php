@@ -279,9 +279,14 @@ class UserController {
     }
      public function delete($id)
      {
+         if(isset($_SESSION['role'])) {
+             $role = htmlspecialchars($_SESSION['role']);
+         }
          $id = htmlspecialchars($id);
          $deleteAccount = $this->user_model->deleteAccount($id);
-         $logout = $this->user_model->logout();
+        if($role === "User") {
+            $logout = $this->user_model->logout();
+        }
 
          $view = new DeletedUser();
          $view->display();
