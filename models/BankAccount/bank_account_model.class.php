@@ -325,7 +325,7 @@ class BankAccountModel
     // public function to allow a user to delete an account
     public function deleteAccount($accountId): bool {
         // create sql statement
-        $sql = "DELETE from bank_account WHERE accountId = $accountId";
+        $sql = "DELETE FROM bank_account WHERE accountId = $accountId";
 
         // if query fails, throw exception
         try {

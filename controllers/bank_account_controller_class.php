@@ -186,7 +186,7 @@ class BankAccountController {
 
     }
 
-    public function delete($id): void {
+    public function deleteForm($id): void {
         if ($id === null) {
             // error
             $message = "No account specified.";
@@ -196,10 +196,18 @@ class BankAccountController {
         }
         $id = htmlspecialchars($id);
         $deleteAccount = $this->accountModel->deleteAccount($id);
-        //display  message
-        $message = "This account has successfully been deleted.";
-        $view = new Notice();
-        $view->display($message);
+        if(!$deleteAccount) {
+            //display  message
+            $message = "error";
+            $view = new Notice();
+            $view->display($message);
+        } else {
+            //display  message
+            $message = "This account has successfully been deleted.";
+            $view = new Notice();
+            $view->display($message);
+        }
+
     }
 
 
