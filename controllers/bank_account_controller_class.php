@@ -134,7 +134,7 @@ class BankAccountController {
     public function createForm(): void
     {
         //display register message
-        $view = new Create();
+        $view = new CreateAccount();
         $view->display();
     }
 
@@ -153,6 +153,13 @@ class BankAccountController {
         $message = "An account has successfully been created.";
         $view = new Notice();
         $view->display($message, "BankAccount");
+    }
+
+    public function editForm(): void
+    {
+        //display register message
+        $view = new EditAccount();
+        $view->display();
     }
 
     public function edit($id): void

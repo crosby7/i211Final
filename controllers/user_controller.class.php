@@ -95,7 +95,7 @@ class UserController {
 
 
 
-            $user = $this->user_model->addUser($firstName, $lastName, $email);
+            $user = $this->user_model->editAccount($firstName, $lastName, $email);
 
             if (!$user) {
                 throw new DatabaseExecutionException("An error occurred and user could not be added.");
