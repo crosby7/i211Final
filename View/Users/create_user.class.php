@@ -25,10 +25,6 @@ class CreateUser extends View
                 <input name="email" type="text" size="350" required=""></p>
             <p><strong>Password</strong>: <br>
                 <input name="password" type="text" size="350" required=""></p>
-            <select name="role" id="accountType">
-                <option value="User">Regular User</option>
-                <option value="Admin">Admin User</option>
-            </select>
             <input type="submit" name="action" value="Create User">
             <input type="button" value="Cancel" onclick="window.location.href = "<?= BASE_URL ?>/User/all">
         </form>
