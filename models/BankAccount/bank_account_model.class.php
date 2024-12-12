@@ -270,7 +270,7 @@ class BankAccountModel
             return false;
         }
 
-        $accountNickname = htmlspecialchars($_POST['accountNickname']);
+        $accountNickname = filter_var($_POST['accountNickname']);
         $accountType = htmlspecialchars($_POST['accountType']);
 
         // all opened accounts start in good standing
