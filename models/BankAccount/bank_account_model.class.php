@@ -301,7 +301,7 @@ class BankAccountModel
     // public method to edit an account nickname (only nickname made sense to allow edits on logically)
     public function editAccount($accountId, $accNickname): bool {
         // Create sql statement
-        $sql = "UPDATE bank_account SET accountNickname = $accNickname WHERE accountId = $accountId";
+        $sql = "UPDATE bank_account SET accountNickname = '$accNickname' WHERE accountId = $accountId";
 
         // catch any exceptions in db execution
         try {
