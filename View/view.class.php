@@ -33,7 +33,15 @@ class View {
             <a href='<?= BASE_URL ?>/BankAccount/all'>Accounts</a>
             <a href='<?= BASE_URL ?>/User/all'>Users</a>
             <a href='<?= BASE_URL ?>/Transaction/all'>Transactions</a>
+            <?php
+    if (!isset($_SESSION['userId'])) {
+            ?>
             <a href='<?= BASE_URL ?>/User/login'>Login</a>
+        <?php
+    }else { ?>
+        <a href='<?= BASE_URL ?>/User/login'>Logout</a>
+   <?php } ?>
+
         </div>
         </div>
 

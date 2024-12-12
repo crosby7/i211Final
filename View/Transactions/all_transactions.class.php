@@ -27,6 +27,7 @@ class Transactions extends View
         <table>
             <tr>
                 <th>Account ID</th>
+                <th>User ID</th>
                 <th>Transaction Type</th>
                 <th>Transaction Amount</th>
                 <th>Time Stamp</th>

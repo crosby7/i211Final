@@ -14,7 +14,7 @@ class Logout extends View{
     {
         //display the header
         $this->header();?>
-        <div>Login</div>
+        <div>Logout</div>
         <div>
             <p>You have successfully logged out.</p>
         </div>

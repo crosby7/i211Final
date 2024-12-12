@@ -31,6 +31,7 @@ class Index extends View
         } else {
             ?>
             <h3>Hello, <?= htmlspecialchars($_SESSION['firstName']) ?></h3>
+            <h3><a href='<?= BASE_URL ?>/BankAccount/create'>Click Here to Create an Bank Account</a></h3>
             <span style="float: left">
                 Log out? <a href="<?=BASE_URL?>/User/Logout">Logout</a></span>
             <?php
