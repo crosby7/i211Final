@@ -7,11 +7,12 @@
  */
 
 
-
-class UserController {
+class UserController
+{
     private UserModel $user_model;
 
-    public function __construct(){
+    public function __construct()
+    {
         //create an object of UserModel class
         $this->user_model = UserModel::getUserModel();
     }
@@ -29,7 +30,7 @@ class UserController {
         } catch (DatabaseExecutionException|DataMissingException $e) {
             $view = new UserError();
             $view->display($e->getMessage());
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             // Handle any other exceptions
             $view = new UserError();
             $view->display("An unexpected error occurred: " . $e->getMessage());
@@ -53,7 +54,6 @@ class UserController {
             $password = htmlspecialchars($_POST['password']);
 
 
-
             $user = $this->user_model->addUser($firstName, $lastName, $email, $password);
 
             if (!$user) {
@@ -64,15 +64,16 @@ class UserController {
             $view = new Notice();
             $view->display("User successfully created!");
 
-        }catch (DatabaseExecutionException|DataMissingException $e) {
+        } catch (DatabaseExecutionException|DataMissingException $e) {
             $view = new UserError();
             $view->display($e->getMessage());
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             // Handle any other exceptions
             $view = new UserError();
             $view->display("An unexpected error occurred: " . $e->getMessage());
         }
     }
+
     public function editForm()
     {
         try {
@@ -90,14 +91,15 @@ class UserController {
         } catch (DatabaseExecutionException|DataMissingException $e) {
             $view = new UserError();
             $view->display($e->getMessage());
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             // Handle any other exceptions
             $view = new UserError();
             $view->display("An unexpected error occurred: " . $e->getMessage());
         }
     }
 
-    public function edit(){
+    public function edit()
+    {
         // Validate POST data. If fails, throw exception
         try {
             if (!isset($_POST['firstName']) || !isset($_POST['lastName']) || !isset($_POST['email']) || !isset($_POST['password'])) {
@@ -111,7 +113,6 @@ class UserController {
             $password = htmlspecialchars($_POST['password']);
 
 
-
             $user = $this->user_model->editAccount($firstName, $lastName, $email, $password);
 
             if (!$user) {
@@ -122,15 +123,16 @@ class UserController {
             $view = new Notice();
             $view->display("User information Successfully updated!");
 
-        }catch (DatabaseExecutionException|DataMissingException $e) {
+        } catch (DatabaseExecutionException|DataMissingException $e) {
             $view = new UserError();
             $view->display($e->getMessage());
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             // Handle any other exceptions
             $view = new UserError();
             $view->display("An unexpected error occurred: " . $e->getMessage());
         }
     }
+
     //display login page form
     public function login(): void
     {
@@ -138,20 +140,19 @@ class UserController {
             //display login form
             $view = new Login();
             $view->display();
-        }
-        else {
+        } else {
             // display verifyUser screen
             $view = new VerifyUser();
             $view->display(1, "You are already logged in.");
         }
     }
+
     //verify user credentials to properly login
     public function verify(): void
     {
         // validate POST data. If fails, throw exception
         try {
-            if (!isset($_POST['emailAddress']) || !isset($_POST['password']))
-            {
+            if (!isset($_POST['emailAddress']) || !isset($_POST['password'])) {
                 throw new DataMissingException("Could not login: email or password missing.");
             }
 
@@ -160,7 +161,7 @@ class UserController {
             $password = htmlspecialchars($_POST['password']);
 
             $verify = $this->user_model->login($email, $password);
-            if($verify){
+            if ($verify) {
                 //display successful login
                 $message = "You have successfully logged in.";
                 $view = new VerifyUser();
@@ -168,34 +169,34 @@ class UserController {
             }
 
 
-        }
-        catch (DatabaseExecutionException|DataMissingException|AuthenticationException|Exception $e) {
+        } catch (DatabaseExecutionException|DataMissingException|AuthenticationException|Exception $e) {
             $view = new VerifyUser();
             $view->display($verify, $e->getMessage());
         }
 
     }
+
     //logout user
     public function logout(): void
     {
         try {
-        //
-        $logout = $this->user_model->logout();
-        if (!$logout) {
-            $message = "An error has prevented you from logging out.";
-            $view = new UserError();
-            $view->display($message);
-            return;
-        }
-        //display logout success
-        $view = new Logout();
-        $view->display();
-        }
-        catch (AuthenticationException|Exception $e) {
+            //
+            $logout = $this->user_model->logout();
+            if (!$logout) {
+                $message = "An error has prevented you from logging out.";
+                $view = new UserError();
+                $view->display($message);
+                return;
+            }
+            //display logout success
+            $view = new Logout();
+            $view->display();
+        } catch (AuthenticationException|Exception $e) {
             $view = new AccountError();
             $view->display($e->getMessage());
         }
     }
+
     //display the reset password form
     public function reset(): void
     {
@@ -210,6 +211,7 @@ class UserController {
         $view = new Reset();
         $view->display();
     }
+
     //actually reset the password in the database
     public function do_reset(): void
     {
@@ -240,26 +242,12 @@ class UserController {
             $view = new UserError();
             $view->display($e->getMessage());
         }
-      /*  // Retrieve all users from the model
-        $accounts = $this->user_model->getUsers();
 
-        // check if accounts are found
-        if ($accounts) {
-            $view = new AllUser();
-            $view->display($accounts);
-        } else if($accounts === 0){
-            $message = "No accounts found.";
-            $view = new UserError();
-            $view->display($message);
-        } else {
-            $message = "An error has occurred with your request.";
-            $view = new UserError();
-            $view->display($message);
-        }*/
     }
 
     //display details page
-    public function details($id = null): void {
+    public function details($id = null): void
+    {
         try {
             if ($id === null) {
                 // error
@@ -291,32 +279,34 @@ class UserController {
             $view->display($e->getMessage());
         }
     }
+
     public function deleteForm($id)
     {
         $id = htmlspecialchars($id);
         $view = new DeleteUser();
         $view->display($id);
-        //$deleteAccount = $this->accountModel->deleteAccount($id);
-    }
-     public function delete($id)
-     {
-         try {
-             if (isset($_SESSION['role'])) {
-                 $role = htmlspecialchars($_SESSION['role']);
-             }
-             $id = htmlspecialchars($id);
-             $deleteAccount = $this->user_model->deleteAccount($id);
-             if ($role === "User") {
-                 $logout = $this->user_model->logout();
-             }
 
-             $view = new DeletedUser();
-             $view->display();
-         }catch (DatabaseExecutionException|DataMissingException|AuthenticationException|Exception $e) {
-             $view = new UserError();
-             $view->display($e->getMessage());
-         }
-     }
+    }
+
+    public function delete($id)
+    {
+        try {
+            if (isset($_SESSION['role'])) {
+                $role = htmlspecialchars($_SESSION['role']);
+            }
+            $id = htmlspecialchars($id);
+            $deleteAccount = $this->user_model->deleteAccount($id);
+            if ($role === "User") {
+                $logout = $this->user_model->logout();
+            }
+
+            $view = new DeletedUser();
+            $view->display();
+        } catch (DatabaseExecutionException|DataMissingException|AuthenticationException|Exception $e) {
+            $view = new UserError();
+            $view->display($e->getMessage());
+        }
+    }
 
 
     //create error message

@@ -22,11 +22,11 @@ class TransactionController
     {
         try {
             $transactions = $this->transaction_model->getTransactions();
-            if ($transactions){
+            if ($transactions) {
                 // Pass transactions to the view for display
                 $view = new Transactions();
                 $view->display($transactions);
-            } else if ($transactions === 0){
+            } else if ($transactions === 0) {
                 $message = "You do not have any transactions in your history at this time.";
                 $view = new Notice();
                 $view->display($message);
@@ -34,25 +34,11 @@ class TransactionController
         } catch (DatabaseExecutionException|DataMissingException $e) {
             $view = new TransactionError();
             $view->display($e->getMessage());
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             // Handle any other exceptions
             $view = new TransactionError();
             $view->display("An unexpected error occurred: " . $e->getMessage());
         }
-        /*// get all transactions from the model
-        $transactions = $this->transaction_model->getTransactions();
-
-        // Check if transactions were retrieved successfully
-        if (!$transactions) {
-            $message = "No transactions available or an error occurred.";
-            $view = new UserError();
-            $view->display($message);
-            return;
-        }
-
-        // Pass transactions to the view for display
-        $view = new TransactionsView();
-        $view->display($transactions);*/
     }
 
     // Display details of a specific transaction
@@ -76,7 +62,7 @@ class TransactionController
         } catch (DatabaseExecutionException|DataMissingException $e) {
             $view = new TransactionError();
             $view->display($e->getMessage());
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             // Handle any other exceptions
             $view = new TransactionError();
             $view->display("An unexpected error occurred: " . $e->getMessage());
@@ -111,10 +97,10 @@ class TransactionController
             $message = "You have successfully completed a transaction.";
             $view = new Notice();
             $view->display($message);
-        }catch (DatabaseExecutionException|DataMissingException $e) {
+        } catch (DatabaseExecutionException|DataMissingException $e) {
             $view = new TransactionError();
             $view->display($e->getMessage());
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             // Handle any other exceptions
             $view = new TransactionError();
             $view->display("An unexpected error occurred: " . $e->getMessage());
