@@ -153,6 +153,11 @@ class TransactionModel
 
     // public function to add a new transaction for the selected account
     public function addTransaction($accountId, $type, $amount): bool {
+        // Ensure that amount is negative if type is Withdrawal
+        if ($type == "Withdrawal") {
+            $amount = abs($amount) * -1;
+        }
+
         // create sql
         $sql = "INSERT INTO transaction (accountId, type, amount, time) VALUES ($accountId, $type, $amount, CURRENT_TIMESTAMP)";
 
