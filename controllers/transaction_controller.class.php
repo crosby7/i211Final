@@ -82,11 +82,10 @@ class TransactionController
     public function create(): void
     {
         // Store registration data
-        $accountId = htmlspecialchars($_POST['accountid']);
-        $type = htmlspecialchars($_POST['lastName']);
-        $amount = htmlspecialchars($_POST['email']);
-        $time = htmlspecialchars($_POST['password']);
-        $accountStatus = $this->transaction_model->addTransaction($accountId, $type, $amount, $time);
+        $accountId = htmlspecialchars($_POST['accountId']);
+        $type = htmlspecialchars($_POST['transactionType']);
+        $amount = htmlspecialchars($_POST['amount']);
+        $accountStatus = $this->transaction_model->addTransaction($accountId, $type, $amount);
 
         if (!$accountStatus) {
             $message = "An error occurred and an account could not be created.";
