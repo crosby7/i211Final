@@ -46,7 +46,7 @@ class UserDetails extends View
             </a>
         </div>
         <div>
-            <a href='<?= BASE_URL ?>/User/delete/<?= $user->getID() ?>'>
+            <a href='<?= BASE_URL ?>/User/deleteForm/<?= $user->getID() ?>'>
                 <input type="submit" class="button" value="Delete Account">
             </a>
         </div>
