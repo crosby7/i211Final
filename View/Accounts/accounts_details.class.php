@@ -34,7 +34,7 @@ class AccountDetails extends View
                 <td><?= $account->getId() ?></td>
                 <td><?= $account->getAccountNickname() ?></td>
                 <td><?= $account->getAccountType() ?></td>
-                <td><?=$balance?></td>
+                <td>$<?=$balance?></td>
                 <td><?= $account->getAccountStatus() ?></td>
                 <td><?= $account->getUserId() ?></td>
 
@@ -47,7 +47,7 @@ class AccountDetails extends View
         </div>
 
         <div>
-            <a href='<?= BASE_URL ?>/BankAccount/delete/<?= $account->getUserId() ?>'>
+            <a href='<?= BASE_URL ?>/BankAccount/deleteForm/<?= $account->getUserId() ?>'>
                 <input type="submit" class="button" value="Delete Account">
             </a>
         </div>
