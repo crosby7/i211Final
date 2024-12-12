@@ -23,11 +23,6 @@ class EditUser extends View
                 <input name="lastName" type="text" size="350" value="" autofocus=""></p>
             <p><strong>Email</strong>: <br>
                 <input name="email" type="text" size="350" required=""></p>
-            <p><strong>Role</strong>:
-            <select name="role" id="accountType">
-                <option value="regular">Regular User</option>
-                <option value="admin">Admin User</option>
-            </select>
             <input type="submit" name="action" value="Edit Account" onclick = "window.location.href = "<?=BASE_URL ?>/User/all">
             <input type="button" value="Cancel" onclick="window.location.href = "<?= BASE_URL ?>/User/all">
         </form>
