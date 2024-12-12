@@ -24,8 +24,6 @@ class CreateAccount extends View
             <option value="Checking">I want a checking account</option>
             <option value="Savings">I want a saving account</option>
         </select>
-    <p><strong>User ID</strong>: <br>
-        <input name="userId" type="number" size="100" required=""></p>
     <input type="submit" name="action" value="Create Account">
     <input type="button" value="Cancel" onclick="window.location.href = "<?= BASE_URL ?>/BankAccount/all">
 </form>
