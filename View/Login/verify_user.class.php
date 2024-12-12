@@ -10,7 +10,7 @@
  */
 class VerifyUser extends View{
     //function to display log in message
-    public function display(bool$condition){
+    public function display(bool$condition, string $message){
         $this->header();
         if($condition == true){
             //if log in was successful
@@ -18,7 +18,7 @@ class VerifyUser extends View{
 
             <div>Login</div>
             <div>
-                <p>You have successfully logged in.</p>
+                <p><?=$message?></p>
             </div>
             <div>
             <span style="float: left">
@@ -32,7 +32,7 @@ class VerifyUser extends View{
             ?>
             <div>Login</div>
             <div>
-                <p>Your last attempt to login failed. Please try again.</p>
+                <p><?=$message?></p>
             </div>
             <div>
             <span style="float: left">
