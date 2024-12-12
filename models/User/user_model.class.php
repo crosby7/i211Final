@@ -302,7 +302,7 @@ class UserModel
         $password = password_hash($pw, PASSWORD_DEFAULT);
 
         // create sql
-        $sql = "UPDATE user_account SET firstName = '$firstName', lastName = '$lastName', emailAddress = '$email',  WHERE userId = $userId";
+        $sql = "UPDATE user_account SET firstName = '$firstName', lastName = '$lastName', emailAddress = '$email', password = '$password'  WHERE userId = $userId";
 
         // try catch block to handle exceptions
         try {
@@ -318,7 +318,7 @@ class UserModel
             return $query;
         }
         catch (DatabaseExecutionException|Exception $e) {
-            $view = new AccountError();
+            $view = new UserError();
             $view->display($e->getMessage());
             return false;
         }
