@@ -76,8 +76,8 @@ class UserController {
                 $firstName = htmlspecialchars($_SESSION['firstName']);
                 $lastName = htmlspecialchars($_SESSION['lastName']);
                 $email = htmlspecialchars($_SESSION['email']);
-                $view = new EditUser($firstName, $lastName, $email);
-                $view->display();
+                $view = new EditUser();
+                $view->display($firstName, $lastName, $email);
             }
         } catch (DataMissingException|DatabaseExecutionException|Exception $e) {
             $view = new UserError();
