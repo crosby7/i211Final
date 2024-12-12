@@ -121,7 +121,7 @@ class UserController {
         else {
             // display verifyUser screen
             $view = new VerifyUser();
-            $view->display(1);
+            $view->display(1, "You are already logged in.");
         }
     }
     //verify user credentials to properly login
