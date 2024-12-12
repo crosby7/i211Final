@@ -18,7 +18,7 @@ class DeletedUser extends View
         <h1 style="text-align: center">You have successfully deleted your user account.</h1>
         <h3 style="text-align: center">All associated bank accounts have been deleted.</h3>
         <div>
-            <a href='<?= BASE_URL ?>/User/create/'>
+            <a href='<?= BASE_URL ?>/User/register/'>
                 <input type="submit" class="button" value="Create Account">
             </a>
         </div>
