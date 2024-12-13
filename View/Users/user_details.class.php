@@ -17,7 +17,7 @@ class UserDetails extends View
         //call the header
         $this->header(); ?>
 
-        <h2>User Details</h2>
+        <h2 style="color: navy">User Details</h2>
         <!--        create the table-->
         <table>
             <tr>
@@ -35,21 +35,17 @@ class UserDetails extends View
 
             </tr>
         </table>
-        <div id="buttonDiv">
+        <div style="padding-top: 50px;">
             <a href='<?= BASE_URL ?>/User/editForm/<?= $user->getID() ?>'>
                 <input id="createButton" type="submit" class="button" value="Edit User">
-            </a>
-        </div>
-        <div>
+            </a> <br><br>
             <a href='<?= BASE_URL ?>/User/all'>
                 <input type="submit" class="button" value="Back to all Users">
-            </a>
+            </a> <br><br
         </div>
-        <div>
-            <a href='<?= BASE_URL ?>/User/deleteForm/<?= $user->getID() ?>'>
-                <input type="submit" class="button" value="Delete Account">
-            </a>
-        </div>
+        <a href='<?= BASE_URL ?>/User/deleteForm/<?= $user->getID() ?>'>
+            <input type="submit" class="button" value="Delete Account">
+        </a>
         <?php
         //call the footer
         $this->footer();

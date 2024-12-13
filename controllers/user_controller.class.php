@@ -62,7 +62,8 @@ class UserController
 
 
             $view = new Notice();
-            $view->display("User successfully created!");
+
+            $view->display("User successfully created!",'index','BankAccount','Return to Home');
 
         } catch (DatabaseExecutionException|DataMissingException $e) {
             $view = new UserError();
@@ -121,7 +122,7 @@ class UserController
 
 
             $view = new Notice();
-            $view->display("User information Successfully updated!");
+            $view->display("User information Successfully updated!",'User','all','Return to User Account');
 
         } catch (DatabaseExecutionException|DataMissingException $e) {
             $view = new UserError();

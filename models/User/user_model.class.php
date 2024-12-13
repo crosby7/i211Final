@@ -215,6 +215,7 @@ class UserModel
                 }
 
                 // Store user info in SESSION vars
+                // Should be like this: $_SESSION['user'] = new User(... user details)
                 $_SESSION['firstName'] = $row['firstName'];
                 $_SESSION['lastName'] = $row['lastName'];
                 $_SESSION['emailAddress'] = $row['emailAddress'];

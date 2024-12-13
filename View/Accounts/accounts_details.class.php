@@ -12,12 +12,12 @@
 class AccountDetails extends View
 {
     //define the display method
-    public function display(BankAccount $account, String $balance): void
+    public function display(BankAccount $account, string $balance): void
     {
         //call the header
         $this->header(); ?>
 
-        <h2>Account Details</h2>
+        <h2 style="color: navy">Account Details</h2>
         <!--        create the table-->
         <table>
             <tr>
@@ -34,27 +34,26 @@ class AccountDetails extends View
                 <td><?= $account->getId() ?></td>
                 <td><?= $account->getAccountNickname() ?></td>
                 <td><?= $account->getAccountType() ?></td>
-                <td>$<?=$balance?></td>
+                <td><?= sprintf("$ %.2f", $balance) ?></td>
                 <td><?= $account->getAccountStatus() ?></td>
                 <td><?= $account->getUserId() ?></td>
 
             </tr>
         </table>
-        <div>
+<!--        buttons-->
+        <div style="padding-top: 50px;">
             <a href='<?= BASE_URL ?>/BankAccount/all'>
                 <input type="submit" class="button" value="Back to all Accounts">
-            </a>
-        </div>
-
-        <div>
+            </a><br><br>
             <a href='<?= BASE_URL ?>/BankAccount/deleteForm/<?= $account->getId() ?>'>
                 <input type="submit" class="button" value="Delete Account">
-            </a>
-        </div>
-        <div id="buttonDiv1">
-            <a href='<?= BASE_URL ?>/BankAccount/editForm/<?=$account->getId()?>'>
+            </a> <br><br>
+            <a href='<?= BASE_URL ?>/BankAccount/editForm/<?= $account->getId() ?>'>
                 <input id="createButton" type="submit" class="button" value="Edit an Account">
-            </a>
+            </a><br><br>
+            <a href='<?= BASE_URL ?>/Transaction/createForm'>
+                <input id="createButton" type="submit" class="button" value="Create a Transaction">
+            </a><br><br>
         </div>
 
         <?php

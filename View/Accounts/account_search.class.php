@@ -21,6 +21,7 @@ class AccountSearch extends View
         <link rel="stylesheet" href="css.css">
         <h2>All Bank Accounts</h2>
         <!-- search bar-->
+
         <div id="searchbar">
             <form method="get" action="<?= BASE_URL ?>/BankAccount/search">
                 <input type="text" name="query-terms" id="searchtextbox" placeholder="Search Bank Accounts"

@@ -33,7 +33,12 @@ class BankAccountController
             } else if ($accounts === 0) {
                 $message = "You do not have any bank accounts.";
                 $view = new Notice();
-                $view->display($message);
+                $view->display(
+                    msg: $message,
+                    controller: 'BankAccount',
+                    method: 'createForm',
+                    buttonText: 'Create a Bank Account');
+
             }
 
         } catch (DatabaseExecutionException|DataMissingException $e) {
@@ -136,7 +141,11 @@ class BankAccountController
             //display create message
             $message = "An account has successfully been created.";
             $view = new Notice();
-            $view->display($message);
+            $view->display(
+                msg: $message,
+                controller: 'BankAccount',
+                method: 'all',
+                buttonText: 'Return to all Bank Accounts');
         } catch (DatabaseExecutionException|DataMissingException $e) {
             $view = new AccountError();
             $view->display($e->getMessage());
@@ -171,7 +180,11 @@ class BankAccountController
             //display register message
             $message = "Account nickname successfully updated.";
             $view = new Notice();
-            $view->display($message);
+            $view->display(
+                msg: $message,
+                controller: 'BankAccount',
+                method: 'all',
+                buttonText: 'Return all Bank Accounts');
         } catch (DatabaseExecutionException|DataMissingException $e) {
             $view = new AccountError();
             $view->display($e->getMessage());
@@ -204,7 +217,11 @@ class BankAccountController
                 //display  message
                 $message = "This account has successfully been deleted.";
                 $view = new Notice();
-                $view->display($message);
+                $view->display(
+                    msg: $message,
+                    controller: 'BankAccount',
+                    method: 'all',
+                );
             }
         } catch (DatabaseExecutionException|DataMissingException $e) {
             $view = new AccountError();

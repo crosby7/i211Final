@@ -2,7 +2,7 @@
  * Author: Millie Jones
  * Date: 12/05/2024
  * Name: css.css
- * Description: This is the css style file
+ * Description: This is the css style file for the website application
  */
 body{
     background-color: white;
@@ -130,13 +130,19 @@ tr:nth-child(even) {background-color: #f2f2f2;}
     background-color: dodgerblue;
 }
 
+
 /*style for create account button div*/
 #buttonDiv{
     position: absolute;
-    bottom: 150;
+    left: 0;
+    bottom: 0;
+    padding-top: 15px;
+    padding-right: 15px;
 }
 #buttonDiv1{
     position: absolute;
-    bottom: 150;
-    left : 300;
+    left: 0;
+    bottom: 0;
+    padding-top: 15px;
+    padding-right: 15px;
 }

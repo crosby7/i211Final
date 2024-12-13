@@ -18,15 +18,17 @@ class AllUser extends View
         //call the header
         $this->header();
         ?>
-
-        <h2>All Users</h2>
-        <div>
-            <a href='<?= BASE_URL ?>/User/register'>
-                <input type="submit" class="button" value="Create a new User">
-            </a>
-        </div>
-        <br>
-        <br>
+        <?php
+        $role = $_SESSION['role'];
+        if ($role === 'Admin') {
+            ?>
+            <h2 style="color: navy">All User Accounts</h2>
+            <?php
+        } elseif ($role === 'User') { ?>
+            <h2 style="color: navy">My User Account</h2>
+        <?php }else {?>
+            <h2 style="color: navy">Guest Account</h2>
+            <?php } ?>
 
         <!--        create the table-->
         <table>
@@ -53,6 +55,11 @@ class AllUser extends View
             } ?>
 
         </table>
+        <div style="padding-top: 50px;">
+            <a href='<?= BASE_URL ?>/User/register'>
+                <input type="submit" class="button" value="Create a new User">
+            </a>
+        </div>
         <?php
         //call the footer
         $this->footer();

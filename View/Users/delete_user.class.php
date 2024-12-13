@@ -21,9 +21,7 @@ class DeleteUser extends View
         <div>
             <a href='<?= BASE_URL ?>/User/delete/<?=$id ?>'>
                 <input type="submit" class="button" value="Yes, Delete User Account">
-            </a>
-        </div>
-        <div>
+            </a> <br><br>
             <a href='<?= BASE_URL ?>/User/all/'>
                 <input type="submit" class="button" value="No, Cancel">
             </a>

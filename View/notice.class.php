@@ -9,14 +9,19 @@
 class Notice extends View
 {
     // public function to display a message
-    public function display(String $msg): void {
+    public function display(
+            String $msg,
+            String $controller = 'BankAccount',
+            String $method = 'index',
+            String $buttonText = 'Return',
+    ): void {
         //call the header
         $this->header(); ?>
-        <h1>Notice</h1>
-        <p><?= $msg ?></p>
+        <h1 style = "color: dodgerblue">Notice</h1>
+        <p style = "color: navy"><?= $msg ?></p>
         <div>
-            <a href='<?= BASE_URL ?>/index.php'>
-                <input type="submit" class="button" value="Go Home">
+            <a href='<?= BASE_URL ?>/<?= $controller ?>/<?= $method ?>'>
+                <input type="submit" class="button" value="<?= $buttonText ?>">
             </a>
         </div>
         <?php

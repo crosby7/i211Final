@@ -18,8 +18,8 @@ class Accounts extends View
         //call the header
         $this->header();
         ?>
-
-        <h2 style="color: dodgerblue">All Bank Accounts</h2>
+<!--page title and search box-->
+        <h2 style="color: navy">All Bank Accounts</h2>
         <div id="searchbar">
             <form method="get" action="<?= BASE_URL ?>/BankAccount/search">
                 <input type="text" name="query-terms" id="searchtextbox" placeholder="Search Bank Accounts"
@@ -28,18 +28,12 @@ class Accounts extends View
             </form>
             <div id="suggestionDiv"></div>
         </div>
-        <div id="buttonDiv">
-            <a href='<?= BASE_URL ?>/BankAccount/createForm'>
-                <input id="createButton" type="submit" class="button" value="Create an Account">
-            </a>
-        </div>
-            <a href='<?= BASE_URL ?>/Transaction/createForm'>
-                <input id="createButton" type="submit" class="button" value="Create a Transaction">
-            </a>
+
         <br>
         <br>
 
         <!--        create the table-->
+        <div>
         <table>
             <tr>
                 <th>Account ID</th>
@@ -64,7 +58,17 @@ class Accounts extends View
 
             } ?>
 
+<!--            buttons-->
         </table>
+            <div style="padding-top: 50px;">
+            <a href='<?= BASE_URL ?>/BankAccount/createForm'>
+                <input id="createButton" type="submit" class="button" value="Create an Account">
+            </a> <br><br>
+            <a href='<?= BASE_URL ?>/Transaction/createForm'>
+                <input id="createButton" type="submit" class="button" value="Create a Transaction">
+            </a>
+            </div>
+        </div>
         <?php
         //call the footer
         $this->footer();

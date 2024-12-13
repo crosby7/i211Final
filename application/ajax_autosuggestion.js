@@ -111,7 +111,7 @@ function handleKeyUp(e) {
         activeNicknameObj.style.backgroundColor = "#ffffff";
         activeNickname--;
         activeNicknameObj = document.getElementById("s_" + activeNickname);
-        activeNicknameObj.style.backgroundColor = "#9370DBFF";
+        activeNicknameObj.style.backgroundColor = "#1E90FFFF";
         searchBoxObj.value = activeNicknameObj.innerHTML;
         return;
     }
@@ -125,7 +125,7 @@ function handleKeyUp(e) {
         }
         activeNickname++;
         activeNicknameObj = document.getElementById("s_" + activeNickname);
-        activeNicknameObj.style.backgroundColor = "#9370DBFF";
+        activeNicknameObj.style.backgroundColor = "#1E90FFFF";
         searchBoxObj.value = activeNicknameObj.innerHTML;
     }
 }

@@ -29,7 +29,11 @@ class TransactionController
             } else if ($transactions === 0) {
                 $message = "You do not have any transactions in your history at this time.";
                 $view = new Notice();
-                $view->display($message);
+                $view->display(
+                    msg: $message,
+                    controller: 'Transaction',
+                    method: 'createForm',
+                    buttonText: 'Create a Transaction');
             }
         } catch (DatabaseExecutionException|DataMissingException $e) {
             $view = new TransactionError();
@@ -96,7 +100,12 @@ class TransactionController
             //display create message
             $message = "You have successfully completed a transaction.";
             $view = new Notice();
-            $view->display($message);
+            $view->display(
+                msg: $message,
+                controller: 'Transaction',
+                method: 'all',
+                buttonText: 'Return to Transactions'
+            );
         } catch (DatabaseExecutionException|DataMissingException $e) {
             $view = new TransactionError();
             $view->display($e->getMessage());
